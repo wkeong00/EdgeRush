@@ -22,13 +22,13 @@ namespace EdgeRush
         float _fromX, _toX, _tweenT;
         bool _moving;
         float _tilt;
-        float _invulnUntil;
+        float _invulnRemaining;
         float _clock;
 
         public int Lane => _lane;
         public float X => transform.position.x;
         public float Y => transform.position.y;
-        public bool IsInvulnerable => Time.time < _invulnUntil;
+        public bool IsInvulnerable => _invulnRemaining > 0f;
         public SkinDef Skin => _skin;
 
         public void Build()
@@ -89,7 +89,7 @@ namespace EdgeRush
             _lane = 1;
             _moving = false;
             _pendingDir = 0;
-            _invulnUntil = 0f;
+            _invulnRemaining = 0f;
             _tweenT = 0f;
             transform.position = new Vector3(Layout.LaneToX(1), Layout.PlayerY, 0f);
             transform.rotation = Quaternion.identity;
@@ -134,6 +134,7 @@ namespace EdgeRush
         public void Tick(float dt)
         {
             _clock += dt;
+            _invulnRemaining = Mathf.Max(0f, _invulnRemaining - dt);
 
             if (_moving)
             {
@@ -182,8 +183,10 @@ namespace EdgeRush
 
         public void SetInvulnerable(float seconds)
         {
-            _invulnUntil = Mathf.Max(_invulnUntil, Time.time + seconds);
+            _invulnRemaining = Mathf.Max(_invulnRemaining, seconds);
         }
+
+        public void CancelBufferedMove() => _pendingDir = 0;
 
         /// <summary>World-space AABB used for collision (already shrunk for fairness).</summary>
         public void GetBounds(out float cx, out float cy, out float hw, out float hh)

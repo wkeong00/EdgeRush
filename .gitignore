@@ -28,3 +28,16 @@ Thumbs.db
 *.aab
 *.keystore
 *.jks
+
+# Local credentials and signing material (public IDs stay in normal project configuration)
+.env
+.env.*
+!.env.example
+*.pem
+*.pfx
+*.p12
+*.key
+*service-account*.json
+keystore.properties
+key.properties
+local.properties

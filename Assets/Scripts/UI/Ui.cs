@@ -51,6 +51,78 @@ namespace EdgeRush
             return rt;
         }
 
+        /// <summary>Positions an element from an edge of its safe-area parent.</summary>
+        public static RectTransform Anchor(RectTransform rt, Vector2 anchor, float x, float y, float w, float h)
+        {
+            rt.anchorMin = rt.anchorMax = anchor;
+            rt.pivot = new Vector2(0.5f, 0.5f);
+            rt.sizeDelta = new Vector2(w, h);
+            rt.anchoredPosition = new Vector2(x, y);
+            return rt;
+        }
+
+        public static RectTransform Top(RectTransform rt, float inset, float w, float h, float x = 0)
+            => Anchor(rt, new Vector2(0.5f, 1f), x, -inset - h * 0.5f, w, h);
+
+        public static RectTransform Bottom(RectTransform rt, float inset, float w, float h, float x = 0)
+            => Anchor(rt, new Vector2(0.5f, 0f), x, inset + h * 0.5f, w, h);
+
+        public static RectTransform FitPanel(Transform parent, string name, float w, float h, Color edge)
+        {
+            var rt = MakePanel(parent, name, w, h, Palette.PanelFill, edge, 0.9f);
+            Place(rt, 0, 0, w, h);
+            rt.gameObject.AddComponent<PanelSizeFitter>().Configure(w, h, 40f);
+            return rt;
+        }
+
+        /// <summary>One wallet component shared by menu, garage and missions.</summary>
+        public static Text Wallet(Transform parent, out RectTransform root)
+        {
+            root = MakePanel(parent, "Wallet", 300, 84, new Color(0.05f, 0.07f, 0.13f, 0.85f), Palette.Gold, 0.55f);
+            root.GetComponent<Image>().raycastTarget = false;
+            var icon = AddImage(root, "Coin", Art.Coin(), Color.white);
+            Place(icon.rectTransform, -106, 0, 52, 52);
+            var value = MakeLabel(root, "0", 38, Palette.Gold, TextAnchor.MiddleLeft, 30, 0, 210, 64);
+            value.resizeTextForBestFit = true;
+            value.resizeTextMinSize = 24;
+            value.resizeTextMaxSize = 38;
+            return value;
+        }
+
+        /// <summary>Viewport consumes drags, while fixed headers and footers stay in place.</summary>
+        public static RectTransform VerticalScroll(Transform parent, string name, float left, float bottom, float right, float top)
+        {
+            var root = Rect(name, parent);
+            Stretch(root, left, bottom, right, top);
+            var scroll = root.gameObject.AddComponent<UnityEngine.UI.ScrollRect>();
+            var viewportImage = AddFill(root, "Viewport", new Color(1f, 1f, 1f, 0.01f), true);
+            Stretch(viewportImage.rectTransform);
+            var mask = viewportImage.gameObject.AddComponent<UnityEngine.UI.Mask>();
+            mask.showMaskGraphic = false;
+            var content = Rect("Content", viewportImage.transform);
+            content.anchorMin = new Vector2(0, 1);
+            content.anchorMax = Vector2.one;
+            content.pivot = new Vector2(0.5f, 1f);
+            content.sizeDelta = Vector2.zero;
+            var layout = content.gameObject.AddComponent<UnityEngine.UI.VerticalLayoutGroup>();
+            layout.spacing = 24;
+            layout.padding = new RectOffset(4, 4, 4, 4);
+            layout.childControlWidth = true;
+            layout.childControlHeight = true;
+            layout.childForceExpandWidth = true;
+            layout.childForceExpandHeight = false;
+            var fitter = content.gameObject.AddComponent<UnityEngine.UI.ContentSizeFitter>();
+            fitter.horizontalFit = UnityEngine.UI.ContentSizeFitter.FitMode.Unconstrained;
+            fitter.verticalFit = UnityEngine.UI.ContentSizeFitter.FitMode.PreferredSize;
+            scroll.viewport = viewportImage.rectTransform;
+            scroll.content = content;
+            scroll.horizontal = false;
+            scroll.vertical = true;
+            scroll.movementType = UnityEngine.UI.ScrollRect.MovementType.Clamped;
+            scroll.scrollSensitivity = 45f;
+            return content;
+        }
+
         public static Image AddImage(Transform parent, string name, Sprite sprite, Color color, bool raycast = false)
         {
             var rt = Rect(name, parent);
@@ -251,6 +323,12 @@ namespace EdgeRush
         Vector3 _base = Vector3.one;
         bool _pressed;
 
+        void OnDisable()
+        {
+            _pressed = false;
+            transform.localScale = _base;
+        }
+
         void Awake() { _base = transform.localScale; }
 
         public void OnPointerDown(PointerEventData eventData)
@@ -274,11 +352,38 @@ namespace EdgeRush
         }
     }
 
+    /// <summary>Caps a modal within the single safe-area container; never applies another inset.</summary>
+    public class PanelSizeFitter : MonoBehaviour
+    {
+        RectTransform _rt;
+        float _width, _height, _margin;
+        public void Configure(float width, float height, float margin)
+        {
+            _rt = (RectTransform)transform;
+            _width = width;
+            _height = height;
+            _margin = margin;
+            Apply();
+        }
+        void OnEnable() { Apply(); }
+        void OnRectTransformDimensionsChange() { Apply(); }
+        void Apply()
+        {
+            if (_rt == null || _width <= 0 || !(_rt.parent is RectTransform)) return;
+            var parent = (RectTransform)_rt.parent;
+            if (parent.rect.width <= 0 || parent.rect.height <= 0) return;
+            var size = new Vector2(Mathf.Min(_width, Mathf.Max(1, parent.rect.width - _margin * 2)),
+                                   Mathf.Min(_height, Mathf.Max(1, parent.rect.height - _margin * 2)));
+            if ((_rt.sizeDelta - size).sqrMagnitude > 0.01f) _rt.sizeDelta = size;
+        }
+    }
+
     /// <summary>Keeps a full screen rect inside the device's safe area (notches, rounded corners).</summary>
     public class SafeAreaFitter : MonoBehaviour
     {
         RectTransform _rt;
         Rect _last;
+        Vector2Int _lastScreen;
 
         void Awake()
         {
@@ -288,13 +393,14 @@ namespace EdgeRush
 
         void Update()
         {
-            if (Screen.safeArea != _last) Apply();
+            if (Screen.safeArea != _last || _lastScreen.x != Screen.width || _lastScreen.y != Screen.height) Apply();
         }
 
         void Apply()
         {
             var safe = Screen.safeArea;
             _last = safe;
+            _lastScreen = new Vector2Int(Screen.width, Screen.height);
             if (Screen.width <= 0 || Screen.height <= 0) return;
             var min = safe.position;
             var max = safe.position + safe.size;

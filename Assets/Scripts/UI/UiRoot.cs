@@ -27,6 +27,8 @@ namespace EdgeRush
         public CountdownView Countdown;
         public ToastView Toast;
         public FlashLayer Flash;
+        RectTransform _tutorial;
+        Text _tutorialTitle, _tutorialHint;
 
         public void Build()
         {
@@ -86,8 +88,45 @@ namespace EdgeRush
             Countdown.Build(this);
             Toast.Build(this);
 
+            // Only Skip consumes touches; the instructional card leaves the road interactive.
+            _tutorial = Ui.Rect("Tutorial", Safe);
+            Ui.Stretch(_tutorial);
+            var tutorialCard = Ui.MakePanel(_tutorial, "Instructions", 820, 200,
+                new Color(0.03f, 0.06f, 0.13f, 0.94f), Palette.Cyan, 0.8f);
+            tutorialCard.GetComponent<Image>().raycastTarget = false;
+            Ui.Top(tutorialCard, 160, 820, 200);
+            _tutorialTitle = Ui.MakeLabel(tutorialCard, "", 42, Palette.Cyan, TextAnchor.MiddleCenter, 0, 42, 760, 64);
+            _tutorialHint = Ui.MakeLabel(tutorialCard, "", 29, Palette.TextMain, TextAnchor.MiddleCenter, 0, -35, 740, 100, false, true);
+            var skip = Ui.MakeButton(_tutorial, Strings.Get("tutorial.skip"), 30, Palette.PanelFillSoft, Palette.TextDim,
+                () => GameApp.I.SkipTutorial(), 0, 0, 230, 104, 0.4f);
+            Ui.Bottom((RectTransform)skip.transform, 24, 230, 104);
+            _tutorial.gameObject.SetActive(false);
+
             Flash = new FlashLayer();
             Flash.Build(this);
+        }
+
+        public void ShowTutorialStep(string title, string hint)
+        {
+            _tutorialTitle.text = title;
+            _tutorialHint.text = hint;
+            _tutorial.gameObject.SetActive(true);
+            _tutorial.SetAsLastSibling();
+        }
+
+        public void HideTutorial()
+        {
+            if (_tutorial != null) _tutorial.gameObject.SetActive(false);
+        }
+
+        float _adRefreshTime;
+        void Update()
+        {
+            if (Time.unscaledTime < _adRefreshTime || GameApp.I == null || GameApp.I.Ads == null) return;
+            _adRefreshTime = Time.unscaledTime + 0.5f;
+            if (Results != null && Results.Visible) Results.RefreshAdState();
+            if (Garage != null && Garage.Visible) Garage.RefreshAdState();
+            if (Daily != null && Daily.Visible) Daily.RefreshAdState();
         }
 
         public RectTransform NewScreenRoot(string name)
@@ -210,6 +249,7 @@ namespace EdgeRush
             Revive.Hide(true);
             Hud.Hide(true);
             Countdown.Hide();
+            HideTutorial();
         }
     }
 
@@ -242,7 +282,9 @@ namespace EdgeRush
             Refresh();
             if (instant)
             {
+                if (FadeRoutine != null) { Hub.StopCoroutine(FadeRoutine); FadeRoutine = null; }
                 Group.alpha = 1f;
+                Group.blocksRaycasts = true;
                 Root.gameObject.SetActive(true);
                 Root.SetAsLastSibling();
                 return;
@@ -254,9 +296,12 @@ namespace EdgeRush
         {
             Visible = false;
             if (Root == null) return;
+            if (this != Hub.Menu && Hub.Menu != null && Hub.Menu.Visible && GameApp.I != null) Hub.Menu.Refresh();
             if (instant)
             {
+                if (FadeRoutine != null) { Hub.StopCoroutine(FadeRoutine); FadeRoutine = null; }
                 Group.alpha = 0f;
+                Group.blocksRaycasts = false;
                 Root.gameObject.SetActive(false);
                 return;
             }
@@ -288,6 +333,7 @@ namespace EdgeRush
         public void Flash(Color color, float duration = 0.35f, float peak = 0.8f)
         {
             if (_img == null) return;
+            if (GameApp.I != null && GameApp.I.Save.reducedEffects) peak *= 0.25f;
             if (_routine != null) _ui.StopCoroutine(_routine);
             _routine = _ui.StartCoroutine(Run(color, duration, peak));
             _img.transform.SetAsLastSibling();
@@ -323,11 +369,11 @@ namespace EdgeRush
             _ui = ui;
             var panel = Ui.MakePanel(ui.Safe, "Toast", 700, 96, new Color(0.06f, 0.08f, 0.16f, 0.95f), Palette.Cyan, 0.9f);
             _root = panel;
-            Ui.Place(_root, 0, 690, 700, 96);
+            Ui.Top(_root, 144, 700, 80);
             _group = Ui.Group(_root.gameObject);
             _group.alpha = 0f;
             _group.blocksRaycasts = false;
-            _text = Ui.MakeLabel(_root, "", 36, Palette.TextMain, TextAnchor.MiddleCenter, 0, 0, 640, 80);
+            _text = Ui.MakeLabel(_root, "", 30, Palette.TextMain, TextAnchor.MiddleCenter, 0, 0, 640, 64);
             _root.gameObject.SetActive(false);
         }
 

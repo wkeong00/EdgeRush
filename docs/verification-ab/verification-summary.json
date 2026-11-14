@@ -1,0 +1,204 @@
+{
+  "verifiedAtUtc": "2026-10-27T16:59:23.7954319Z",
+  "unityVersion": "6000.6.7f1",
+  "tuningVersion": "v2-baseline-ab-1",
+  "releaseCandidateVerified": false,
+  "playModeFlows": [
+    "tutorial completion",
+    "pause freeze and resume",
+    "coin pickup",
+    "collision",
+    "rewarded revive",
+    "base settlement",
+    "reward persisted before close",
+    "double reward reentry blocked",
+    "mock success skip close failure",
+    "first three runs ad free"
+  ],
+  "realAdSdkVerified": false,
+  "androidDeviceVerified": false,
+  "checks": {
+    "economyAndSaves": 59,
+    "inputAndClocks": 24,
+    "adGuards": 9,
+    "total": 92
+  },
+  "outcome": "PASS",
+  "screenshots": [
+    {
+      "height": 1600,
+      "width": 900,
+      "file": "0-garage.png"
+    },
+    {
+      "height": 1600,
+      "width": 900,
+      "file": "0-hud.png"
+    },
+    {
+      "height": 1600,
+      "width": 900,
+      "file": "0-menu.png"
+    },
+    {
+      "height": 1600,
+      "width": 900,
+      "file": "0-missions.png"
+    },
+    {
+      "height": 1600,
+      "width": 900,
+      "file": "0-results.png"
+    },
+    {
+      "height": 1600,
+      "width": 900,
+      "file": "0-revive.png"
+    },
+    {
+      "height": 1600,
+      "width": 900,
+      "file": "0-tutorial-hud.png"
+    },
+    {
+      "height": 1800,
+      "width": 900,
+      "file": "1-garage.png"
+    },
+    {
+      "height": 1800,
+      "width": 900,
+      "file": "1-hud.png"
+    },
+    {
+      "height": 1800,
+      "width": 900,
+      "file": "1-menu.png"
+    },
+    {
+      "height": 1800,
+      "width": 900,
+      "file": "1-missions.png"
+    },
+    {
+      "height": 1800,
+      "width": 900,
+      "file": "1-results.png"
+    },
+    {
+      "height": 1800,
+      "width": 900,
+      "file": "1-revive.png"
+    },
+    {
+      "height": 1800,
+      "width": 900,
+      "file": "1-tutorial-hud.png"
+    },
+    {
+      "height": 1950,
+      "width": 900,
+      "file": "2-garage.png"
+    },
+    {
+      "height": 1950,
+      "width": 900,
+      "file": "2-hud.png"
+    },
+    {
+      "height": 1950,
+      "width": 900,
+      "file": "2-menu.png"
+    },
+    {
+      "height": 1950,
+      "width": 900,
+      "file": "2-missions.png"
+    },
+    {
+      "height": 1950,
+      "width": 900,
+      "file": "2-results.png"
+    },
+    {
+      "height": 1950,
+      "width": 900,
+      "file": "2-revive.png"
+    },
+    {
+      "height": 1950,
+      "width": 900,
+      "file": "2-tutorial-hud.png"
+    },
+    {
+      "height": 2000,
+      "width": 900,
+      "file": "3-garage.png"
+    },
+    {
+      "height": 2000,
+      "width": 900,
+      "file": "3-hud.png"
+    },
+    {
+      "height": 2000,
+      "width": 900,
+      "file": "3-menu.png"
+    },
+    {
+      "height": 2000,
+      "width": 900,
+      "file": "3-missions.png"
+    },
+    {
+      "height": 2000,
+      "width": 900,
+      "file": "3-results.png"
+    },
+    {
+      "height": 2000,
+      "width": 900,
+      "file": "3-revive.png"
+    },
+    {
+      "height": 2000,
+      "width": 900,
+      "file": "3-tutorial-hud.png"
+    },
+    {
+      "height": 1920,
+      "width": 1080,
+      "file": "4-garage.png"
+    },
+    {
+      "height": 1920,
+      "width": 1080,
+      "file": "4-hud.png"
+    },
+    {
+      "height": 1920,
+      "width": 1080,
+      "file": "4-menu.png"
+    },
+    {
+      "height": 1920,
+      "width": 1080,
+      "file": "4-missions.png"
+    },
+    {
+      "height": 1920,
+      "width": 1080,
+      "file": "4-results.png"
+    },
+    {
+      "height": 1920,
+      "width": 1080,
+      "file": "4-revive.png"
+    },
+    {
+      "height": 1920,
+      "width": 1080,
+      "file": "4-tutorial-hud.png"
+    }
+  ]
+}

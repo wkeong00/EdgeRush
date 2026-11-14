@@ -32,6 +32,7 @@ namespace EdgeRush
         int _themeIndex;
 
         public float Elapsed { get; private set; }
+        public float WorldElapsed { get; private set; }
         public float Distance { get; private set; }
         public float Speed { get; private set; }
         public float SpeedT { get; private set; }
@@ -39,6 +40,7 @@ namespace EdgeRush
         public int Coins { get; private set; }
         public int NearMisses { get; private set; }
         public int ComboLevel { get; private set; } = 1;
+        public int PeakComboLevel { get; private set; } = 1;
         public int ComboChain { get; private set; }
         public bool Revived { get; private set; }
         public bool Crashed => _crashed;
@@ -63,6 +65,7 @@ namespace EdgeRush
         public void Start()
         {
             Elapsed = 0f;
+            WorldElapsed = 0f;
             Distance = 0f;
             Speed = Tuning.SpeedStart;
             SpeedT = 0f;
@@ -70,6 +73,7 @@ namespace EdgeRush
             Coins = 0;
             NearMisses = 0;
             ComboLevel = 1;
+            PeakComboLevel = 1;
             ComboChain = 0;
             Revived = false;
             _crashed = false;
@@ -111,7 +115,8 @@ namespace EdgeRush
             }
             float dt = unscaledDt * scale;
 
-            Elapsed += dt;
+            Elapsed += unscaledDt;
+            WorldElapsed += dt;
 
             float baseSpeed = Mathf.Min(Tuning.SpeedMax,
                 Tuning.SpeedStart + (Elapsed / 10f) * Tuning.SpeedPerTenSeconds);
@@ -138,7 +143,7 @@ namespace EdgeRush
                 _road.SetTheme(theme);
             }
 
-            _player.Tick(dt);
+            _player.Tick(unscaledDt);
             _obstacles.Tick(dt, Speed);
             _road.Tick(dt, Speed, SpeedT);
 
@@ -149,13 +154,14 @@ namespace EdgeRush
                 _rowTimer += RowInterval();
             }
 
-            UpdateCombo(dt);
+            UpdateCombo(unscaledDt);
+            CheckCollisions();
+            if (_crashed) return;
             CheckCoins();
             CheckNearMisses();
 
             Score = Mathf.FloorToInt(Distance / Tuning.MetresPerPoint) + _coinScore + _nearMissScore;
 
-            CheckCollisions();
         }
 
         float RowInterval()
@@ -287,6 +293,7 @@ namespace EdgeRush
             if (ComboChain >= Tuning.ComboStep * ComboLevel && ComboLevel < Tuning.ComboMax)
             {
                 ComboLevel++;
+                PeakComboLevel = Mathf.Max(PeakComboLevel, ComboLevel);
                 ComboChain = 0;
                 if (OnComboLevelUp != null) OnComboLevelUp();
             }
@@ -383,10 +390,11 @@ namespace EdgeRush
                 score = Score,
                 metres = Metres,
                 nearMisses = NearMisses,
-                comboLevel = ComboLevel,
+                comboLevel = PeakComboLevel,
                 coins = Coins,
                 revived = Revived,
                 seconds = Elapsed,
+                worldSeconds = WorldElapsed,
             };
         }
     }

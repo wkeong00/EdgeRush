@@ -24,19 +24,25 @@ namespace EdgeRush
             _score = Ui.MakeLabel(Root, "0", 76, Palette.TextMain, TextAnchor.MiddleLeft, -160, 850, 420, 100);
             Ui.AddShadow(_score, 0.7f);
             _score.rectTransform.pivot = new Vector2(0.5f, 0.5f);
+            Ui.Anchor(_score.rectTransform, new Vector2(0, 1), 238, -96, 380, 100);
 
             var coinPill = Ui.MakePanel(Root, "Coins", 280, 78, new Color(0.05f, 0.07f, 0.13f, 0.75f), Palette.Gold, 0.55f);
-            Ui.Place(coinPill, 300, 850, 260, 78);
+            Ui.Anchor(coinPill, Vector2.one, -306, -96, 260, 78);
             coinPill.GetComponent<Image>().raycastTarget = false;
             foreach (var g in coinPill.GetComponentsInChildren<Image>()) g.raycastTarget = false;
             var icon = Ui.AddImage(coinPill, "CoinIcon", Art.Coin(), Color.white);
             Ui.Place(icon.rectTransform, -100, 0, 52, 52);
             _coins = Ui.MakeLabel(coinPill, "0", 44, Palette.Gold, TextAnchor.MiddleLeft, -60, 0, 170, 60);
 
-            _pause = Ui.MakeIconButton(Root, "Pause", Art.IconPause(), Palette.TextMain, () => GameApp.I.PauseGame(), 420, 725, 96);
+            Ui.MakeLabel(coinPill, "RUN", 18, Palette.TextDim, TextAnchor.MiddleLeft, 25, -23, 150, 20);
+            _coins.fontSize = 36;
+            _coins.rectTransform.anchoredPosition = new Vector2(25, 12);
+            _coins.rectTransform.sizeDelta = new Vector2(150, 44);
+            _pause = Ui.MakeIconButton(Root, "Pause", Art.IconPause(), Palette.TextMain, () => GameApp.I.PauseGame(), 0, 0, 104);
+            Ui.Anchor((RectTransform)_pause.transform, Vector2.one, -96, -96, 104, 104);
 
             _comboRoot = Ui.Rect("Combo", Root);
-            Ui.Place(_comboRoot, 0, 770, 320, 120);
+            Ui.Top(_comboRoot, 150, 300, 110);
             _combo = Ui.MakeLabel(_comboRoot, "x1", 86, Palette.Cyan, TextAnchor.MiddleCenter, 0, 18, 300, 100);
             Ui.AddOutline(_combo, new Color(0.02f, 0.08f, 0.14f, 0.9f), 4f);
             _comboBar = Ui.MakeBar(_comboRoot, 0, -40, 240, 14, new Color(0.1f, 0.14f, 0.24f, 0.85f), Palette.Cyan);
@@ -44,7 +50,7 @@ namespace EdgeRush
 
             _closeRoot = Ui.Rect("CloseCall", Root);
             Ui.Place(_closeRoot, 0, 120, 800, 200);
-            _close = Ui.MakeLabel(_closeRoot, "CLOSE!", 120, Palette.Cyan, TextAnchor.MiddleCenter, 0, 0, 800, 180);
+            _close = Ui.MakeLabel(_closeRoot, "CLOSE!", 78, Palette.Cyan, TextAnchor.MiddleCenter, 0, 0, 800, 130);
             Ui.AddOutline(_close, new Color(0.02f, 0.06f, 0.12f, 0.95f), 5f);
             _closeRoot.gameObject.SetActive(false);
         }
@@ -93,7 +99,7 @@ namespace EdgeRush
             _close.color = color;
             _closeRoot.gameObject.SetActive(true);
             _closeRoot.SetAsLastSibling();
-            Hub.Pop(_closeRoot, 1.7f, 0.2f);
+            Hub.Pop(_closeRoot, 1.2f, 0.2f);
             Hub.StartCoroutine(HideCloseAfter(0.45f));
             Hub.SpawnFloating("+" + points, new Vector2(0f, 20f), color, 52);
         }
@@ -133,8 +139,7 @@ namespace EdgeRush
             var dim = Ui.AddFill(Root, "Dim", new Color(0f, 0f, 0f, 0.72f), true);
             Ui.Stretch(dim.rectTransform);
 
-            var panel = Ui.MakePanel(Root, "Panel", 760, 860, Palette.PanelFill, Palette.Cyan, 0.9f);
-            Ui.Place(panel, 0, 0, 760, 860);
+            var panel = Ui.FitPanel(Root, "Panel", 760, 860, Palette.Cyan);
 
             Ui.MakeLabel(panel, "PAUSED", 72, Palette.TextMain, TextAnchor.MiddleCenter, 0, 300, 640, 100);
             _score = Ui.MakeLabel(panel, "SCORE 0", 40, Palette.TextDim, TextAnchor.MiddleCenter, 0, 200, 640, 60);
@@ -166,14 +171,14 @@ namespace EdgeRush
         Button _adButton;
         float _remaining;
         bool _active;
+        Coroutine _tickRoutine;
 
         protected override void Construct()
         {
             var dim = Ui.AddFill(Root, "Dim", new Color(0f, 0f, 0f, 0.78f), true);
             Ui.Stretch(dim.rectTransform);
 
-            var panel = Ui.MakePanel(Root, "Panel", 800, 940, Palette.PanelFill, Palette.Magenta, 0.95f);
-            Ui.Place(panel, 0, 0, 800, 940);
+            var panel = Ui.FitPanel(Root, "Panel", 800, 980, Palette.Magenta);
 
             Ui.MakeLabel(panel, "KEEP GOING?", 72, Palette.TextMain, TextAnchor.MiddleCenter, 0, 350, 700, 100);
             _multiplier = Ui.MakeLabel(panel, "", 34, Palette.Magenta, TextAnchor.MiddleCenter, 0, 260, 700, 60);
@@ -188,11 +193,13 @@ namespace EdgeRush
             Ui.MakeButton(panel, "NO THANKS", 30, Palette.PanelFillSoft, Palette.TextDim,
                 () => { if (_active) GameApp.I.DeclineRevive(); }, 0, -260, 420, 84, 0.3f);
 
-            Ui.MakeLabel(panel, "One revive per run.", 24, Palette.TextDim, TextAnchor.MiddleCenter, 0, -370, 600, 50);
+            Ui.MakeLabel(panel, "One revive per run. Clears traffic ahead.\nBrief collision protection, then normal speed resumes.",
+                24, Palette.TextDim, TextAnchor.MiddleCenter, 0, -370, 690, 90, false, true);
         }
 
         public void Present(float seconds, int comboLevel)
         {
+            if (_tickRoutine != null) Hub.StopCoroutine(_tickRoutine);
             _remaining = seconds;
             _active = true;
             _countdown.text = Mathf.CeilToInt(_remaining).ToString();
@@ -201,18 +208,21 @@ namespace EdgeRush
                 : "Revive and keep the run alive.";
 
             bool canShow = GameApp.I.Ads.Available(AdPlacement.Revive);
-            _adButton.gameObject.SetActive(canShow);
+            _adButton.gameObject.SetActive(true);
+            _adButton.interactable = canShow;
             if (!canShow)
-                _multiplier.text = "Ad unavailable right now - the run ends here.";
+                _adLabel.text = GameApp.I.Ads.UnavailableReason(AdPlacement.Revive);
+            else _adLabel.text = "WATCH AD & REVIVE";
 
             Show();
-            Hub.StartCoroutine(Tick());
+            _tickRoutine = Hub.StartCoroutine(Tick());
         }
 
         IEnumerator Tick()
         {
             while (_remaining > 0f && _active)
             {
+                if (GameApp.I.Suspended) { yield return null; continue; }
                 _remaining -= Time.unscaledDeltaTime;
                 _countdown.text = Mathf.Max(0, Mathf.CeilToInt(_remaining)).ToString();
                 yield return null;
@@ -220,37 +230,47 @@ namespace EdgeRush
             if (_active)
             {
                 _active = false;
+                _tickRoutine = null;
                 GameApp.I.DeclineRevive();
             }
         }
 
         public void Close()
         {
-            _active = false;
             Hide();
+        }
+
+        public override void Hide(bool instant = false)
+        {
+            _active = false;
+            if (_tickRoutine != null) { Hub.StopCoroutine(_tickRoutine); _tickRoutine = null; }
+            base.Hide(instant);
         }
     }
 
     // ================================================================ results
     public class ResultsScreen : UiScreen
     {
-        Text _score, _best, _newBest, _metres, _nearMisses, _coins, _delta;
+        Text _score, _best, _newBest, _metres, _nearMisses, _coins, _delta, _peakCombo, _adReason;
         Button _doubleButton;
         Text _doubleLabel;
         RunSummary _summary;
         bool _canDouble;
+        bool _bonusClaimed;
 
         protected override void Construct()
         {
             var dim = Ui.AddFill(Root, "Dim", new Color(0f, 0f, 0f, 0.7f), true);
             Ui.Stretch(dim.rectTransform);
 
-            var panel = Ui.MakePanel(Root, "Panel", 880, 1300, Palette.PanelFill, Palette.Cyan, 0.9f);
-            Ui.Place(panel, 0, 0, 880, 1300);
+            var panel = Ui.FitPanel(Root, "Panel", 880, 1400, Palette.Cyan);
 
             Ui.MakeLabel(panel, "RUN OVER", 44, Palette.TextDim, TextAnchor.MiddleCenter, 0, 560, 700, 60);
 
-            _score = Ui.MakeLabel(panel, "0", 170, Palette.TextMain, TextAnchor.MiddleCenter, 0, 420, 800, 200);
+            _score = Ui.MakeLabel(panel, "0", 150, Palette.TextMain, TextAnchor.MiddleCenter, 0, 420, 800, 180);
+            _score.resizeTextForBestFit = true;
+            _score.resizeTextMinSize = 72;
+            _score.resizeTextMaxSize = 150;
             Ui.AddShadow(_score, 0.75f);
 
             _newBest = Ui.MakeLabel(panel, "NEW BEST!", 44, Palette.Gold, TextAnchor.MiddleCenter, 0, 320, 700, 60);
@@ -260,27 +280,30 @@ namespace EdgeRush
             var divider = Ui.AddFill(panel, "Divider", new Color(1f, 1f, 1f, 0.10f));
             Ui.Place(divider.rectTransform, 0, 165, 700, 3);
 
-            _metres = Ui.MakeLabel(panel, "", 32, Palette.TextMain, TextAnchor.MiddleCenter, -180, 100, 320, 60);
-            _nearMisses = Ui.MakeLabel(panel, "", 32, Palette.TextMain, TextAnchor.MiddleCenter, 180, 100, 320, 60);
+            _metres = Ui.MakeLabel(panel, "", 30, Palette.TextDim, TextAnchor.MiddleCenter, -180, 102, 320, 60);
+            _nearMisses = Ui.MakeLabel(panel, "", 34, Palette.Cyan, TextAnchor.MiddleCenter, 180, 102, 360, 60);
+            _peakCombo = Ui.MakeLabel(panel, "", 32, Palette.Magenta, TextAnchor.MiddleCenter, 0, 44, 700, 50);
 
             var coinIcon = Ui.AddImage(panel, "Coin", Art.Coin(), Color.white);
-            Ui.Place(coinIcon.rectTransform, -80, 20, 54, 54);
-            _coins = Ui.MakeLabel(panel, "+0", 52, Palette.Gold, TextAnchor.MiddleLeft, 10, 20, 300, 70);
+            Ui.Place(coinIcon.rectTransform, -80, -28, 54, 54);
+            _coins = Ui.MakeLabel(panel, "+0", 46, Palette.Gold, TextAnchor.MiddleLeft, 92, -28, 250, 70);
 
-            _doubleButton = Ui.MakeButton(panel, "DOUBLE COINS", 38, new Color(0.26f, 0.16f, 0.02f, 0.95f), Palette.Gold,
-                () => GameApp.I.WatchDoubleCoins(), 0, -110, 660, 120, 1f, Palette.Gold, Art.IconVideo());
+            _doubleButton = Ui.MakeButton(panel, "DOUBLE COINS", 32, new Color(0.26f, 0.16f, 0.02f, 0.95f), Palette.Gold,
+                () => GameApp.I.WatchDoubleCoins(), 0, -310, 660, 110, 0.7f, Palette.Gold, Art.IconVideo());
             _doubleLabel = _doubleButton.GetComponentInChildren<Text>();
+            _adReason = Ui.MakeLabel(panel, "", 24, Palette.TextDim, TextAnchor.MiddleCenter, 0, -396, 760, 48);
 
-            Ui.MakeButton(panel, "RUN AGAIN", 48, new Color(0.04f, 0.26f, 0.30f, 0.96f), Palette.Cyan,
-                () => GameApp.I.RestartRun(), 0, -280, 660, 140, 1f);
+            Ui.MakeButton(panel, Strings.Get("results.again"), 48, new Color(0.04f, 0.26f, 0.30f, 0.96f), Palette.Cyan,
+                () => GameApp.I.RestartRun(), 0, -150, 660, 140, 1f);
             Ui.MakeButton(panel, "HOME", 36, Palette.PanelFillSoft, Palette.TextDim,
-                () => GameApp.I.QuitToMenu(), 0, -430, 660, 100, 0.35f);
+                () => GameApp.I.QuitToMenu(), 0, -520, 660, 100, 0.35f);
         }
 
         public void Present(RunSummary summary, int bestScore, bool newBest, int coinsEarned, bool canDouble)
         {
             _summary = summary;
             _canDouble = canDouble;
+            _bonusClaimed = false;
 
             _score.text = summary.score.ToString("N0");
             _best.text = "BEST " + Mathf.Max(bestScore, summary.score).ToString("N0");
@@ -292,16 +315,30 @@ namespace EdgeRush
                     : "");
             _metres.text = summary.metres.ToString("N0") + " m";
             _nearMisses.text = summary.nearMisses + " close calls";
+            _peakCombo.text = "PEAK MULTIPLIER  x" + summary.comboLevel;
             _coins.text = "+" + coinsEarned;
             _doubleButton.gameObject.SetActive(canDouble);
-            if (canDouble) _doubleLabel.text = "DOUBLE COINS";
+            RefreshAdState();
+        }
+
+        public void RefreshAdState()
+        {
+            if (_doubleButton == null || GameApp.I == null || GameApp.I.Ads == null) return;
+            if (_bonusClaimed) return;
+            bool ready = _canDouble && GameApp.I.Ads.Available(AdPlacement.DoubleCoins);
+            _doubleButton.interactable = ready;
+            _doubleLabel.text = "WATCH AD  +" + _summary.coins + " COINS";
+            _adReason.text = _canDouble && !ready ? GameApp.I.Ads.UnavailableReason(AdPlacement.DoubleCoins) : "";
         }
 
         public void MarkDoubled(int newTotal)
         {
             _coins.text = "+" + newTotal;
             _canDouble = false;
-            _doubleButton.gameObject.SetActive(false);
+            _bonusClaimed = true;
+            _doubleButton.interactable = false;
+            _doubleLabel.text = "BONUS CLAIMED";
+            _adReason.text = "";
             Hub.Pop(_coins.transform, 1.5f, 0.25f);
         }
     }

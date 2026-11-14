@@ -13,6 +13,9 @@ namespace EdgeRush
         public int coins;
         public bool revived;
         public float seconds;
+        public float worldSeconds;
+        public float realSeconds;
+        public string runId;
     }
 
     public enum QuestMetric
@@ -59,22 +62,55 @@ namespace EdgeRush
             return QuestPool[0];
         }
 
-        // ------------------------------------------------------------- economy
-        public static void AddCoins(SaveData s, int amount)
+        // Receipts are persisted with the balance; repeating a callback never grants twice.
+        public static bool HasReceipt(SaveData s, string key)
         {
-            if (amount <= 0) return;
+            if (s == null || string.IsNullOrEmpty(key) || s.economyReceipts == null) return false;
+            for (int i = 0; i < s.economyReceipts.Count; i++)
+                if (s.economyReceipts[i] != null && s.economyReceipts[i].key == key) return true;
+            return false;
+        }
+
+        static void Record(SaveData s, string key, string source, int amount)
+        {
+            if (s.economyReceipts == null) s.economyReceipts = new List<EconomyReceipt>();
+            s.economyReceipts.Add(new EconomyReceipt
+            {
+                key = key, source = source, amount = amount, balance = s.coins,
+                utc = DateTime.UtcNow.ToString("o", System.Globalization.CultureInfo.InvariantCulture),
+            });
+            Analytics.Event("economy_transaction", "source=" + source + " amount=" + amount + " balance=" + s.coins + " key=" + key);
+        }
+
+        public static bool TryRecordReward(SaveData s, string key, string source)
+        {
+            if (s == null || string.IsNullOrEmpty(key) || string.IsNullOrEmpty(source) || HasReceipt(s, key)) return false;
+            Record(s, key, source, 0);
+            return true;
+        }
+
+        public static bool GrantCoins(SaveData s, int amount, string source, string key)
+        {
+            if (s == null || amount <= 0 || string.IsNullOrEmpty(key) || string.IsNullOrEmpty(source) || HasReceipt(s, key)) return false;
+            if ((long)s.coins + amount > int.MaxValue || (long)s.totalCoinsEarned + amount > int.MaxValue) return false;
             s.coins += amount;
             s.totalCoinsEarned += amount;
+            Record(s, key, source, amount);
+            return true;
         }
+
+        // Compatibility for callers without a semantic key; new rewards should supply one.
+        public static void AddCoins(SaveData s, int amount) => GrantCoins(s, amount, "legacy", Guid.NewGuid().ToString("N"));
 
         public static bool TryBuySkin(SaveData s, SkinDef skin)
         {
             if (skin == null || skin.adUnlock) return false;
             if (s.Owns(skin.id)) return true;
-            if (skin.price > 0 && s.coins < skin.price) return false;
+            if (skin.price < 0 || s.coins < skin.price) return false;
             s.coins -= skin.price;
             s.ownedSkins.Add(skin.id);
             s.selectedSkin = skin.id;
+            Record(s, "skin:" + skin.id, "skin_purchase", -skin.price);
             Analytics.SkinUnlocked(skin.id);
             return true;
         }
@@ -86,43 +122,44 @@ namespace EdgeRush
             return true;
         }
 
-        /// <summary>Registers one rewarded video watched towards the Chrome Ghost skin.</summary>
-        public static bool AddAdSkinProgress(SaveData s)
+        /// <summary>Returns true only when this view unlocks the skin, preserving existing UI semantics.</summary>
+        public static bool AddAdSkinProgress(SaveData s, string key = null)
         {
-            var ghost = Skins.ById("ghost");
             if (s.Owns("ghost")) return false;
+            key = key ?? ("skin_view:" + Guid.NewGuid().ToString("N"));
+            if (!TryRecordReward(s, key, "ad_skin")) return false;
             s.adSkinProgress++;
-            if (s.adSkinProgress >= Tuning.SkinAdCount)
-            {
-                s.ownedSkins.Add(ghost.id);
-                s.selectedSkin = ghost.id;
-                Analytics.SkinUnlocked(ghost.id);
-                return true;
-            }
-            return false;
+            if (s.adSkinProgress < Tuning.SkinAdCount) return false;
+            var ghost = Skins.ById("ghost");
+            s.ownedSkins.Add(ghost.id);
+            s.selectedSkin = ghost.id;
+            Analytics.SkinUnlocked(ghost.id);
+            return true;
         }
 
-        // --------------------------------------------------------- daily gift
         public static bool CanClaimDaily(SaveData s) => s.dailyDate != SaveSystem.Today;
 
-        /// <summary>1-based day of the 7 day cycle that would be claimed next.</summary>
+        /// <summary>Progress survives missed days; after day seven the next claim starts a new cycle.</summary>
         public static int NextDailyDay(SaveData s)
         {
-            if (s.dailyDate == SaveSystem.Yesterday) return Mathf.Clamp(s.dailyStreak + 1, 1, 7);
-            return 1;
+            if (s.dailyDate == SaveSystem.Today) return Mathf.Clamp(s.dailyStreak, 1, 7);
+            return s.dailyStreak >= 7 ? 1 : Mathf.Clamp(s.dailyStreak + 1, 1, 7);
         }
 
         public static int DailyRewardForDay(int day) => DailyRewards[Mathf.Clamp(day - 1, 0, DailyRewards.Length - 1)];
 
-        public static int ClaimDaily(SaveData s)
+        public static int ClaimDaily(SaveData s) => ClaimDailyOn(s, SaveSystem.Today);
+
+        // Explicit day keeps the calendar boundary testable without changing the device clock.
+        public static int ClaimDailyOn(SaveData s, string today)
         {
-            if (!CanClaimDaily(s)) return 0;
-            if (s.dailyDate == SaveSystem.Yesterday) s.dailyStreak = Mathf.Clamp(s.dailyStreak + 1, 1, 7);
-            else s.dailyStreak = 1;
-            s.dailyDate = SaveSystem.Today;
-            int coins = DailyRewardForDay(s.dailyStreak);
-            AddCoins(s, coins);
-            Analytics.DailyClaimed(s.dailyStreak, coins);
+            if (s.dailyDate == today) return 0;
+            int day = s.dailyStreak >= 7 ? 1 : Mathf.Clamp(s.dailyStreak + 1, 1, 7);
+            int coins = DailyRewardForDay(day);
+            if (!GrantCoins(s, coins, "daily_gift", "daily:" + today)) return 0;
+            s.dailyStreak = day;
+            s.dailyDate = today;
+            Analytics.DailyClaimed(day, coins);
             return coins;
         }
 
@@ -132,7 +169,7 @@ namespace EdgeRush
             return Mathf.Max(0, Tuning.DailyAdMax - s.dailyAdCount);
         }
 
-        public static int ClaimDailyAd(SaveData s)
+        public static int ClaimDailyAd(SaveData s, string key = null)
         {
             if (s.dailyAdDate != SaveSystem.Today)
             {
@@ -140,43 +177,38 @@ namespace EdgeRush
                 s.dailyAdCount = 0;
             }
             if (s.dailyAdCount >= Tuning.DailyAdMax) return 0;
+            key = key ?? ("daily_ad:" + Guid.NewGuid().ToString("N"));
+            if (!GrantCoins(s, Tuning.DailyAdCoins, "ad_daily", key)) return 0;
             s.dailyAdCount++;
-            AddCoins(s, Tuning.DailyAdCoins);
             return Tuning.DailyAdCoins;
         }
 
-        // ------------------------------------------------------------- quests
         public static void EnsureQuests(SaveData s)
         {
             if (s.questDate == SaveSystem.Today && s.quests != null && s.quests.Count == 3) return;
-
             s.questDate = SaveSystem.Today;
             s.quests = new List<QuestState>();
             var rnd = new System.Random(SaveSystem.DaySeed);
-            var indices = new List<int>();
-            for (int i = 0; i < QuestPool.Length; i++) indices.Add(i);
-            // Fisher-Yates, then take three that do not repeat a metric
-            for (int i = indices.Count - 1; i > 0; i--)
+            // Keep today's existing set. New days include easy, close-call practice and advanced goals.
+            string[][] groups =
             {
-                int j = rnd.Next(i + 1);
-                int tmp = indices[i]; indices[i] = indices[j]; indices[j] = tmp;
-            }
-            var usedMetrics = new List<QuestMetric>();
-            foreach (var idx in indices)
-            {
-                var def = QuestPool[idx];
-                if (usedMetrics.Contains(def.metric)) continue;
-                usedMetrics.Add(def.metric);
-                s.quests.Add(new QuestState { id = def.id, progress = 0, claimed = false });
-                if (s.quests.Count == 3) break;
-            }
+                new[] { "q_runs5", "q_coins40" },
+                new[] { "q_near8" },
+                new[] { "q_near15", "q_score1500", "q_score3000", "q_dist800", "q_combo4" },
+            };
+            for (int i = 0; i < groups.Length; i++)
+                s.quests.Add(new QuestState { id = groups[i][rnd.Next(groups[i].Length)] });
         }
 
-        public static void ReportRun(SaveData s, RunSummary run)
+        public static bool ReportRun(SaveData s, RunSummary run, string runId = null)
         {
+            string key = "run:" + (runId ?? run.runId ?? Guid.NewGuid().ToString("N")) + ":completed";
+            if (!TryRecordReward(s, key, "run_completed")) return false;
+            s.completedRuns++;
             EnsureQuests(s);
             foreach (var q in s.quests)
             {
+                if (q == null) continue;
                 var def = QuestById(q.id);
                 switch (def.metric)
                 {
@@ -188,20 +220,21 @@ namespace EdgeRush
                     case QuestMetric.ComboBest: q.progress = Mathf.Max(q.progress, run.comboLevel); break;
                 }
             }
+            return true;
         }
 
         public static bool CanClaimQuest(QuestState q, out QuestDef def)
         {
-            def = QuestById(q.id);
-            return !q.claimed && q.progress >= def.target;
+            def = q == null ? null : QuestById(q.id);
+            return q != null && !q.claimed && def.id == q.id && q.progress >= def.target;
         }
 
         public static int ClaimQuest(SaveData s, QuestState q)
         {
             QuestDef def;
-            if (!CanClaimQuest(q, out def)) return 0;
+            if (s.questDate != SaveSystem.Today || s.quests == null || !s.quests.Contains(q) || !CanClaimQuest(q, out def)) return 0;
+            if (!GrantCoins(s, def.reward, "quest", "quest:" + s.questDate + ":" + q.id)) return 0;
             q.claimed = true;
-            AddCoins(s, def.reward);
             Analytics.QuestClaimed(q.id, def.reward);
             return def.reward;
         }

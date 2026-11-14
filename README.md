@@ -15,11 +15,11 @@
 | `EdgeRush/Assets/Editor/EdgeRushSetup.cs` | 自动配置工程 + 生成启动场景 |
 | `EdgeRush/Assets/Resources/Shaders/` | 两个极简 sprite 着色器（普通 / 叠加发光） |
 | `EdgeRush/docs/` | 上手、打包、广告、上架文档 |
-| `_tools/compilecheck.ps1` | 不开 Unity 也能做的离线编译检查（我用来验证代码） |
+| `tools/compilecheck.ps1` | 已纳入仓库的离线编译检查；用法与限制见 `tools/README.md` |
 
 ## 30 秒上手
 
-1. Unity Hub → **Add** → 选择 `EdgeRush` 文件夹 → 用 **6000.6.7f1**（或任意 Unity 6 LTS）打开。
+1. Unity Hub → **Add** → 选择 `EdgeRush` 文件夹 → 用锁定的 **6000.6.7f1** 打开。
 2. 等首次导入完成（会自动生成 `Assets/Scenes/Main.unity` 并写好打包设置）。
 3. 按 **Play**。就这样——游戏自己会建好。
 
@@ -40,11 +40,11 @@
 - **美术**：`TexCanvas`（SDF 软件光栅器）在启动时画出所有车辆、路障、金币、图标、路面、背景、暗角。约 40 张图，全部程序生成。
 - **音频**：`Synth` 合成 4 层音乐 stem（贝斯/琶音/主旋律/打击）与 9 个音效，无音频文件。可覆盖：把同名 clip 放进 `Assets/Resources/Audio/` 即优先使用。
 - **数据**：`SaveSystem` 存 JSON + 校验 + 轻量加密，存 `persistentDataPath`，并备份到 PlayerPrefs。
-- **广告**：`AdManager` + `IAdProvider`。编辑器里用 Mock 广告（3 秒倒计时），发布版切 AdMob（见 `docs/03-广告接入.md`）。
+- **广告**：`AdManager` + `IAdProvider`。Editor／Development 用 Mock；Release 缺真实 SDK／正式配置会阻止构建。最终广告网络与渠道仍需确认，TapTap-only 不能默认完整接入 AdMob 变现（见 `docs/03-广告接入.md`）。
 - **存档兼容**：`SaveData.version`，字段只增不改。
 
 ## 已实现的系统
 
 核心手感 · 擦边连击 · 难度曲线 · 可解性检测 · 3 个场景主题 · 6+1 款车 · 金币经济 · 每日签到 · 每日任务 · 最高分 · 4 个广告位 · 设置/隐私 · 本地统计事件 · 程序化霓虹美术与音乐。
 
-细节见 `docs/05-已完成与待办.md`。
+本轮已实现 v2.0 的 A/B 批次：奖励幂等与存档迁移、七日签到循环、自适应界面、操作教学和触摸清理。Unity 6000.6.7f1 已跑通检查流程并生成 35 张界面验收图；Android 真机和真实 SDK 尚未验收。细节见 `docs/06-A-B-实施与验收.md` 与 `docs/05-已完成与待办.md`。

@@ -56,6 +56,7 @@ namespace EdgeRush
 
     public static class Tuning
     {
+        public const string Version = "v2-baseline-ab-1";
         // ---- speed -------------------------------------------------------------
         public const float SpeedStart = 8f;
         public const float SpeedPerTenSeconds = 1f;

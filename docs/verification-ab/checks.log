@@ -1,0 +1,48 @@
+[Checks] Gameplay input and clocks passed (24 assertions). Touch feel and tutorial readability still require Play Mode/device QA.
+[Checks] Ad configuration and callback guards passed (9 assertions). Live Mock completion/skip/close/failure and SDK flows require Play Mode/device QA.
+[AN] economy_transaction source=run_settlement amount=12 balance=12 key=run:a:settlement
+[AN] economy_transaction source=ad_double amount=12 balance=24 key=run:a:double
+[AN] economy_transaction source=ad_revive amount=0 balance=24 key=run:a:revive
+[AN] economy_transaction source=ad_double amount=20 balance=30 key=new-prefs-reward
+Economy/save checks passed: 59
+[AN] tutorial_complete version=1
+[AN] economy_transaction source=ad_revive amount=0 balance=0 key=run:81b2752b77504ce8aa5dc040c0af2b7d:revive
+[AN] economy_transaction source=run_settlement amount=1 balance=1 key=run:81b2752b77504ce8aa5dc040c0af2b7d:settlement
+[AN] run_end score=5 m=3 s=0.4 near=0 combo=x1 coins=1 rev=1
+[AN] revive_used
+[AN] economy_transaction source=ad_double amount=1 balance=2 key=run:81b2752b77504ce8aa5dc040c0af2b7d:double
+[Verification] Capture 0-menu 900x1600
+[Verification] Capture 0-missions 900x1600
+[Verification] Capture 0-garage 900x1600
+[Verification] Capture 0-tutorial-hud 900x1600
+[Verification] Capture 0-hud 900x1600
+[Verification] Capture 0-revive 900x1600
+[Verification] Capture 0-results 900x1600
+[Verification] Capture 1-menu 900x1800
+[Verification] Capture 1-missions 900x1800
+[Verification] Capture 1-garage 900x1800
+[Verification] Capture 1-tutorial-hud 900x1800
+[Verification] Capture 1-hud 900x1800
+[Verification] Capture 1-revive 900x1800
+[Verification] Capture 1-results 900x1800
+[Verification] Capture 2-menu 900x1950
+[Verification] Capture 2-missions 900x1950
+[Verification] Capture 2-garage 900x1950
+[Verification] Capture 2-tutorial-hud 900x1950
+[Verification] Capture 2-hud 900x1950
+[Verification] Capture 2-revive 900x1950
+[Verification] Capture 2-results 900x1950
+[Verification] Capture 3-menu 900x2000
+[Verification] Capture 3-missions 900x2000
+[Verification] Capture 3-garage 900x2000
+[Verification] Capture 3-tutorial-hud 900x2000
+[Verification] Capture 3-hud 900x2000
+[Verification] Capture 3-revive 900x2000
+[Verification] Capture 3-results 900x2000
+[Verification] Capture 4-menu 1080x1920
+[Verification] Capture 4-missions 1080x1920
+[Verification] Capture 4-garage 1080x1920
+[Verification] Capture 4-tutorial-hud 1080x1920
+[Verification] Capture 4-hud 1080x1920
+[Verification] Capture 4-revive 1080x1920
+[Verification] Capture 4-results 1080x1920

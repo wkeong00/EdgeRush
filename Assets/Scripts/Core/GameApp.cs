@@ -8,6 +8,7 @@ namespace EdgeRush
     {
         Boot,
         Menu,
+        Tutorial,
         Countdown,
         Playing,
         Paused,
@@ -42,6 +43,13 @@ namespace EdgeRush
         public RunSummary LastSummary;
         public int SessionRuns;
         public bool DoubleCoinsUsed;
+        public string RunId { get; private set; }
+        public bool Suspended => _applicationPaused || _applicationUnfocused;
+        TutorialSession _tutorial;
+        bool _tutorialReplay, _pausedFromTutorial;
+        bool _applicationPaused, _applicationUnfocused;
+        bool _reviveRewarded;
+        float _runStartedAt;
 
         float _countdownElapsed;
         int _countdownShown = -1;
@@ -51,14 +59,15 @@ namespace EdgeRush
         bool _newBestThisRun;
 
         // input
-        bool _pointerDown;
-        Vector2 _downPos;
-        float _downTime;
+        readonly GameplayGesture _gesture = new GameplayGesture();
+        readonly System.Collections.Generic.List<RaycastResult> _uiHits = new System.Collections.Generic.List<RaycastResult>();
+        PointerEventData _pointerEvent;
+        EventSystem _gestureEventSystem;
+        bool _suppressTouchUntilReleased;
         bool _inputEnabled;
 
         public bool CanOfferRevive =>
             Run != null && !Run.Revived &&
-            Save.totalRuns >= Tuning.ReviveAdOfferAfterRuns &&
             Ads != null && Ads.Available(AdPlacement.Revive);
 
         // ------------------------------------------------------------------ boot
@@ -77,7 +86,10 @@ namespace EdgeRush
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
             Screen.orientation = ScreenOrientation.Portrait;
 
-            Saver = new SaveSystem();
+            bool verification = System.Array.IndexOf(System.Environment.GetCommandLineArgs(), "-edgeRushVerification") >= 0;
+            Saver = verification
+                ? new SaveSystem(System.IO.Path.GetFullPath(System.IO.Path.Combine(Application.dataPath, "../Temp/VerificationSave")), "")
+                : new SaveSystem();
             Saver.Load();
             Haptics.SetEnabled(Save.hapticsOn);
 
@@ -95,6 +107,7 @@ namespace EdgeRush
             var camGo = new GameObject("MainCamera", typeof(Camera));
             camGo.transform.SetParent(transform, false);
             Cam = camGo.GetComponent<Camera>();
+            if (Object.FindAnyObjectByType<AudioListener>() == null) camGo.AddComponent<AudioListener>();
             Cam.orthographic = true;
             Cam.orthographicSize = Layout.OrthoSize;
             Cam.clearFlags = CameraClearFlags.SolidColor;
@@ -186,8 +199,79 @@ namespace EdgeRush
         }
 
         // ----------------------------------------------------------- state flow
+        public void StartTutorial(bool replay = false)
+        {
+            if (Ads != null && Ads.IsShowing) return;
+            StopTutorial();
+            Run?.Stop();
+            Run = null;
+            _tutorialReplay = replay;
+            ResetGameplayInput();
+            UI.CloseAllMenus();
+            UI.Menu.Hide(true);
+            UI.Hud.Show(true);
+            UI.Hud.ShowRunUi(true);
+            UI.Hud.SetScore(0);
+            UI.Hud.SetCoins(0);
+            UI.Hud.SetCombo(1, 0f);
+            Player.Setup(Skins.ById(Save.selectedSkin), false);
+            Player.gameObject.SetActive(true);
+            _tutorial = new TutorialSession(Player, Obstacles, Road);
+            _tutorial.StepChanged += PresentTutorialStep;
+            _tutorial.Completed += CompleteTutorial;
+            _tutorial.Retried += reason => UI.Toast.Show(reason, Palette.Cyan);
+            State = GameState.Tutorial;
+            _inputEnabled = true;
+            Audio.SetEngine(true, 0f);
+            Analytics.Event("tutorial_start", "version=" + TutorialSession.Version + " replay=" + replay);
+            _tutorial.Start();
+        }
+
+        void PresentTutorialStep(int step)
+        {
+            string key = step == 0 ? "left" : step == 1 ? "right" : "near_miss";
+            UI.ShowTutorialStep(Strings.Get("tutorial." + key + ".title"), Strings.Get("tutorial." + key + ".hint"));
+            Analytics.Event("tutorial_step", "step=" + key);
+        }
+
+        void CompleteTutorial()
+        {
+            Save.tutorialVersion = TutorialSession.Version;
+            Save.tutorialCompleted = true;
+            SaveNow();
+            Analytics.Event("tutorial_complete", "version=" + TutorialSession.Version);
+            bool replay = _tutorialReplay;
+            StopTutorial();
+            State = GameState.Menu;
+            if (replay) EnterMenu();
+            else StartRun();
+        }
+
+        public void SkipTutorial()
+        {
+            if (_tutorial == null) return;
+            Save.tutorialVersion = TutorialSession.Version;
+            Save.tutorialCompleted = true;
+            SaveNow();
+            Analytics.Event("tutorial_skip", "step=" + _tutorial.Step);
+            bool replay = _tutorialReplay;
+            StopTutorial();
+            State = GameState.Menu;
+            if (replay) EnterMenu();
+            else StartRun();
+        }
+
+        void StopTutorial()
+        {
+            _tutorial?.Stop();
+            _tutorial = null;
+            UI?.HideTutorial();
+        }
+
         public void EnterMenu()
         {
+            StopTutorial();
+            ResetGameplayInput();
             State = GameState.Menu;
             _inputEnabled = false;
             if (Run != null)
@@ -199,7 +283,7 @@ namespace EdgeRush
             Road.ResetForRun();
             Player.ResetForRun();
             Player.Setup(Skins.ById(Save.selectedSkin), false);
-            Player.gameObject.SetActive(true);
+            Player.gameObject.SetActive(false);
             Audio.SetEngine(false, 0f);
             UI.CloseAllMenus();
             UI.Menu.Show();
@@ -208,7 +292,16 @@ namespace EdgeRush
 
         public void StartRun()
         {
+            if (Ads != null && Ads.IsShowing) return;
+            if (!Save.tutorialCompleted && State != GameState.Tutorial)
+            {
+                StartTutorial();
+                return;
+            }
             if (State == GameState.Countdown || State == GameState.Playing || State == GameState.Paused) return;
+
+            StopTutorial();
+            ResetGameplayInput();
 
             if (Run != null)
             {
@@ -218,15 +311,21 @@ namespace EdgeRush
             UI.CloseAllMenus();
             UI.Menu.Hide(true);
 
+            Ads.BeginRun();
             Save.totalRuns++;
             SessionRuns++;
+            RunId = System.Guid.NewGuid().ToString("N");
+            _runStartedAt = Time.realtimeSinceStartup;
             DoubleCoinsUsed = false;
             _coinsEarnedThisRun = 0;
             _newBestThisRun = false;
+            _reviveRewarded = false;
+            SaveNow();
 
             Player.Setup(Skins.ById(Save.selectedSkin), false);
             Player.ResetForRun();
 
+            Player.gameObject.SetActive(true);
             Run = new RunSession(Player, Obstacles, Road, new System.Random(SessionRuns * 7919 + Save.totalRuns * 104729));
             Run.OnCoin += HandleCoin;
             Run.OnNearMiss += HandleNearMiss;
@@ -242,6 +341,7 @@ namespace EdgeRush
 
             Audio.SetEngine(true, 0f);
             Analytics.RunStart(Save.totalRuns);
+            Analytics.Event("run_identity", "runId=" + RunId + " tuning=" + Tuning.Version);
 
             BeginCountdown(1.05f, () =>
             {
@@ -253,6 +353,7 @@ namespace EdgeRush
 
         void BeginCountdown(float duration, System.Action onDone)
         {
+            ResetGameplayInput();
             State = GameState.Countdown;
             _countdownElapsed = 0f;
             _countdownShown = -1;
@@ -286,7 +387,7 @@ namespace EdgeRush
         {
             if (Run == null) return;
 
-            float dt = Time.deltaTime;
+            float dt = Time.unscaledDeltaTime;
             Run.Tick(dt);
 
             UI.Hud.SetScore(Run.Score);
@@ -305,9 +406,10 @@ namespace EdgeRush
             if (State == GameState.Crashed || State == GameState.Results) return;
             State = GameState.Crashed;
             _inputEnabled = false;
+            ResetGameplayInput();
             _crashTimer = 1.0f;
 
-            Rig.Shake(0.5f, 0.4f);
+            Rig.Shake(Save.reducedEffects ? 0.125f : 0.5f, 0.4f);
             UI.Flash.Flash(Color.white, 0.3f, 0.75f);
             Fx.Crash(Player.transform.position, Skins.ById(Save.selectedSkin).body);
             Audio.Play(Sfx.Crash, 0.9f);
@@ -339,9 +441,11 @@ namespace EdgeRush
 
         public void PauseGame()
         {
-            if (State != GameState.Playing) return;
+            if (State != GameState.Playing && State != GameState.Tutorial) return;
+            _pausedFromTutorial = State == GameState.Tutorial;
             State = GameState.Paused;
             _inputEnabled = false;
+            ResetGameplayInput();
             UI.Pause.Show();
             Audio.SetEngine(false, 0f);
             Analytics.Event("pause");
@@ -353,7 +457,7 @@ namespace EdgeRush
             UI.Pause.Hide(true);
             BeginCountdown(1.0f, () =>
             {
-                State = GameState.Playing;
+                State = _pausedFromTutorial ? GameState.Tutorial : GameState.Playing;
                 _inputEnabled = true;
                 UI.Countdown.Hide();
             });
@@ -361,6 +465,9 @@ namespace EdgeRush
 
         public void RestartRun()
         {
+            if (Ads != null && Ads.IsShowing) return;
+            bool tutorial = _tutorial != null;
+            StopTutorial();
             if (Run != null)
             {
                 Run.Stop();
@@ -370,11 +477,15 @@ namespace EdgeRush
             Road.ResetForRun();
             UI.CloseAllMenus();
             State = GameState.Menu;
-            StartRun();
+            if (tutorial) StartTutorial(_tutorialReplay);
+            else StartRun();
         }
 
         public void QuitToMenu()
         {
+            if (Ads != null && Ads.IsShowing) return;
+            if (Run != null && State != GameState.Results)
+                Analytics.Event("run_quit", "runId=" + RunId + " activeSeconds=" + Run.Elapsed);
             SaveNow();
             EnterMenu();
         }
@@ -382,11 +493,14 @@ namespace EdgeRush
         // ------------------------------------------------------------- ad flows
         public void WatchReviveAd()
         {
-            if (State != GameState.ReviveOffer) return;
+            if (State != GameState.ReviveOffer || Ads.IsShowing) return;
+            var run = Run;
+            string runId = RunId;
             UI.Revive.Close();
             Ads.Show(AdPlacement.Revive, earned =>
             {
-                if (earned && Run != null)
+                if (Run != run || RunId != runId || State != GameState.ReviveOffer) return;
+                if (_reviveRewarded && Run != null)
                 {
                     Run.ApplyRevive();
                     UI.Hud.ShowRunUi(true);
@@ -404,11 +518,18 @@ namespace EdgeRush
                 {
                     FinishRun();
                 }
+            }, showId =>
+            {
+                if (Run != run || RunId != runId || _reviveRewarded) return;
+                if (!Progression.TryRecordReward(Save, "run:" + runId + ":revive", "ad_revive")) return;
+                _reviveRewarded = true;
+                SaveNow();
             });
         }
 
         public void DeclineRevive()
         {
+            if (Ads != null && Ads.IsShowing) return;
             if (State != GameState.ReviveOffer) return;
             UI.Revive.Close();
             FinishRun();
@@ -416,23 +537,28 @@ namespace EdgeRush
 
         public void WatchDoubleCoins()
         {
-            if (State != GameState.Results || DoubleCoinsUsed) return;
+            if (State != GameState.Results || DoubleCoinsUsed || Ads.IsShowing) return;
             if (!Ads.Available(AdPlacement.DoubleCoins))
             {
                 UI.Toast.Show("AD NOT READY - TRY AGAIN", Palette.TextDim);
                 return;
             }
+            string runId = RunId;
+            int baseSettlement = _coinsEarnedThisRun;
+            bool granted = false;
             Ads.Show(AdPlacement.DoubleCoins, earned =>
             {
-                if (!earned || State != GameState.Results) return;
-                DoubleCoinsUsed = true;
-                int bonus = Mathf.Max(_coinsEarnedThisRun, 1);
-                Progression.AddCoins(Save, bonus);
-                SaveNow();
-                UI.Results.MarkDoubled(_coinsEarnedThisRun + bonus);
+                if (!granted || State != GameState.Results || RunId != runId) return;
+                UI.Results.MarkDoubled(baseSettlement * 2);
                 Audio.Play(Sfx.Buy, 0.9f);
                 Haptics.Medium();
-                UI.Toast.Show("+" + bonus + " BONUS COINS", Palette.Gold);
+                UI.Toast.Show("+" + baseSettlement + " BONUS COINS", Palette.Gold);
+            }, showId =>
+            {
+                granted = Progression.GrantCoins(Save, baseSettlement, "ad_double", "run:" + runId + ":double");
+                if (!granted) return;
+                if (RunId == runId) DoubleCoinsUsed = true;
+                SaveNow();
             });
         }
 
@@ -442,19 +568,22 @@ namespace EdgeRush
             if (State == GameState.Results) return;
             State = GameState.Results;
             _inputEnabled = false;
+            ResetGameplayInput();
 
             var summary = Run != null ? Run.Summary() : new RunSummary();
+            summary.runId = RunId;
+            summary.realSeconds = Time.realtimeSinceStartup - _runStartedAt;
             LastSummary = summary;
             _coinsEarnedThisRun = summary.coins;
 
-            Progression.AddCoins(Save, summary.coins);
+            Progression.GrantCoins(Save, summary.coins, "run_settlement", "run:" + RunId + ":settlement");
             _newBestThisRun = summary.score > Save.bestScore;
             if (_newBestThisRun) Save.bestScore = summary.score;
             Save.bestDistance = Mathf.Max(Save.bestDistance, summary.metres);
             Save.totalDistance += summary.metres;
             Save.totalNearMisses += summary.nearMisses;
             Save.bestComboLevel = Mathf.Max(Save.bestComboLevel, summary.comboLevel);
-            Progression.ReportRun(Save, summary);
+            Progression.ReportRun(Save, summary, RunId);
             SaveNow();
 
             Analytics.RunEnd(summary.score, summary.metres, summary.seconds, summary.nearMisses,
@@ -464,7 +593,7 @@ namespace EdgeRush
             UI.Hud.ShowRunUi(false);
             UI.Hud.Hide();
 
-            bool canDouble = summary.coins > 0 && !DoubleCoinsUsed && Ads.Available(AdPlacement.DoubleCoins);
+            bool canDouble = summary.coins > 0 && !DoubleCoinsUsed && Ads.RunAdsEligible;
             UI.Results.Present(summary, Save.bestScore, _newBestThisRun, summary.coins, canDouble);
             UI.Results.Show();
 
@@ -490,7 +619,7 @@ namespace EdgeRush
             UI.Hud.PopClose(points, Run.ComboLevel);
             Audio.Play(Sfx.Whoosh, 0.7f);
             Haptics.Light();
-            Rig.Shake(0.07f, 0.09f);
+            Rig.Shake(Save.reducedEffects ? 0.0175f : 0.07f, 0.09f);
             Fx.Sparks(Player.transform.position + Vector3.up * 1.2f, Palette.Cyan, 10, 8f);
         }
 
@@ -509,8 +638,7 @@ namespace EdgeRush
         public void AddCoins(int amount, string reason)
         {
             if (amount == 0) return;
-            Save.coins = Mathf.Max(0, Save.coins + amount);
-            if (amount > 0) Save.totalCoinsEarned += amount;
+            Progression.GrantCoins(Save, amount, reason, System.Guid.NewGuid().ToString("N"));
             SaveNow();
         }
 
@@ -552,15 +680,16 @@ namespace EdgeRush
             }
             Ads.Show(AdPlacement.DailyBonus, earned =>
             {
-                if (!earned) return;
-                int coins = Progression.ClaimDailyAd(Save);
+                UI.Daily.Refresh();
+            }, showId =>
+            {
+                int coins = Progression.ClaimDailyAd(Save, "ad:" + showId + ":daily");
                 if (coins > 0)
                 {
                     SaveNow();
                     Audio.Play(Sfx.Buy, 0.8f);
                     UI.Toast.Show("+" + coins + " COINS", Palette.Gold);
                 }
-                UI.Daily.Refresh();
             });
         }
 
@@ -588,14 +717,21 @@ namespace EdgeRush
         // ---------------------------------------------------------------- update
         void Update()
         {
+            if (_applicationPaused || _applicationUnfocused) return;
+            if (Ads != null && Ads.IsShowing) return;
             switch (State)
             {
                 case GameState.Countdown:
                     TickCountdown();
                     break;
                 case GameState.Playing:
-                    TickPlaying();
                     PollGameplayInput();
+                    TickPlaying();
+                    break;
+                case GameState.Tutorial:
+                    PollGameplayInput();
+                    _tutorial?.Tick(Time.unscaledDeltaTime);
+                    Fx.Tick(Time.unscaledDeltaTime);
                     break;
                 case GameState.Crashed:
                     TickCrash();
@@ -620,62 +756,84 @@ namespace EdgeRush
 
             // keyboard for editor / desktop testing
             if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) Player.Move(-1);
-            if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) Player.Move(1);
+            else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) Player.Move(1);
 
-            bool down = false, up = false;
+            bool down = false, up = false, canceled = false;
             Vector2 pos = Vector2.zero;
-            bool overUi = false;
+            int pointerId = -1;
+
+            if (Input.touchCount > 1)
+            {
+                ResetGameplayInput();
+                _suppressTouchUntilReleased = true;
+                return;
+            }
+            if (_suppressTouchUntilReleased)
+            {
+                if (Input.touchCount == 0) _suppressTouchUntilReleased = false;
+                return;
+            }
 
             if (Input.touchCount > 0)
             {
                 var touch = Input.GetTouch(0);
                 down = touch.phase == TouchPhase.Began;
-                up = touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled;
+                up = touch.phase == TouchPhase.Ended;
+                canceled = touch.phase == TouchPhase.Canceled;
                 pos = touch.position;
-                if (EventSystem.current != null) overUi = EventSystem.current.IsPointerOverGameObject(touch.fingerId);
+                pointerId = touch.fingerId;
             }
             else
             {
                 down = Input.GetMouseButtonDown(0);
                 up = Input.GetMouseButtonUp(0);
                 pos = Input.mousePosition;
-                if (EventSystem.current != null) overUi = EventSystem.current.IsPointerOverGameObject();
             }
 
-            if (down && !overUi)
+            if (canceled || IsGameplayPointerOverUi(pos, pointerId))
             {
-                _pointerDown = true;
-                _downPos = pos;
-                _downTime = Time.unscaledTime;
+                _gesture.Cancel();
+                return;
             }
-            else if (up && _pointerDown)
+            if (down) _gesture.Begin(pointerId, pos.x, pos.y, Time.unscaledTime);
+            float threshold = Screen.width * 0.045f;
+            int direction = up
+                ? _gesture.End(pointerId, pos.x, pos.y, Time.unscaledTime, Screen.width, threshold)
+                : _gesture.Move(pointerId, pos.x, pos.y, threshold);
+            if (direction != 0) Player.Move(direction);
+        }
+
+        bool IsGameplayPointerOverUi(Vector2 position, int pointerId)
+        {
+            if (EventSystem.current == null) return false;
+            if (_pointerEvent == null || _gestureEventSystem != EventSystem.current)
             {
-                _pointerDown = false;
-                if (overUi) return;
-
-                float dx = pos.x - _downPos.x;
-                float dy = pos.y - _downPos.y;
-                float threshold = Screen.width * 0.045f;
-                float held = Time.unscaledTime - _downTime;
-
-                if (Mathf.Abs(dx) > threshold && Mathf.Abs(dx) > Mathf.Abs(dy))
-                {
-                    Player.Move(dx > 0f ? 1 : -1);
-                }
-                else if (held < 0.32f && Mathf.Abs(dx) < threshold * 1.5f)
-                {
-                    Player.Move(pos.x < Screen.width * 0.5f ? -1 : 1);
-                }
+                _pointerEvent = new PointerEventData(EventSystem.current);
+                _gestureEventSystem = EventSystem.current;
             }
+            _pointerEvent.Reset();
+            _pointerEvent.position = position;
+            _pointerEvent.pointerId = pointerId;
+            _uiHits.Clear();
+            EventSystem.current.RaycastAll(_pointerEvent, _uiHits);
+            return _uiHits.Count > 0;
+        }
+
+        void ResetGameplayInput()
+        {
+            _gesture.Cancel();
+            Player?.CancelBufferedMove();
         }
 
         void HandleBackButton()
         {
+            if (Ads != null && Ads.IsShowing) return;
             if (!Input.GetKeyDown(KeyCode.Escape)) return;
 
             switch (State)
             {
                 case GameState.Playing:
+                case GameState.Tutorial:
                     PauseGame();
                     break;
                 case GameState.Paused:
@@ -703,11 +861,20 @@ namespace EdgeRush
         // ------------------------------------------------------------- lifecycle
         void OnApplicationPause(bool paused)
         {
+            _applicationPaused = paused;
+            ResetGameplayInput();
             if (paused)
             {
                 SaveNow();
-                if (State == GameState.Playing) PauseGame();
+                if (State == GameState.Playing || State == GameState.Tutorial) PauseGame();
             }
+        }
+
+        void OnApplicationFocus(bool focused)
+        {
+            _applicationUnfocused = !focused;
+            ResetGameplayInput();
+            if (!focused && (State == GameState.Playing || State == GameState.Tutorial)) PauseGame();
         }
 
         void OnApplicationQuit()
