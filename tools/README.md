@@ -1,5 +1,15 @@
 # Offline compile checks
 
+For the actual Unity Editor release-setting checks, open this project with its pinned editor and installed Pipeline package. From the repository root, with Unity CLI on PATH:
+
+```powershell
+unity command script eval --code 'EdgeRush.EditorTools.ReleaseSetupChecks.Run(); EdgeRush.EditorTools.ReleaseBuildRegressionChecks.Run(); return "PASS";' --project-path (Get-Location).Path --caller plugin --skill unity-cli --format json
+```
+
+The equivalent Editor menus are **EdgeRush → Checks → Release Setup Preservation** and **Release Configuration Guards**. Run outside Play Mode. The checks temporarily set fictitious release fields and scene registrations, then restore originals in `finally`; they do not build an APK, install ad SDKs or publish. For a separate batch Editor, the executeMethod entry is `EdgeRush.EditorTools.ReleaseSetupChecks.RunBatch`; it exits that Editor after reporting the result. Never invoke RunBatch in a live Editor you intend to keep open.
+
+## Lightweight offline alternative
+
 `compilecheck.ps1` is the repository copy of the original sibling `_tools/compilecheck.ps1`. The original is left untouched. This copy resolves the project relative to the script, so the shell's current directory does not determine which project is checked.
 
 From the EdgeRush repository root, run these checks in order:

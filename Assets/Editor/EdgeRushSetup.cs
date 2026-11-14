@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEditor.Build;
@@ -8,14 +9,15 @@ using UnityEngine.SceneManagement;
 namespace EdgeRush.EditorTools
 {
     /// <summary>
-    /// One-click project configuration: player settings, the (empty) boot scene, build settings.
+    /// One-click gameplay configuration and boot scene setup. Release identity and signing
+    /// are maintained separately and remain untouched even when this runs on another machine.
     /// Runs automatically the first time the project is opened, and from the EdgeRush menu.
     /// </summary>
     [InitializeOnLoad]
     public static class EdgeRushSetup
     {
-        const string ScenePath = "Assets/Scenes/Main.unity";
-        static string PrefKey => "EdgeRush.SetupDone." + Application.dataPath.GetHashCode();
+        internal const string ScenePath = "Assets/Scenes/Main.unity";
+        internal static string PrefKey => "EdgeRush.SetupDone." + Application.dataPath.GetHashCode();
 
         static EdgeRushSetup()
         {
@@ -26,13 +28,13 @@ namespace EdgeRush.EditorTools
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode) return;
             if (EditorPrefs.GetBool(PrefKey, false)) return;
-            Apply(false);
+            TryApply(false);
         }
 
         [MenuItem("EdgeRush/Apply Project Settings", priority = 1)]
         public static void ApplyMenu()
         {
-            Apply(true);
+            TryApply(true);
         }
 
         [MenuItem("EdgeRush/Rebuild Main Scene", priority = 2)]
@@ -41,14 +43,11 @@ namespace EdgeRush.EditorTools
             EnsureScene(true);
         }
 
-        static void Apply(bool verbose)
+        static void TryApply(bool verbose)
         {
             try
             {
-                ConfigurePlayerSettings();
-                EnsureScene(verbose);
-                EditorPrefs.SetBool(PrefKey, true);
-                if (verbose) Debug.Log("[EdgeRush] Project settings applied.");
+                Apply(verbose);
             }
             catch (System.Exception e)
             {
@@ -56,13 +55,17 @@ namespace EdgeRush.EditorTools
             }
         }
 
+        // The checks use this same path so exceptions cannot be swallowed as a passing check.
+        internal static void Apply(bool verbose)
+        {
+            ConfigurePlayerSettings();
+            EnsureScene(verbose);
+            EditorPrefs.SetBool(PrefKey, true);
+            if (verbose) Debug.Log("[EdgeRush] Gameplay project settings applied; release identity, version and signing preserved.");
+        }
+
         static void ConfigurePlayerSettings()
         {
-            PlayerSettings.companyName = "Your Studio";
-            PlayerSettings.productName = BuildInfo.GameName;
-            PlayerSettings.bundleVersion = BuildInfo.Version;
-            PlayerSettings.SetApplicationIdentifier(NamedBuildTarget.Android, BuildInfo.PackageName);
-
             // portrait only
             PlayerSettings.defaultInterfaceOrientation = UIOrientation.Portrait;
             PlayerSettings.allowedAutorotateToPortrait = true;
@@ -77,15 +80,15 @@ namespace EdgeRush.EditorTools
             PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARM64;
 
             // Android platform
-            PlayerSettings.Android.bundleVersionCode = 1;
-            PlayerSettings.Android.minSdkVersion = AndroidSdkVersions.AndroidApiLevel26;
-            PlayerSettings.Android.targetSdkVersion = AndroidSdkVersions.AndroidApiLevelAuto;
+            // Never lower an SDK floor chosen for an installed SDK. The target API is an
+            // explicit release decision, including Auto, so this helper never writes it.
+            if ((int)PlayerSettings.Android.minSdkVersion < (int)AndroidSdkVersions.AndroidApiLevel26)
+                PlayerSettings.Android.minSdkVersion = AndroidSdkVersions.AndroidApiLevel26;
             PlayerSettings.Android.forceInternetPermission = true;
             PlayerSettings.Android.forceSDCardPermission = false;
             PlayerSettings.Android.splitApplicationBinary = false;
             PlayerSettings.Android.minifyRelease = false;
-            PlayerSettings.Android.androidIsGame = true;
-            PlayerSettings.Android.useCustomKeystore = false;
+            PlayerSettings.Android.appCategory = "game";
 
             try
             {
@@ -111,8 +114,26 @@ namespace EdgeRush.EditorTools
 
             if (!File.Exists(ScenePath))
             {
-                var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
-                EditorSceneManager.SaveScene(scene, ScenePath);
+                // Do not replace or silently save the user's Untitled scene. Unity also
+                // rejects additive creation in this state, so report the required action.
+                for (int i = 0; i < SceneManager.sceneCount; i++)
+                    if (string.IsNullOrEmpty(SceneManager.GetSceneAt(i).path))
+                        throw new System.InvalidOperationException("Save or close Untitled scenes before creating the EdgeRush boot scene.");
+                var active = SceneManager.GetActiveScene();
+                var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Additive);
+                try
+                {
+                    if (!EditorSceneManager.SaveScene(scene, ScenePath))
+                        throw new IOException("Could not save the EdgeRush boot scene.");
+                }
+                finally
+                {
+                    if (active.IsValid() && active.isLoaded)
+                    {
+                        SceneManager.SetActiveScene(active);
+                        EditorSceneManager.CloseScene(scene, true);
+                    }
+                }
                 if (verbose) Debug.Log("[EdgeRush] Created " + ScenePath);
             }
 
@@ -122,10 +143,9 @@ namespace EdgeRush.EditorTools
 
             if (!already)
             {
-                EditorBuildSettings.scenes = new[]
-                {
-                    new EditorBuildSettingsScene(ScenePath, true),
-                };
+                var scenes = new List<EditorBuildSettingsScene>(EditorBuildSettings.scenes);
+                scenes.Add(new EditorBuildSettingsScene(ScenePath, true));
+                EditorBuildSettings.scenes = scenes.ToArray();
             }
 
             AssetDatabase.SaveAssets();

@@ -2,6 +2,8 @@
 
 一款竖屏 3 车道「擦边躲避」超休闲游戏，目标平台 TapTap 国际版（Android），靠激励视频广告变现。
 
+当前按 [上线与盈利执行清单](docs/07-TapTap国际版上线与广告盈利执行清单.md) 推进。用户选择先只发 TapTap；正在 [核实 Unity Ads 直连等候选](docs/08-TapTap-only广告路线核实.md)，尚未接入真实广告或完成正式发布。开发者 Thingamajig，厂商 Gizmobyte；`com.gizmobyte.edgerush` 为首次上传前待核对的拟定包名。
+
 本项目是**可运行的 Unity 工程**，代码、界面、美术、音效全部在运行时由 C# 生成——没有外部素材、没有需要手工摆放的场景、没有 prefab。
 
 ---
@@ -16,6 +18,7 @@
 | `EdgeRush/Assets/Resources/Shaders/` | 两个极简 sprite 着色器（普通 / 叠加发光） |
 | `EdgeRush/docs/` | 上手、打包、广告、上架文档 |
 | `tools/compilecheck.ps1` | 已纳入仓库的离线编译检查；用法与限制见 `tools/README.md` |
+| `Assets/Editor/ReleaseSetupChecks.cs` | 发布设置保留检查；独立 Release 身份／政策／签名校验见 `ReleaseBuildValidation.cs` |
 
 ## 30 秒上手
 
@@ -36,6 +39,7 @@
 ## 技术要点
 
 - **引擎**：Unity 6（6000.6.7f1），内置渲染管线（Built-in），不需要 URP。
+- **编辑器控制**：Unity CLI／Pipeline 1.0.0；用于本地开发与检查，未启用云付费构建。正式构建身份、版本与签名单独维护，Apply 不再重置它们。
 - **渲染**：正交相机 + SpriteRenderer + 少量 Mesh 四边形（滚动路面/速度线用贴图 UV 偏移，几乎零开销）。
 - **美术**：`TexCanvas`（SDF 软件光栅器）在启动时画出所有车辆、路障、金币、图标、路面、背景、暗角。约 40 张图，全部程序生成。
 - **音频**：`Synth` 合成 4 层音乐 stem（贝斯/琶音/主旋律/打击）与 9 个音效，无音频文件。可覆盖：把同名 clip 放进 `Assets/Resources/Audio/` 即优先使用。

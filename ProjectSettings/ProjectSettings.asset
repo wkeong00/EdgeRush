@@ -12,7 +12,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: Your Studio
+  companyName: Gizmobyte
   productName: Edge Rush
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -170,7 +170,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.4
   androidMinAspectRatio: 1
   applicationIdentifier:
-    Android: com.yourstudio.edgerush
+    Android: com.gizmobyte.edgerush
   buildNumber:
     Standalone: 0
     VisionOS: 0
@@ -726,11 +726,11 @@ PlayerSettings:
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
   enableDirectStorage: 0
-  cloudProjectId: 
+  cloudProjectId: 19ff5aec-d901-42b0-aa48-545cc9fcf640
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
-  organizationId: 
+  projectName: EdgeRush
+  organizationId: wkeongg
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
