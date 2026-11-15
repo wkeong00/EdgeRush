@@ -2,9 +2,9 @@
 
 > 创建／核查日期：2026-11-15（Asia/Singapore）
 >
-> 文档版本：1.2
+> 文档版本：1.4
 >
-> 当前阶段：路线 C（先只发 TapTap）已确认；马来西亚个人、公开开发者资料及英文成年玩家小测已确认。正在验证 Unity Ads 候选及发布配置保护。
+> 当前阶段：Unity Monetization 已添加 Android 应用 Edge Rush，Game ID 已取得；正在核对新版后台的竞价／直连接入方式及正式投放、马来西亚个人收款资格。发布配置保护已通过，真实广告 SDK 未安装。
 >
 > 2026-11-15 用户已授权按本清单开始执行。完成状态以勾选及末尾执行记录为准；账号与收款状态仍需实际确认。
 
@@ -81,8 +81,9 @@ AdMob 已注册，暂时保留；A03 的初始付款资料不是当前 TapTap-on
 
 - [ ] **C00a｜我，进行中**：优先核实 Unity Ads 直连是否可用于 TapTap 国际版 APK。官方明确 Store IDs 可选，缺失不阻止展示，但部分广告合作方需要；这构成候选依据，不等于对 TapTap 流量和本账户正式投放的批准。
 - [ ] **C00b｜共同**：核对所选平台的账户／应用审核，必要时向官方支持确认 `taptap.io` 发行、无 Play 条目、马来西亚真实主体是否可产生付费广告与结算。只有后台明确适用或收到明确答复才完成；不发送尚未授权的邮件／工单。
-- [ ] **C00c｜你＋我**：核对个人／公司、马来西亚收款支持、币种、可用方式、最低额、手续费和税务／身份要求，区分注册成功、应用可投放和可收款。
+- [ ] **C00c｜你＋我，部分完成**：用户已完成付款档案前端向导（Done）；后台提供 Malaysia／MYR／Local Bank Transfer，页面所示最低付款门槛 USD100、交易费 USD5，另有 FX fee。最新截图仍提示税表尚未收到、付款暂扣；需关闭弹窗并刷新核对最终税表和暂扣状态，尚未勾选可收款。个人资料不入库。
 - [ ] **C00d｜我**：资格明确后记录最终 Provider／版本／SDK 数据清单，改写 P4／P5／P10／P12 的专属步骤和发布校验，再安装真实 SDK。资格未明确时不继续默认接入 AdMob，也不同时装多个广告聚合平台。
+- [ ] **C00e｜我＋你，进行中**：核对新版 Unity 后台只支持 bidding placements／mediated users 的说明与本账号实际创建选项。不得仅凭已有 Game ID 或能创建竞价位，就把该 ID 传给旧直连加载接口；SDK／Package 版本和投放模式需匹配并取得实际证据。详见路线核实文档的“新版后台接入待核实”。
 
 研究证据与未决点见 [仅 TapTap 广告路线核实](08-TapTap-only广告路线核实.md)。Unity 来源：[Store IDs](https://docs.unity.com/en-us/grow/dashboard/get-started/project/settings#store-ids)、[平台支持 FAQ](https://docs.unity.com/en-us/grow/ads/references/faq)。
 
@@ -111,7 +112,7 @@ AdMob 已注册，暂时保留；A03 的初始付款资料不是当前 TapTap-on
 
 - [x] **R01｜你＋我**：用户选择 C：暂时只发 TapTap，先核实其他可用广告路线；未授权 Google Play 注册付费。
 - [x] **R02｜你**：用户确认马来西亚、个人收款；AdMob 已注册但初始付款资料未完。实际账号里的国家／姓名／地址及银行支持仍在付款阶段逐项核对，不保存隐私原件。
-- [x] **R03｜共同**：首轮英文、成年玩家、马来西亚小范围试玩已由用户选择；商店和 SDK 的受众声明仍须据实际产品及平台规则核对。
+- [x] **R03｜共同**：首轮英文、马来西亚成年测试者小范围试玩；用户最新后台截图确认“普通大众，不针对儿童”。这不是 18+ 分级，内容／宣传、实际受众与后续广告隐私处理仍须一致。
 - [x] **R04｜我**：72 个既有候选文件经敏感审查后，连同工具与说明形成备份提交 `e531ce3`（75 个文件），已推送 GitHub `main`；本地凭据／签名／环境文件忽略规则已补充。
 - [x] **R05｜我**：新增仓库内 `tools/compilecheck.ps1` 与使用说明，原外部脚本保留。按脚本位置定位项目、读取锁定 Unity 版本，输出隔离在 `Temp/CompileCheck/`；2026-11-15 从父目录／docs 目录分别运行 Development／Editor 离线编译均 exit 0。真实 Android／广告 SDK 分支仍待后续验证。
 - [ ] **R06｜共同**：明确首发广告范围：优先复活和结算翻倍。每日奖励／皮肤位要么接齐并验收，要么统一关闭；不得保留已启用却空 ID 的入口。
@@ -350,13 +351,16 @@ AdMob 已注册，暂时保留；A03 的初始付款资料不是当前 TapTap-on
 | --- | --- |
 | 首发分发 | 路线 C：先只发 TapTap 国际版；Google Play 暂不执行 |
 | 主体类型／国家地区 | 用户确认马来西亚个人；实际后台／银行支持待 C00c |
-| 首发地区／实际受众 | 英文、成年玩家、马来西亚小范围试玩 |
+| 首发地区／实际受众 | 英文、马来西亚成年测试者小测；应用声明为普通大众、非儿童定向，非18+分级 |
 | 正式游戏名／开发者显示名 | 保留 Edge Rush；开发者 Thingamajig（ID 799998484），厂商 Gizmobyte |
 | Android 包名 | 拟定 `com.gizmobyte.edgerush` 已同步代码／设置，首次上传前核对 |
 | Unity／SDK 版本 | Unity 6000.6.7f1；实际广告／UMP 版本待 C01 |
 | 网站／隐私／支持邮箱 | 公开支持邮箱 wkeongg@gmail.com；网站／隐私待 W01～W03 |
 | Unity 账号与工具 | CLI 1.0.0／Pipeline 1.0.0；已有Thingamajig会话与Owner组织，已创建EdgeRush Cloud项目；广告后台和付款未核实 |
 | 广告平台选择 | 优先核实 Unity Ads 直连，C00 未通过；未安装新 SDK |
+| Unity Monetization 应用 | Edge Rush／Android，关联 EdgeRush；Game ID `800438692`；Store ID 未设置；依据用户后台截图 |
+| Unity 广告位／测试模式 | Rewarded `BP_Rewarded_Android` 已创建；测试模式未核实，先确认新后台 bidding-only 与实际接入方式（C00e） |
+| Unity 收款档案 | 用户操作向导已到Done；后台红条仍显示tax forms have yet to be received／payouts on hold，等待刷新核对，未确认税表接受或暂扣解除 |
 | AdMob 账户状态／报告币种 | 已注册，初始付款资料未完；路线 C 暂缓，审核／币种未核实 |
 | Android AdMob App ID | 待 D02 |
 | Rewarded：复活／翻倍 | 待 D03 |
@@ -406,5 +410,9 @@ AdMob 已注册，暂时保留；A03 的初始付款资料不是当前 TapTap-on
 | 2026-11-15 | Unity 现有账号与组织只读核对 | 已有Thingamajig fresh会话、现有Cloud组织Owner；名称含Edge项目搜索为空；未新建组织／Cloud项目，未启用广告或付款 | 用户可用同邮箱Google登录Cloud，继续核对Monetization条款、应用资格及付款 |
 | 2026-11-15 | 建立 EdgeRush Cloud 关联 | 全部项目列表为空后，插件创建并关联EdgeRush；远端复核成功。未启用广告／付费构建／付款，未注册新账号 | 编辑器安全重启后复核关联；Cloud项目不等于广告应用批准，继续C00 |
 | 2026-11-15 | Cloud关联复核完成 | `--if-saved`正常关闭，重开6000.6.7f1并ready；Application.cloudProjectId与新Cloud项目一致，Gizmobyte及拟定包名保留。发布保护代码二次审查无新增阻塞或凭据输出 | 同步本轮代码与记录；用户刷新Cloud可继续进入Monetization核对广告资格和付款 |
+| 2026-11-15 | 用户在网页完成广告应用添加并展示详情 | Edge Rush Android／项目EdgeRush；Game ID 800438692，Store ID未设置；受众为普通大众、不针对儿童。截图未显示投放批准、付款验证或测试开关 | 记录配置；查看广告位创建选项，先解决新版bidding-only与SDK直连兼容，不安装SDK或宣称可正式投放 |
+| 2026-11-15 | 用户仅选Rewarded并创建首个广告位 | 完成弹窗确认BP_Rewarded_Android已创建，Game ID仍为800438692，Stats API Key未设置；未获得SDK、测试模式或正式投放证据 | C00e继续核实：6000.6 Legacy手册与C#指南对直连支持存在冲突；并行查看付款后台初始设置，保留真实资格待办 |
+| 2026-11-15 | 用户展示Unity Payments概览 | 顶部提示尚未添加payout profile；右侧Updated事件不作完成证据。未记录个人地址／银行／税务数据 | 用户进入Go to the payout profile，核对实际向导与状态；C00c及付款资格保持未完成 |
+| 2026-11-15 | 用户完成付款档案前端向导 | 截图显示Address／Payment Method／Tax Forms绿色、当前Done及You are all set；背景红条仍为税表尚未收到、付款暂扣。只记录流程状态及公开选项／费用，不记录税号、账号或签名 | 关闭弹窗刷新一次，核对税表状态及暂扣；不重填或宣称审核已过。SDK兼容和正式广告资格继续核实 |
 
 每次推进追加一行：任务 ID、代码 commit／产物／后台状态、实际检查、需你操作事项、外部等待。没有证据的任务继续保持未勾选。
