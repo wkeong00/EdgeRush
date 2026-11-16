@@ -1,6 +1,8 @@
 # Edge Rush developer website — GitHub Pages preparation
 
-Prepared on 2026-11-15; hosting instructions and offline checks updated on **2026-11-16**. **Deployment pending.** The selected free host is GitHub Pages for the existing public repository `wkeong00/EdgeRush`. The user enabled the GitHub Actions source; a subsequent public repository API check returned `has_pages=true`. The first successful deployment and public page checks are still required. No new hosting account, repository, or paid domain is required.
+Prepared on 2026-11-15; deployed and checked on **2026-11-16**. The free GitHub Pages site is live at **https://wkeong00.github.io/EdgeRush/**. [Workflow 43888961128](https://github.com/wkeong00/EdgeRush/actions/runs/43888961128) completed successfully from commit `53f17350fa035bbf900bc75bf4556c065bab053f`; the public deployment status returned that exact URL. No new hosting account, repository, or paid domain was required.
+
+Anonymous HTTPS checks returned **200** for `index.html`, `privacy.html`, `support.html`, `assets/style.css`, `assets/favicon.svg`, and `assets/road-preview.svg`. This proves public delivery, not browser visual QA. Public links: [privacy policy](https://wkeong00.github.io/EdgeRush/privacy.html) and [support](https://wkeong00.github.io/EdgeRush/support.html).
 
 The English site is buildless HTML/CSS. Publishable files are contained in `dist/`:
 
@@ -48,7 +50,7 @@ The user has chosen free hosting. Use the existing public game repository and th
 2. The user has completed [EdgeRush → Settings → Pages](https://github.com/wkeong00/EdgeRush/settings/pages) → **Build and deployment → Source: GitHub Actions**. Do not select the full `/docs` folder as a branch publishing source. [Publishing-source options](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site)
 3. Pushes to `main` that change `docs/site/dist/**` or the website workflow trigger deployment automatically. **Actions → Publish developer website → Run workflow → main** is also available. If GitHub requests environment approval or reports a configuration error, resolve that actual requirement before retrying rather than reporting the site as live.
 4. Wait for the **Deploy** step to succeed and record GitHub's returned HTTPS URL. Verify the home, privacy, support, assets, fragment links, mobile layout, and email links without signing in. GitHub supports HTTPS for its default Pages domains. [HTTPS](https://docs.github.com/en/pages/getting-started-with-github-pages/securing-your-github-pages-site-with-https)
-5. After confirming public access and the policy's scope, supply the real privacy/support URLs to the app and store fields. `BuildInfo.PrivacyPolicyUrl` has **not** been changed by this website preparation. Before real advertising is added, update the current internal-beta policy to match the chosen SDK and actual data handling.
+5. Public access has been verified, and `BuildInfo.PrivacyPolicyUrl` now points to the published privacy page. Store fields are not yet filled. Before real advertising is added, update the current internal-beta policy to match the chosen SDK and actual data handling.
 
 This informational project/support site includes no purchases, payment processing, or commercial SaaS. Review GitHub's hosting usage limits before expanding its purpose. [Pages limits](https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits)
 

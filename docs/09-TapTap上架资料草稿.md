@@ -26,7 +26,7 @@
 | In-app purchases | 当前未实现真实货币内购 | 最终包再核对；不要把金币买外观当成真钱内购 |
 | Advertising | 待最终 Provider 与 APK 确认 | 当前有激励广告流程代码，正式 SDK／广告资格尚未验证；不能提前把广告版声明填写完毕 |
 | Audience／rating | 普通大众，不针对儿童；年龄分级待实际问卷 | 成年测试者安排不是“18+ 内容”分级依据；不预填未经核实的年龄标签 |
-| Website／privacy policy | **待真实公开地址** | 不能使用工程现有 `example.com` 占位链接；公开访问、内容与最终 SDK 需一致 |
+| Website／privacy policy | [网站](https://wkeong00.github.io/EdgeRush/)／[隐私](https://wkeong00.github.io/EdgeRush/privacy.html)／[支持](https://wkeong00.github.io/EdgeRush/support.html) | 2026-11-16 部署及匿名HTTP访问通过；政策当前为内部Mock测试版，最终SDK接入后必须复核，商店字段尚未回填 |
 | Login／progress | 当前玩法无需账号登录，本机存档 | 不宣称云存档、跨设备同步或在线排行榜；按候选包复核 |
 | Store status／release date | 保持草稿；日期待验收 | 不因资料齐全就选择已开放下载，也不先承诺上线日 |
 | Game page URL／game ID | **待后台实际条目** | 先确认是否已有 Edge Rush 条目；避免重复创建。开发者 ID 不填入此栏 |
@@ -153,7 +153,7 @@ Improved daily reward cycling and local reward accounting.
 | 真实 Android 截图 | 缺件 | 至少准备官方建议的 3 张，按上表拟拍 5 张；带来源记录 |
 | 真实录屏及视频封面 | 缺件，视频选填 | 若本轮使用视频则一并交付；不因此伪造素材 |
 | 发布 APK | 未交付 | 正式签名、实际包名／版本、安装／升级与真机流程通过，记录产物校验值 |
-| 真实政策和支持网站 | 缺件 | 公开可访问的正式地址；政策反映最终 SDK／数据；支持邮箱由用户确认可收信 |
+| 政策和支持网站 | 已公开；最终SDK政策仍待 | 当前链接已匿名访问通过，工程隐私URL已替换；真实SDK接入后更新数据披露／选择，商店字段仍待回填 |
 | 广告／数据声明 | 未定稿 | Provider、最终 SDK、实际权限／数据／广告范围与政策、后台一致 |
 | 受众／区域／测试状态 | 方向已确认，后台未回填 | Malaysia、English、普通大众且不针对儿童；实际分级问卷和发布状态待填 |
 | 权利记录 | 待整理 | 仅对实际采用的美术、字体、音频、工具输出整理出处／授权依据 |

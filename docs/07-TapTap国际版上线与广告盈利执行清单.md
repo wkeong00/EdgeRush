@@ -48,7 +48,7 @@
 - [x] **BASE05｜你**：用户确认 AdMob 已注册；初始付款资料尚未完成。账户审核与可投放状态仍未核实。
 - [ ] **BASE06｜本路线暂不适用**：用户选择先只发 TapTap；不注册／付费／发布 Google Play，相关任务保留为条件分支。
 - [ ] **BASE07｜未完成**：真实广告 SDK／UMP；当前只有 Mock 和受条件编译保护的 AdMob 适配代码，四个单元 ID 为空。
-- [ ] **BASE08｜部分准备**：已采用 Gizmobyte／拟定包名 `com.gizmobyte.edgerush`；首传前可用性、发布签名、真实隐私政策和完整商店交付未验收，`example.com` 仍为待替换占位地址。
+- [ ] **BASE08｜部分准备**：已采用 Gizmobyte／拟定包名 `com.gizmobyte.edgerush`；首传前可用性、发布签名和完整商店交付未验收。免费政策／支持网站已公开、工程隐私URL已替换；真实SDK接入后须修订当前内部测试版政策。
 - [ ] **BASE09｜部分准备**：首个 Android Development APK 已构建并核验（非商店包）；真机、正式签名 APK、真实广告、正式收入和银行到账仍未验收。
 - [x] **BASE10｜已备份**：已有 A/B 成果、清单和编译工具已形成 `e531ce3` 并成功推送 GitHub `main`；后续改动另记提交，不混作基线证据。
 
@@ -59,7 +59,7 @@
 | 1 | 首个 Android 测试 APK | **已完成构建和静态包检查**：ARM64／IL2CPP、Development、0 错误／17 警告，APK 29,318,520 bytes。包名／版本一致，min26／target36，Android Debug 签名验证通过；尚无安装运行证据。见 [产物核验](verification-release/2026-11-16-android-dev-build.md) |
 | 2 | 安装和实际操作验收 | 用户目前无 Android 真机；现有 BlueStacks 已启动，尚未安装 APK。电脑操作控制中断，本轮没有模拟器功能通过证据；上线前仍需借机或招募真实设备测试者 |
 | 3 | 正式签名与身份 | [本地交互签名工具](../tools/README.md)已准备并通过非生成检查；用户需先确认旧密钥，再本机输入密码、生成并独立备份。有限搜索不等于全机无旧密钥，正式签名产物尚未验收 |
-| 4 | 公开隐私与支持网站 | [英文三页站点](site/README.md)与只发布 dist/ 的 Pages 工作流已准备；用户已选 Source=GitHub Actions，公开仓库 API 复查 has_pages=true。正在提交以触发首次部署，公开访问仍待验收；政策目前针对内部 Mock 测试 |
+| 4 | 公开隐私与支持网站 | **已部署并通过匿名HTTP检查**：[主页](https://wkeong00.github.io/EdgeRush/)／[隐私](https://wkeong00.github.io/EdgeRush/privacy.html)／[支持](https://wkeong00.github.io/EdgeRush/support.html)。工程URL已替换；浏览器视觉QA和真实SDK定稿政策仍待 |
 | 5 | 广告兼容与资格 | Game ID／BP_Rewarded_Android 和付款 Verified 已有证据；真实 Provider／SDK、竞价位用法、TapTap-only 正式流量批准、隐私与奖励回调验收均未完成。支持询问见 [10](10-Unity广告接入支持询问.md) |
 | 6 | 商店图文与游戏条目 | 英文文案和规格已整理于 [09](09-TapTap上架资料草稿.md)；正式图标／封面／真实 Android 截图未制作，TapTap 游戏条目与权限未实际核对 |
 | 7 | 正式包、审核与下载 | 签名候选 APK、全流程／升级测试、TapTap 上传／审核／马来西亚实际下载均未开始；不能以 Development 包代替 |
@@ -181,7 +181,8 @@ AdMob 已注册，暂时保留；A03 的初始付款资料不是当前 TapTap-on
 
 - [x] **W01｜你＋我，托管方向已定**：用户确认没有现有网站／域名，先用免费托管；已准备 GitHub Pages 静态站点和部署工作流，实际公开部署另在 W03 验收。支持邮箱应可实际收信，不购买域名或付费套餐。
 - [ ] **W02｜我准备，你核对，部分完成**：已按当前源码盘点本机存档、内存／日志事件、Mock 广告及邮箱支持数据，见 [站点说明](site/README.md)。首发真实 SDK／数据清单仍待广告路线定案；不提前披露为已接入 Google／Unity 服务，也不作整个 APK 零网络收集承诺。
-- [ ] **W03｜我，部分完成**：英文主页／隐私政策／支持页已写入 docs/site/dist，政策为当前内部测试版；公开部署和移动端视觉核验尚未完成。Pages 工作流仅上传 dist，不发布整份内部 docs。取得实际无需登录的公开地址后，再更新工程占位 URL；正式广告接入前复核政策。
+- [ ] **W03｜我，正式版政策待定稿**：公开部署及工程URL替换已完成，见 W03a；移动端视觉QA和最终广告SDK数据披露仍待，正式广告接入前必须复核政策。
+- [x] **W03a｜我，免费网站交付**：仅上传 docs/site/dist 的 Pages 工作流43888961128成功；部署状态返回 https://wkeong00.github.io/EdgeRush/，三个英文页面与三项静态资源均匿名HTTP200，工程BuildInfo已替换占位链接。47项本地引用／片段与2项SVG检查通过。当前政策明确内部Mock测试范围，不冒充正式SDK政策。
 - [ ] **W04｜我＋你，路线 A**：准备 Google Play 的 Data safety、广告声明、内容分级、目标受众、应用访问等表单答案；依据真实行为填写。路线 B 则核对所选商店表单。无账号登录的现状要如实记录，未来引入登录／收集数据时重新核对相关要求。
 - [ ] **W05｜我**：按 AdMob 后台提供的 publisher 代码片段准备 `/app-ads.txt`；检查开发者网站域名根路径可抓取，不只把文件放在仓库或任意项目子目录。
 - [ ] **W06｜共同**：在支持商店条目中设置一致的开发者网站；区分 publisher ID、App ID、广告单元 ID，不相互替代。
@@ -371,7 +372,7 @@ AdMob 已注册，暂时保留；A03 的初始付款资料不是当前 TapTap-on
 | 正式游戏名／开发者显示名 | 保留 Edge Rush；开发者 Thingamajig（ID 799998484），厂商 Gizmobyte |
 | Android 包名 | 拟定 `com.gizmobyte.edgerush` 已同步代码／设置，首次上传前核对 |
 | Unity／SDK 版本 | Unity 6000.6.7f1；实际广告／UMP 版本待 C01 |
-| 网站／隐私／支持邮箱 | 公开支持邮箱 wkeongg@gmail.com；网站／隐私待 W01～W03 |
+| 网站／隐私／支持邮箱 | https://wkeong00.github.io/EdgeRush/ ／ privacy.html ／ support.html；公开支持邮箱wkeongg@gmail.com；当前内部测试版政策，最终SDK后更新 |
 | Unity 账号与工具 | CLI 1.0.0／Pipeline 1.0.0；已有Thingamajig会话与Owner组织，已创建EdgeRush Cloud项目；广告后台和付款未核实 |
 | 广告平台选择 | 优先核实 Unity Ads 直连，C00 未通过；未安装新 SDK |
 | Unity Monetization 应用 | Edge Rush／Android，关联 EdgeRush；Game ID `800438692`；Store ID 未设置；依据用户后台截图 |
@@ -438,5 +439,6 @@ AdMob 已注册，暂时保留；A03 的初始付款资料不是当前 TapTap-on
 | 2026-11-16 | 免费网站与上架资料准备 | 英文主页／隐私／支持页、静态资产和Pages手动工作流已就绪；公开API实读仓库has_pages=false，尚未公开部署；未改BuildInfo占位地址。BlueStacks已启动但未安装APK，UI控制停止后没有换用其他方式操作 | Settings→Pages→Source选GitHub Actions，再运行Publish developer website；模拟器／真机操作另续 |
 | 2026-11-16 | 使用限额中断后续接，用户完成外部步骤 | 本地成果与APK保留；当前浏览器控制仍因网址无法可靠确认被工具阻止。用户确认支持询问成功提交、Pages Source已设GitHub Actions；公开repo API复查has_pages=true | 触发并核验网站部署；等待Unity答复，不重复发送；模拟器UI仍待 |
 | 2026-11-16 | 签名工具与16KB静态检查完成 | 本地交互helper已验证但未生成key；Dev APK的6库／22LOAD段0x4000对齐，zipalign成功，SHA256未变；无真实16KB设备或正式SDK验收 | 用户本机确认旧key／输入密码／独立备份；正式SDK与候选包后重验 |
+| 2026-11-16 | 免费站点首次部署成功 | main提交53f1735触发workflow43888961128，completed/success，公开deployment返回实际URL；主页／隐私／支持／CSS／SVG均匿名HTTP200。已替换BuildInfo隐私占位链接 | 重建包含新URL的内部APK；最终SDK政策与浏览器视觉QA另验，商店字段仍未填写 |
 
 每次推进追加一行：任务 ID、代码 commit／产物／后台状态、实际检查、需你操作事项、外部等待。没有证据的任务继续保持未勾选。
