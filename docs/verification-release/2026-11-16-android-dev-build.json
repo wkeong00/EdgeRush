@@ -195,5 +195,153 @@
     "scope": "Current SDK-free Development APK; static ELF/RELRO and ZIP checks only",
     "runtime16KBVerified": false,
     "source": "https://developer.android.com/guide/practices/page-sizes"
+  },
+  "latestInternalBuild": {
+    "sourceCommit": "6a4e5e2",
+    "buildId": "build_f4ef0d5c5eed",
+    "result": "Succeeded",
+    "durationMs": 18192,
+    "startedAtUtc": "2026-11-16T15:48:56.0792807Z",
+    "endedAtUtc": "2026-11-16T15:49:14.2715159Z",
+    "errors": 0,
+    "incrementalWarnings": 0,
+    "path": "Builds/Android/EdgeRush-0.1.0-dev-ready.apk",
+    "bytes": 37320388,
+    "sha256": "DD7E547A128A5EDE0BFBB9D5EE2C2CC162F065BCD9B999D0B63EA8CE89255148",
+    "package": "com.gizmobyte.edgerush",
+    "versionName": "0.1.0",
+    "versionCode": 1,
+    "minSdk": 26,
+    "targetSdk": 36,
+    "abis": [
+      "arm64-v8a"
+    ],
+    "debuggable": true,
+    "signatureVerified": true,
+    "signatureScheme": "v2",
+    "certificateSha256": "e1ead17f5ccead2a2ede797217040f76c568472f5ac0fd979b2dd591e0ef3b32",
+    "privacyUrlPresent": true,
+    "oldPlaceholderPresent": false,
+    "mockTypesPresent": true,
+    "pipelineAssemblies": [
+      "Unity.Pipeline.Attributes.dll"
+    ],
+    "nativeLibraries": [
+      {
+        "library": "libc++_shared.so",
+        "sha256": "4397241b4bd20a8e579bfb41d21107857e12985f6a01ca0c2a5f83380d1270b4",
+        "identicalToAuditedProbe": true
+      },
+      {
+        "library": "libgame.so",
+        "sha256": "06a513de1ca9d582b119352ac553cb0fcd68003d53e8e548afa47fe61a083dfb",
+        "identicalToAuditedProbe": true
+      },
+      {
+        "library": "libmain.so",
+        "sha256": "6fdc216892b2ce3a9faa975b2080a9c89d79b8b7c677b557757a643efaad67a2",
+        "identicalToAuditedProbe": true
+      },
+      {
+        "library": "libswappywrapper.so",
+        "sha256": "92e29dca048d8f6622b04b147cf10b37b0dc23b8fabb20cbb3bf2f63766dcb46",
+        "identicalToAuditedProbe": true
+      },
+      {
+        "library": "libunity.so",
+        "sha256": "66bcb98f89db6704c1d1c856a66d9ec629984fc16080c487b1bda2d1b4a750b0",
+        "identicalToAuditedProbe": true
+      },
+      {
+        "library": "libil2cpp.so",
+        "sha256": "8e9b2cc53c95f0b8c69dc99258cd3c38ceae36b81dba54a574aa5c9a63b34014",
+        "identicalToAuditedProbe": true
+      }
+    ],
+    "nativeAlignmentEvidence": "All six libraries are byte-identical to the local branded probe audited with llvm-readelf: 22 LOAD segments, minimum alignment 16384. Latest zipalign -c -P 16 4 exited 0.",
+    "adaptiveIcon": {
+      "backgroundResource": "0x7f0c0001 mipmap/ic_launcher_background",
+      "foregroundResource": "0x7f0c0002 mipmap/ic_launcher_foreground",
+      "pngs": [
+        {
+          "entry": "res/mipmap-hdpi-v4/ic_launcher_background.png",
+          "width": 162,
+          "height": 162,
+          "pngColorType": 2
+        },
+        {
+          "entry": "res/mipmap-hdpi-v4/ic_launcher_foreground.png",
+          "width": 162,
+          "height": 162,
+          "pngColorType": 6
+        },
+        {
+          "entry": "res/mipmap-ldpi-v4/ic_launcher_background.png",
+          "width": 81,
+          "height": 81,
+          "pngColorType": 2
+        },
+        {
+          "entry": "res/mipmap-ldpi-v4/ic_launcher_foreground.png",
+          "width": 81,
+          "height": 81,
+          "pngColorType": 6
+        },
+        {
+          "entry": "res/mipmap-mdpi-v4/ic_launcher_background.png",
+          "width": 108,
+          "height": 108,
+          "pngColorType": 2
+        },
+        {
+          "entry": "res/mipmap-mdpi-v4/ic_launcher_foreground.png",
+          "width": 108,
+          "height": 108,
+          "pngColorType": 6
+        },
+        {
+          "entry": "res/mipmap-xhdpi-v4/ic_launcher_background.png",
+          "width": 216,
+          "height": 216,
+          "pngColorType": 2
+        },
+        {
+          "entry": "res/mipmap-xhdpi-v4/ic_launcher_foreground.png",
+          "width": 216,
+          "height": 216,
+          "pngColorType": 6
+        },
+        {
+          "entry": "res/mipmap-xxhdpi-v4/ic_launcher_background.png",
+          "width": 324,
+          "height": 324,
+          "pngColorType": 2
+        },
+        {
+          "entry": "res/mipmap-xxhdpi-v4/ic_launcher_foreground.png",
+          "width": 324,
+          "height": 324,
+          "pngColorType": 6
+        },
+        {
+          "entry": "res/mipmap-xxxhdpi-v4/ic_launcher_background.png",
+          "width": 432,
+          "height": 432,
+          "pngColorType": 2
+        },
+        {
+          "entry": "res/mipmap-xxxhdpi-v4/ic_launcher_foreground.png",
+          "width": 432,
+          "height": 432,
+          "pngColorType": 6
+        }
+      ],
+      "compositeVisuallyReviewed": true,
+      "launcherOnDeviceVerified": false
+    },
+    "installed": false,
+    "physicalDeviceVerified": false,
+    "realAdsVerified": false,
+    "productionSigningVerified": false
   }
 }

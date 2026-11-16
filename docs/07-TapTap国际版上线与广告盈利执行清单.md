@@ -4,7 +4,7 @@
 >
 > 文档版本：1.6（2026-11-16 续接执行）
 >
-> 当前阶段：Unity 付款档案已显示 Verified；应用与首个激励广告位已创建。首个内部 Android APK 构建成功，免费网站与英文商店文案已准备。新版竞价位的实际 SDK 接法及 TapTap-only 正式广告资格尚未确认，真实广告 SDK 未安装。
+> 当前阶段：Unity 付款档案已Verified；应用与激励竞价位已创建。免费网站已公开，英文商店文案及原创图标／封面已完成；最新内部APK已含公开政策链接和实际自适应图标，并通过静态产物核验。安装／真机、正式签名和真实SDK仍未完成；Unity支持询问已由用户确认提交，等待资格回复。
 >
 > 2026-11-15 用户已授权按本清单开始执行。完成状态以勾选及末尾执行记录为准；账号与收款状态仍需实际确认。
 
@@ -56,7 +56,7 @@
 
 | 顺序 | 交付项 | 当前状态与下一步 |
 | --- | --- | --- |
-| 1 | 首个 Android 测试 APK | **已完成构建和静态包检查**：ARM64／IL2CPP、Development、0 错误／17 警告，APK 29,318,520 bytes。包名／版本一致，min26／target36，Android Debug 签名验证通过；尚无安装运行证据。见 [产物核验](verification-release/2026-11-16-android-dev-build.md) |
+| 1 | Android 测试 APK | **最新包已构建和静态核验**：`Builds/Android/EdgeRush-0.1.0-dev-ready.apk`，37,320,388 bytes，含公开政策与正确Adaptive图标，0错误；包名／版本／API／ARM64／Debug证书通过。仍未安装运行。见 [产物核验](verification-release/2026-11-16-android-dev-build.md) |
 | 2 | 安装和实际操作验收 | 用户目前无 Android 真机；现有 BlueStacks 已启动，尚未安装 APK。电脑操作控制中断，本轮没有模拟器功能通过证据；上线前仍需借机或招募真实设备测试者 |
 | 3 | 正式签名与身份 | [本地交互签名工具](../tools/README.md)已准备并通过非生成检查；用户需先确认旧密钥，再本机输入密码、生成并独立备份。有限搜索不等于全机无旧密钥，正式签名产物尚未验收 |
 | 4 | 公开隐私与支持网站 | **已部署并通过匿名HTTP检查**：[主页](https://wkeong00.github.io/EdgeRush/)／[隐私](https://wkeong00.github.io/EdgeRush/privacy.html)／[支持](https://wkeong00.github.io/EdgeRush/support.html)。工程URL已替换；浏览器视觉QA和真实SDK定稿政策仍待 |
@@ -440,5 +440,6 @@ AdMob 已注册，暂时保留；A03 的初始付款资料不是当前 TapTap-on
 | 2026-11-16 | 使用限额中断后续接，用户完成外部步骤 | 本地成果与APK保留；当前浏览器控制仍因网址无法可靠确认被工具阻止。用户确认支持询问成功提交、Pages Source已设GitHub Actions；公开repo API复查has_pages=true | 触发并核验网站部署；等待Unity答复，不重复发送；模拟器UI仍待 |
 | 2026-11-16 | 签名工具与16KB静态检查完成 | 本地交互helper已验证但未生成key；Dev APK的6库／22LOAD段0x4000对齐，zipalign成功，SHA256未变；无真实16KB设备或正式SDK验收 | 用户本机确认旧key／输入密码／独立备份；正式SDK与候选包后重验 |
 | 2026-11-16 | 免费站点首次部署成功 | main提交53f1735触发workflow43888961128，completed/success，公开deployment返回实际URL；主页／隐私／支持／CSS／SVG均匿名HTTP200。已替换BuildInfo隐私占位链接 | 重建包含新URL的内部APK；最终SDK政策与浏览器视觉QA另验，商店字段仍未填写 |
+| 2026-11-16 | 原创商店品牌及最新内部APK完成 | 512图标／1920封面／SVG与重现源码已审图；实际APK检查发现通用图标不足后，补齐Android Adaptive六规格12层。source6a4e5e2构建build_f4ef0d5c5eed成功，APK37,320,388bytes，签名／政策字串／图标资源／native与zipalign核验通过，详见产物记录 | 用户完成本地密钥生成与独立备份；安装／真机及SDK资格回复仍待，不提交此Development包 |
 
 每次推进追加一行：任务 ID、代码 commit／产物／后台状态、实际检查、需你操作事项、外部等待。没有证据的任务继续保持未勾选。

@@ -2,6 +2,8 @@
 
 日期按 Asia/Singapore。本记录证明首次 Android 构建成功及其产物的静态检查结果；尚未证明安装后可玩。此 APK 是含 Mock 广告的私下测试包，使用 Android Debug 证书且允许调试，不作为正式发布候选。
 
+最新内部包为 `Builds/Android/EdgeRush-0.1.0-dev-ready.apk`；本页保留首包原始数据，最新记录见文末。
+
 ## 构建记录
 
 | 项目 | 实测值 |
@@ -105,3 +107,25 @@ Unity 对 managed code variant 与条件编译的当前说明：[Unity 6000.6 sc
 - [ ] 正式签名、非 Development APK、Release guards 和正式产物审计。
 
 本记录不把 APK 构建成功、模拟器可启动、TapTap 审核、正式广告投放和收款视为同一验收结果。
+
+
+## 最新内部包：公开政策与 Android Adaptive 图标
+
+来源提交 `6a4e5e2`；构建 `build_f4ef0d5c5eed`，Succeeded，18192 ms，0 errors／0 warnings（本次增量 BuildReport；首包原17条源码警告未声称已修复）。
+
+- 本地文件：`Builds/Android/EdgeRush-0.1.0-dev-ready.apk`。
+- 实际大小：**37320388 bytes**，约37.3 MB。
+- SHA256：`DD7E547A128A5EDE0BFBB9D5EE2C2CC162F065BCD9B999D0B63EA8CE89255148`。
+- aapt回读：包名`com.gizmobyte.edgerush`，0.1.0／code1，min26／target36，ARM64，debuggable。
+- apksigner验证通过：Android Debug，v2；公开证书指纹与首包相同。
+- 编译元数据含已公开政策`https://wkeong00.github.io/EdgeRush/privacy.html`，不含旧example占位；仍含Mock广告类型。
+- Pipeline程序集仍只有Attributes，不含主运行时。
+- 6个原生库与已用llvm-readelf核验的本地探查包逐字节相同（各自SHA256保存在JSON），承接22个LOAD段最小0x4000的静态证据；当前包zipalign检查exit0。没有声称完成真实16KB设备运行。
+
+### 实际图标资源检查
+
+仅设置通用Default Icon不能覆盖本项目Android Adaptive空槽；已补齐六种尺寸的背景／透明前景12层。最终APK的应用图标是`res/mipmap-anydpi-v26/app_icon.xml`，其中背景0x7f0c0001与前景0x7f0c0002，资源表确认为自建`ic_launcher_background`和`ic_launcher_foreground`。
+
+包内含81、108、162、216、324、432六种尺寸，每尺寸两张PNG；背景RGB、前景RGBA。已从APK提取432尺寸两层并按alpha合成审图，显示原创青车与道路。透明像素中的RGB扩边不代表可见色块；合成显示正常。此项是包内资源与静态图片检查，Launcher实机遮罩／动画仍未验收。
+
+完整临时报告及图片位于忽略目录`Temp/pipeline_build_status-ready.json`与`Temp/AndroidReadyAudit/`。旧的内部探查包保留在Builds，但不作为当前推荐包。以上仍是Debug／Development／Mock包；安装、真机、正式广告和正式签名全部保持未验收。

@@ -4,7 +4,7 @@
 >
 > 用途：对应 [执行清单 P9](07-TapTap国际版上线与广告盈利执行清单.md) 的文案、字段和素材准备。本次只形成草稿，没有创建商店条目、上传素材、提交审核或发布。
 >
-> 当前路线：先发 TapTap 国际版 Android APK，英文、马来西亚小范围试玩；普通大众、不针对儿童，首轮招募成年测试者。广告平台接入方式与正式投放资格仍在核对，真实广告 SDK 未安装。正式图标、封面、真实 Android 截图／视频及可发布 APK 均未交付。
+> 当前路线：先发TapTap国际版Android APK，英文、马来西亚小范围试玩；普通大众、不针对儿童。2026-11-16已完成图标／封面候选、免费网站与内部APK静态核验；真实Android玩法截图／设备验收和正式签名包尚未交付，真实广告SDK未安装。
 
 ## 1. 后台回填卡
 
@@ -173,6 +173,6 @@ Improved daily reward cycling and local reward accounting.
 - [TapTap 国际版：Assets Requirements](https://developer.taptap.io/docs/store/store-material/)：Icon、文字、截图、视频及两类封面规格；首发 What's new 留空。
 - [TapTap 国际版：Game Review Specifications and Rules](https://developer.taptap.io/docs/store/store-agree/)：素材真实性、推广图限制、文案与字段一致性、包身份与签名相关检查。
 - [TapTap 国际版：Update Game](https://developer.taptap.io/docs/store/store-update/)：后续版本草稿与更新资料流程。
-- 工程依据为第 3 节对应源码及 [执行清单](07-TapTap国际版上线与广告盈利执行清单.md) 的用户确认参数；本次只核对源码，没有重新运行 Unity、构建 Android 或测试真实广告。
+- 最初文案整理依据为第3节源码与 [执行清单](07-TapTap国际版上线与广告盈利执行清单.md) 的用户确认参数；后续Android构建另见 [产物记录](verification-release/2026-11-16-android-dev-build.md)，不把静态包检查当作功能／真实广告验收。
 
 公开文档与当前后台不一致的项目，保留问题并以实际表单／官方确认更新，不能用国内站规则补作国际版结论。本稿没有保存证件、银行资料、密码或签名私钥。
