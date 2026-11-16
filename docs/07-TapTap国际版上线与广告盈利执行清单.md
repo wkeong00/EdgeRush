@@ -61,7 +61,7 @@
 | 3 | 正式签名与身份 | [本地交互签名工具](../tools/README.md)已准备并通过非生成检查；用户需先确认旧密钥，再本机输入密码、生成并独立备份。有限搜索不等于全机无旧密钥，正式签名产物尚未验收 |
 | 4 | 公开隐私与支持网站 | **已部署并通过匿名HTTP检查**：[主页](https://wkeong00.github.io/EdgeRush/)／[隐私](https://wkeong00.github.io/EdgeRush/privacy.html)／[支持](https://wkeong00.github.io/EdgeRush/support.html)。工程URL已替换；浏览器视觉QA和真实SDK定稿政策仍待 |
 | 5 | 广告兼容与资格 | Game ID／BP_Rewarded_Android 和付款 Verified 已有证据；真实 Provider／SDK、竞价位用法、TapTap-only 正式流量批准、隐私与奖励回调验收均未完成。支持询问见 [10](10-Unity广告接入支持询问.md) |
-| 6 | 商店图文与游戏条目 | 英文文案和规格已整理于 [09](09-TapTap上架资料草稿.md)；正式图标／封面／真实 Android 截图未制作，TapTap 游戏条目与权限未实际核对 |
+| 6 | 商店图文与游戏条目 | [09](09-TapTap上架资料草稿.md)英文文案与 [图标／封面候选](store-assets/README.md)已完成；默认应用图标已导入，真实Android截图、后台裁切与游戏条目仍未验收 |
 | 7 | 正式包、审核与下载 | 签名候选 APK、全流程／升级测试、TapTap 上传／审核／马来西亚实际下载均未开始；不能以 Development 包代替 |
 | 8 | 正式收入和到账 | 待获准的真实广告向正常玩家开放后核验。Verified 仅完成收款档案验证，不代表应用获准投放、已有收入或已到账 |
 
@@ -166,7 +166,7 @@ AdMob 已注册，暂时保留；A03 的初始付款资料不是当前 TapTap-on
 ## P2 · 固定正式包身份与签名
 
 - [ ] **I01｜共同，部分完成**：用户提供开发者 Thingamajig（TapTap ID `799998484`）、厂商 Gizmobyte、公开支持邮箱 `wkeongg@gmail.com`；先保留游戏名 Edge Rush，拟定包名 `com.gizmobyte.edgerush`，首次上传前核对实际条目和可用性。
-- [ ] **I02｜我，部分完成**：已同步 `BuildInfo.cs` 与 Player Settings 的拟定包名、厂商名，保留版本 `0.1.0`／code `1`。后续每次商店更新递增 versionCode、同步 BuildInfo 版本与发布记录；隐私地址待实际网站后替换，正式产物仍未验证。
+- [ ] **I02｜我，部分完成**：已同步 `BuildInfo.cs` 与 Player Settings 的拟定包名、厂商名，保留版本 `0.1.0`／code `1`；公开政策URL也已写入BuildInfo。后续商店更新递增versionCode并同步版本与发布记录；正式签名产物仍未验证。
 - [x] **I03｜我**：`EdgeRushSetup.cs` 已保留厂商／名称／包名／版本／versionCode／签名／target SDK，min SDK 只上调；Main 追加而不覆盖原场景列表，缺 Main 且有 Untitled 时明确停止创建，保留用户场景。Unity 插件实跑 70 项保留断言及 13 项独立 Release guard 断言通过，见 [本轮验收](verification-release/2026-11-15-editor-checks.md)。
 - [ ] **I04｜共同**：首次上传前确定跨商店签名：区分 **app signing key**（最终安装包签名）与 **upload key**（Play 上传凭据）。
 - [ ] **I05｜我＋你**：如需 TapTap 与 Play 同包名且可相互覆盖升级，优先准备自己的 app signing key，在 Play App Signing 设置时采用对应方案。若已有 Play 签名配置，先检查实际证书和可用分发包方案，再决定操作。
@@ -267,7 +267,7 @@ AdMob 已注册，暂时保留；A03 的初始付款资料不是当前 TapTap-on
 
 ## P9 · 商店素材、审核与公开发布
 
-- [ ] **S01｜我准备，你确认，部分完成**：[09](09-TapTap上架资料草稿.md) 已准备英文短／长简介、测试说明、首次更新说明留空规则和素材规格。正式图标／封面／截图未制作，视频选填；数量、尺寸与格式在 TapTap 实际后台复核。
+- [ ] **S01｜我准备，你确认，候选已完成**：[09](09-TapTap上架资料草稿.md)英文文案、Notes、首发What's new规则与 [512图标／1920封面](store-assets/README.md)已交付、根代理审图；默认应用图标已导入。后台裁切、Launcher显示和真实Android截图待验，视频选填。
 - [ ] **S02｜我＋你**：从实际候选包录制／截取真实玩法、擦边、车库等已实现内容。离线 art-preview 和含构造数据的验收图不直接冒充真实跑局素材。
 - [ ] **S03｜共同**：核对支持邮箱、网站、隐私链接、发布地区／语言、受众与数据声明一致；素材使用权与SDK清单有记录。
 - [ ] **S04｜共同**：TapTap 创建／完善游戏，上传正式 APK 和资料，先准备可核对版本，再处理提交／发布；收到退审则保存原因、修正并复审。
