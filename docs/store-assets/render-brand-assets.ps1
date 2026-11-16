@@ -4,6 +4,8 @@ Original vector brand illustrations, not screenshots. Uses Windows System.Drawin
 and the installed Arial Bold font; no downloaded assets or dependencies.
 Run from any directory. Outputs stay beside this script.
 #>
+param([switch]$AdaptiveOnly)
+
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName System.Drawing
 $script:Invariant = [Globalization.CultureInfo]::InvariantCulture
@@ -13,10 +15,12 @@ function Color($hex, $alpha = 255) {
     $rgb = [Drawing.ColorTranslator]::FromHtml($hex)
     [Drawing.Color]::FromArgb([int]$alpha, $rgb.R, $rgb.G, $rgb.B)
 }
-function Begin-Art($width, $height, $name, $description) {
+function Begin-Art($width, $height, $name, $description, [bool]$transparent = $false) {
     $script:Name = $name
-    $script:Bitmap = New-Object Drawing.Bitmap($width, $height, ([Drawing.Imaging.PixelFormat]::Format24bppRgb))
+    $pixelFormat=if($transparent){[Drawing.Imaging.PixelFormat]::Format32bppArgb}else{[Drawing.Imaging.PixelFormat]::Format24bppRgb}
+    $script:Bitmap = New-Object Drawing.Bitmap($width, $height, $pixelFormat)
     $script:G = [Drawing.Graphics]::FromImage($script:Bitmap)
+    if($transparent){$script:G.Clear([Drawing.Color]::Transparent)}
     $script:G.SmoothingMode = [Drawing.Drawing2D.SmoothingMode]::AntiAlias
     $script:G.PixelOffsetMode = [Drawing.Drawing2D.PixelOffsetMode]::HighQuality
     $script:Svg = New-Object 'Collections.Generic.List[string]'
@@ -135,6 +139,7 @@ function End-Art {
     Write-Output $png
 }
 
+if (-not $AdaptiveOnly) {
 Begin-Art 512 512 'icon-512' 'Original opaque brand icon: a cyan car on a dark three-lane neon road; no game interface.'
 GradientBackground 512 512 '#070914' '#15102B'
 Polygon @(82,0, 429,0, 478,512, 31,512) '#1B1E2A'
@@ -178,4 +183,21 @@ Car 1387 731 1.44
 TextOutline 'EDGE' 146 278 210 '#EEF6FF'
 TextOutline 'RUSH' 139 477 234 '#40E8FF'
 Line @(157,781,769,781) '#40E8FF' 4 160
+End-Art
+}
+
+# Adaptive layers share the original geometry. Main car plus outermost shadow
+# occupies a centred 288-pixel-high box inside the requested central 300 square.
+Begin-Art 512 512 'adaptive-foreground-512' 'Transparent adaptive foreground layer: original cyan car, local wheels and shadow only, inside the central safe region.' $true
+Car 256 241.6 0.9
+End-Art
+
+Begin-Art 512 512 'adaptive-background-512' 'Opaque adaptive background layer: original dark three-lane neon road only, without car or text.'
+GradientBackground 512 512 '#070914' '#15102B'
+Polygon @(82,0, 429,0, 478,512, 31,512) '#1B1E2A'
+Line @(82,0,31,512) '#40E8FF' 4 160
+Line @(429,0,478,512) '#FF48AA' 4 180
+Line @(194,0,178,512) '#277F99' 3 210
+Line @(318,0,334,512) '#277F99' 3 210
+foreach($y in @(25,104,183,262,341,420)) { Line @(190,$y,188,($y+30)) '#66D5E8' 4 115; Line @(322,$y,324,($y+30)) '#66D5E8' 4 115 }
 End-Art

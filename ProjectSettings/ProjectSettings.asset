@@ -309,32 +309,44 @@ PlayerSettings:
   m_BuildTargetPlatformIcons:
   - m_BuildTarget: Android
     m_Icons:
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: f87c67457c3111e439d9368518258e4f, type: 3}
+      - {fileID: 2800000, guid: 7fab65e2f0bb0194aaade103968ba6c2, type: 3}
       m_Width: 432
       m_Height: 432
       m_Kind: 2
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: f87c67457c3111e439d9368518258e4f, type: 3}
+      - {fileID: 2800000, guid: 7fab65e2f0bb0194aaade103968ba6c2, type: 3}
       m_Width: 324
       m_Height: 324
       m_Kind: 2
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: f87c67457c3111e439d9368518258e4f, type: 3}
+      - {fileID: 2800000, guid: 7fab65e2f0bb0194aaade103968ba6c2, type: 3}
       m_Width: 216
       m_Height: 216
       m_Kind: 2
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: f87c67457c3111e439d9368518258e4f, type: 3}
+      - {fileID: 2800000, guid: 7fab65e2f0bb0194aaade103968ba6c2, type: 3}
       m_Width: 162
       m_Height: 162
       m_Kind: 2
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: f87c67457c3111e439d9368518258e4f, type: 3}
+      - {fileID: 2800000, guid: 7fab65e2f0bb0194aaade103968ba6c2, type: 3}
       m_Width: 108
       m_Height: 108
       m_Kind: 2
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: f87c67457c3111e439d9368518258e4f, type: 3}
+      - {fileID: 2800000, guid: 7fab65e2f0bb0194aaade103968ba6c2, type: 3}
       m_Width: 81
       m_Height: 81
       m_Kind: 2

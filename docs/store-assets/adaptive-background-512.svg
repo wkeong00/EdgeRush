@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+<title id="title">Edge Rush</title><desc id="desc">Opaque adaptive background layer: original dark three-lane neon road only, without car or text.</desc>
+<defs><linearGradient id="gradient1" x2="0" y2="1"><stop stop-color="#070914"/><stop offset="1" stop-color="#15102B"/></linearGradient></defs><rect width="512" height="512" fill="url(#gradient1)"/>
+<polygon points="82,0 429,0 478,512 31,512" fill="#1B1E2A" fill-opacity="1"/>
+<polyline points="82,0 31,512" fill="none" stroke="#40E8FF" stroke-width="4" stroke-opacity="0.627" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="429,0 478,512" fill="none" stroke="#FF48AA" stroke-width="4" stroke-opacity="0.706" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="194,0 178,512" fill="none" stroke="#277F99" stroke-width="3" stroke-opacity="0.824" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="318,0 334,512" fill="none" stroke="#277F99" stroke-width="3" stroke-opacity="0.824" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="190,25 188,55" fill="none" stroke="#66D5E8" stroke-width="4" stroke-opacity="0.451" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="322,25 324,55" fill="none" stroke="#66D5E8" stroke-width="4" stroke-opacity="0.451" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="190,104 188,134" fill="none" stroke="#66D5E8" stroke-width="4" stroke-opacity="0.451" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="322,104 324,134" fill="none" stroke="#66D5E8" stroke-width="4" stroke-opacity="0.451" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="190,183 188,213" fill="none" stroke="#66D5E8" stroke-width="4" stroke-opacity="0.451" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="322,183 324,213" fill="none" stroke="#66D5E8" stroke-width="4" stroke-opacity="0.451" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="190,262 188,292" fill="none" stroke="#66D5E8" stroke-width="4" stroke-opacity="0.451" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="322,262 324,292" fill="none" stroke="#66D5E8" stroke-width="4" stroke-opacity="0.451" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="190,341 188,371" fill="none" stroke="#66D5E8" stroke-width="4" stroke-opacity="0.451" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="322,341 324,371" fill="none" stroke="#66D5E8" stroke-width="4" stroke-opacity="0.451" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="190,420 188,450" fill="none" stroke="#66D5E8" stroke-width="4" stroke-opacity="0.451" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="322,420 324,450" fill="none" stroke="#66D5E8" stroke-width="4" stroke-opacity="0.451" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
