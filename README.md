@@ -4,6 +4,8 @@
 
 当前按 [上线与盈利执行清单](docs/07-TapTap国际版上线与广告盈利执行清单.md) 推进。用户选择先只发 TapTap；正在 [核实 Unity Ads 直连等候选](docs/08-TapTap-only广告路线核实.md)，尚未接入真实广告或完成正式发布。开发者 Thingamajig，厂商 Gizmobyte；`com.gizmobyte.edgerush` 为首次上传前待核对的拟定包名。
 
+2026-11-16：首个 ARM64 Android Development APK 构建成功，包身份及 Debug 签名已核验；[产物记录](docs/verification-release/2026-11-16-android-dev-build.md) 列出未安装、未做真机和真实广告验收。Unity 收款档案已 Verified；英文 [商店资料](docs/09-TapTap上架资料草稿.md) 和 [开发者网站](docs/site/README.md) 已准备。该开发包不能作为 TapTap 正式发布包。
+
 本项目是**可运行的 Unity 工程**，代码、界面、美术、音效全部在运行时由 C# 生成——没有外部素材、没有需要手工摆放的场景、没有 prefab。
 
 ---

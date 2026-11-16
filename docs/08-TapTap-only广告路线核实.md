@@ -2,7 +2,7 @@
 
 > 核查日期：2026-11-15（Asia/Singapore）
 >
-> 状态：Cloud 项目已关联；用户已在 Monetization 添加 Android 应用并取得 Game ID。新版后台竞价／直连接法、正式投放与付款资格仍未完成核实。未安装新广告 SDK，未发送下方询问信。
+> 状态（2026-11-16 更新）：Cloud 项目、Android 应用和激励竞价位已创建；付款档案已 Verified。用户已确认成功提交支持询问，等待回信。新版竞价位实际接法及 TapTap-only 正式投放资格仍未确认，真实广告 SDK 未安装。
 
 ## 1. 已确认的范围
 
@@ -15,7 +15,7 @@
 - AdMob：已注册，初始付款资料未完；账号保留，当前路线暂不继续其专属接入。
 - Unity Monetization：用户已添加 **Edge Rush／Android**，关联项目 **EdgeRush**；详情截图显示 **Game ID `800438692`**，Store ID 为“未设置”。Game ID 不是 Cloud 项目 UUID、商店 ID 或广告位 ID。
 - 激励广告位：用户已创建 **`BP_Rewarded_Android`**，完成弹窗显示 Placements created successfully，格式为 Rewarded；当前只见一个广告位。Stats API Key 显示 Not set，不保存任何统计密钥。尚未取得测试模式或实际广告请求证据。
-- 付款状态：用户已在官方页面完成前端向导，最新截图到 **Done／You are all set**；背景仍提示 **Payouts are on hold／The tax forms have yet to be received**。需要关闭弹窗并刷新，核对最终税表接收／审核和暂扣状态；不把向导完成当作已可付款。
+- 付款状态：最新 Payment Info 截图明确显示 **Payout profile: Verified**，先前税表未收到／付款暂扣红条已不再显示。付款档案验证完成；不把它扩大为广告应用批准、达到付款条件或款项到账。
 
 ## 2. 当前选择：优先验证 Unity Ads 直连
 
@@ -64,15 +64,15 @@ Mintegral 和 TopOn ADX 的通用条款都存在低于 US$1,000 默认累积、�
 - [x] 用户在新版后台仅选择 Rewarded，成功创建 `BP_Rewarded_Android`；截图有明确创建成功提示。此项仅表示后台配置完成，不表示 SDK 已接通或可获正式广告。
 - [ ] 核实本账号新建广告位支持的实际接入方式；新版文档的 bidding-only／mediated-only 与传统独立直连说明需澄清，不能混用 ID 或 SDK API。
 - [ ] 明确确认 `taptap.io`-only APK 的正式 rewarded 广告资格、缺 Store ID 的正确配置和审核材料。
-- [ ] 明确马来西亚个人付款支持、实际付款方式、最低额、费用、周期、身份／税务要求；只记录状态，不保存银行资料。
+- [x] 本账户的马来西亚个人收款档案已通过验证，实际提供方式与费用已核对；付款周期与具体结算条件在首次真实收入后按当时后台复核，不保存银行资料。
 - [x] 用户自行完成付款档案前端填报，截图显示四步向导到 Done。Malaysia／MYR／Local Bank Transfer 选项及门槛 USD100、交易费 USD5、另有 FX fee 已有页面证据；不保存银行卡、身份证、税号、出生日期或签名。
-- [ ] 付款暂扣解除／税表已收到或接受仍未核实；最新截图背景显示税表尚未收到，不能推定同步中、审核中、已拒绝或已通过，先刷新并查看具体状态。
+- [x] 最新截图显示 Payout profile: Verified，原税表未收到／付款暂扣提示不再显示。仅确认后台当前状态；不另推断尚未展示的内部税表审核细节。
 - [ ] 固定正式包名与应用条目，创建 Game ID／所需 rewarded 广告位，强制开发设备使用测试模式。
 - [ ] 改写执行清单 P4／P5／P10／P12 为实际 Unity Ads 流程；以该 SDK 的隐私要求替代 Google UMP 假设。
 - [ ] 接入并锁定真实 SDK、替换 Provider 及发布配置校验，完成可靠奖励、隐私与 Android 真机检查。
 - [ ] TapTap 公开下载并满足平台要求后，再向正常玩家开放正式广告，核验有效曝光、收入与实际付款。
 
-没有公开条文明确回答的资格问题，先在官方后台核对，再由用户发送下方问题或授权我代发。当前不发送邮件／工单，不上传项目或账户资料。
+没有公开条文明确回答的资格问题，先在官方后台核对。用户现已确认自行成功提交 [10 的具体支持询问](10-Unity广告接入支持询问.md)；依据为用户报告，尚无工单号／官方答复。等待回信，不重复发送，也不上传代码、日志、身份证明或付款资料。
 
 Cloud 创建请求采用 `coppa:unspecified`；服务端复查实际返回 `coppa:not_compliant`、`kidsStoreCompliance:false`，数据收集／共享推荐值为 unspecified。这里如实保留字段差异，不把 Cloud 字段当作已经完成广告平台的成年／儿童受众、隐私或同意配置；进入 Monetization 后还要核对。
 
@@ -82,11 +82,15 @@ Cloud 创建请求采用 `coppa:unspecified`；服务端复查实际返回 `copp
 
 用户先进入 **Go to the payout profile**；也可按官方路径 **Payments → Payment Info → Payout → Set up payout profile**。按实际向导核对手机号两步验证、地址、付款方式和适用税务表单；税表不明确时使用后台的 Tax Form Questionnaire，不凭国籍猜测税务身份。实际姓名／地址／银行资料和验证码由用户直接在官方后台处理，本文件只记完成／待审／待办状态。[完成付款资料](https://docs.unity.com/en-us/monetization/payments/complete-payout-profile)。
 
-本次向导已走到 Done；后续以刷新后的 Payment Info／Tax Forms 实际状态为准。若出现缺件、Invalid／Rejected 或其他原因，按该提示处理；若为 Submitted／Pending，则记录等待而不是反复重新提交。暂扣消失和资料接受也不替代实际收入、达到结算条件及银行到账验收。
+最新 Payment Info 已显示 Verified，无需再次填写向导。未来若重新出现缺件、Invalid／Rejected 或其他原因，按该提示处理；若为 Submitted／Pending，则记录等待而不是反复重新提交。Verified 也不替代实际收入、达到结算条件及银行到账验收。
 
-付款档案使用的二次验证与 Unity 登录的二次验证不同；已登录或有 Organization Owner 身份不等于该验证已完成。当前尚未确认马来西亚账户实际提供哪些收款方式、门槛与费用。[付款说明](https://docs.unity.com/en-us/monetization/payments/intro-to-monetization-payments)。
+付款档案使用的二次验证与 Unity 登录的二次验证不同；已登录或有 Organization Owner 身份不等于该验证已完成。本账户实际页面已提供 Malaysia／MYR／Local Bank Transfer，最低付款门槛 USD100、交易费 USD5、另有 FX fee；后续付款条件以当时后台为准。[付款说明](https://docs.unity.com/en-us/monetization/payments/intro-to-monetization-payments)。
 
-## 5. 给 Unity Ads 支持的问题草稿（未发送）
+## 5. 支持询问状态与历史草稿
+
+**当前询问内容与回复记录以 [10-Unity广告接入支持询问](10-Unity广告接入支持询问.md) 为准。** 用户已确认自行成功提交，工单号与正式答复尚未提供；不重复发送。提交完成不是广告接入方式或正式资格已获批准。
+
+以下六问为早先研究阶段的历史版本，保留供追溯，**不再直接复制发送**；付款档案目前已 Verified，当前稿聚焦新版 SDK／竞价位及 TapTap-only 正式资格。
 
 官方入口：[Unity Ads Support](https://support-ads.unity.com/s/)。
 

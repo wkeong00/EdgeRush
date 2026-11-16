@@ -42,3 +42,27 @@ This is not the Unity asset/package pipeline: it does not import assets, execute
 These offline modes define `UNITY_STANDALONE_WIN`; they do **not** define `UNITY_ANDROID`, `UNITY_IOS` or `EDGERUSH_ADMOB`. Consequently, a successful check does not compile or validate the conditional Google Mobile Ads adapter, Android-specific haptics, UMP, Gradle dependencies, Android manifests, native libraries, API targets, signing, or actual ad callbacks. The SDK-free fallback and Mock paths must not be reported as production SDK validation.
 
 After choosing and installing the real SDK, lock its compatible version and dependencies, configure the correct App ID and enabled unit IDs, and enable the provider's define in the actual Unity target configuration. Then compile/build the Android target with the pinned Unity editor, verify the production pre-build guard, and test privacy, rewarded events, lifecycle and audio on physical Android devices using test ads. Record those results separately from these offline checks. This tool deliberately does not install SDKs, change provider defines or alter release identities/signatures.
+
+## Preparing a new Android release signing key
+
+`new-android-signing-key.ps1` is an interactive local helper for a **new** release signing key. Before using it, confirm that Edge Rush has no previously used release signing key that must be retained. A search of the workspace and common Android directories found no key; that does not prove there is no old key elsewhere. Do not replace an existing published app's signing key with this helper.
+
+Read-only preflight, from this repository root:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\new-android-signing-key.ps1 -ValidateOnly
+```
+
+After confirming a new key is appropriate, run the same command without `-ValidateOnly` **yourself in a local terminal**. Type the requested confirmation, then enter a new password twice using the hidden prompts. Do not paste the password into chat or a command argument. The script defaults to `UserSettings/Signing/edgerush-release.keystore`, alias `edgerush`, PKCS12, RSA 4096, and 10,000 days. `-KeySize 2048` is also supported. The certificate uses only the already public publisher label `CN=Gizmobyte, O=Gizmobyte, C=MY`; this is not a company-registration verification.
+
+`-ExecutionPolicy Bypass` above is limited to that new PowerShell process so this reviewed local helper can run; it does not change the saved user or machine execution policy. Do not run `Set-ExecutionPolicy` or relax a managed policy to use this helper.
+
+The script uses the pinned Editor's Android OpenJDK; pass `-UnityDataPath` only if that Editor is installed elsewhere. `-FileName` accepts a filename, not an arbitrary path. Existing files, signing-path junctions/symbolic links, paths outside `UserSettings/Signing`, and outputs not ignored by Git are refused. Preflight does not create directories, generate keys, or prompt for a password.
+
+The password is passed using keytool's `-storepass:env` / `-keypass:env` only in each child process environment. It is not put in process arguments, output, a file, or the machine/user environment. Plaintext necessarily exists briefly in process memory for keytool; the helper disposes secure inputs and clears its unmanaged password buffers afterward. It does not read existing credentials or persist the password. The same password protects the store and key for PKCS12 compatibility.
+
+On success, only the path, alias and public SHA-256 fingerprint are returned. A temporary encrypted keystore is moved to the final filename with an operation that refuses overwrite. If generation or verification fails after writing a temporary key, that uniquely named file is retained for local review, not deleted automatically.
+
+Back up the encrypted keystore and password in separate secure locations and verify a restore locally. Never commit the key or password, send them in chat, or rely on a copy on the same drive as the only backup. This helper does not configure Unity signing, register a package, prove backup recovery, build a signed APK, or complete checklist I06/I07. Public certificate fingerprints may be recorded after actual generation; no new signing key has been generated merely by adding or validating this script.
+
+Reference: [Oracle keytool documentation](https://docs.oracle.com/en/java/javase/17/docs/specs/man/keytool.html) for `-genkeypair`, password environment modifiers, PKCS12 compatibility and certificate listing.

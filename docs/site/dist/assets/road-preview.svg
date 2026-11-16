@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="760" viewBox="0 0 600 760" role="img" aria-labelledby="title desc">
+  <title id="title">Three lanes on a neon highway</title>
+  <desc id="desc">A stylized illustration of a cyan car finding a gap between two amber traffic cars. This is an illustration, not a gameplay screenshot.</desc>
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#163b39"/><stop offset="1" stop-color="#08191d"/></linearGradient>
+    <linearGradient id="road" x2="0" y2="1"><stop stop-color="#17353a"/><stop offset="1" stop-color="#0c2229"/></linearGradient>
+    <linearGradient id="glow" x2="0" y2="1"><stop stop-color="#42ddd2" stop-opacity=".04"/><stop offset="1" stop-color="#42ddd2" stop-opacity=".6"/></linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0v40" fill="none" stroke="#96c9ba" stroke-opacity=".08"/></pattern>
+    <g id="traffic"><rect x="-26" y="-49" width="52" height="98" rx="12" fill="#f1b25f"/><path d="m-19-21 3-17h32l3 17z" fill="#31434b"/><path d="m-19 25 3 13h32l3-13z" fill="#31434b"/><path d="M-24-35h6m30 0h6" stroke="#fff2bb" stroke-width="5"/><path d="M-24 38h8m16 0h8" stroke="#e35751" stroke-width="4"/></g>
+  </defs>
+  <rect width="600" height="760" rx="28" fill="url(#sky)"/>
+  <rect width="600" height="760" rx="28" fill="url(#grid)"/>
+  <circle cx="300" cy="153" r="82" fill="#d5ff70" fill-opacity=".11"/>
+  <circle cx="300" cy="153" r="58" fill="#d5ff70" fill-opacity=".11"/>
+  <g fill="#102c30" stroke="#2f5754" stroke-width="1"><path d="M0 256V140h44v116M42 256V196h34v60M75 256V170h30v86M493 256V181h35v75M525 256V120h39v136M564 256V165h36v91"/></g>
+  <path d="M190 235h220l134 525H56z" fill="url(#road)"/>
+  <path d="m185 235-140 525M415 235l140 525" stroke="#48d9c8" stroke-width="3"/>
+  <path d="m178 235-142 525M422 235l142 525" stroke="#d5ff70" stroke-opacity=".28" stroke-width="2"/>
+  <path d="m264 239-45 521M337 239l45 521" stroke="#bfdcd6" stroke-opacity=".47" stroke-width="3" stroke-dasharray="19 21"/>
+  <path d="m294 435-38 306h86l-38-306z" fill="url(#glow)" opacity=".44"/>
+  <g transform="translate(225 389) scale(.65)"><use href="#traffic"/></g>
+  <g transform="translate(400 493) rotate(-7) scale(.85)"><use href="#traffic"/></g>
+  <g transform="translate(292 601)">
+    <ellipse cy="12" rx="44" ry="67" fill="#4adbd2" fill-opacity=".08"/>
+    <rect x="-29" y="-56" width="58" height="112" rx="14" fill="#50ded6"/>
+    <path d="m-21-22 4-22h34l4 22zM-21 28l4 15h34l4-15z" fill="#153e48"/>
+    <path d="M-26-42h9m17 0h9" stroke="#e0ffed" stroke-width="5"/>
+    <path d="M-27 43h9m18 0h9" stroke="#ef8c6c" stroke-width="4"/>
+    <path d="M-13-12h26v31h-26z" fill="#6df3df"/>
+    <path d="M-18 59v19m36-19v19" stroke="#50ded6" stroke-opacity=".5" stroke-width="4"/>
+  </g>
+  <g fill="none" stroke="#d5ff70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m278 494 22-25 22 25m-22-25v48"/><path d="m285 522 15-17 15 17" opacity=".45"/></g>
+  <g fill="#0e2225" stroke="#40635a"><rect x="28" y="28" width="180" height="38" rx="19"/><rect x="343" y="683" width="229" height="45" rx="22"/></g>
+  <g fill="#d4e5da" font-family="system-ui, sans-serif" font-size="12" letter-spacing="2"><text x="48" y="52">NEON HIGHWAY</text><text x="366" y="711">CONCEPT ILLUSTRATION</text></g>
+  <g stroke="#b5dcd1" stroke-opacity=".35" stroke-width="2"><path d="M87 530v56m-17 51v38m450-94v54m18 50v24"/></g>
+</svg>

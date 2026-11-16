@@ -2,6 +2,8 @@
 
 > 更新：2026-10-28。依据《优化方案 v2.0》纠正旧文档；本轮未登录开发者后台、提交商店审核或验证第三方广告收入。下列步骤是准备与验收清单，不是平台审核保证。
 
+> 2026-11-16：当前顺序与状态见 [07 执行清单](07-TapTap国际版上线与广告盈利执行清单.md)，英文文案、素材规格和缺件见 [09 上架资料](09-TapTap上架资料草稿.md)。已生成内部开发 APK，尚无正式签名包或审核／下载验收。
+
 ## 发行范围与账号
 
 本项目继续以 TapTap 国际版、Android、免费游玩、玩家主动选择激励广告为目标。国际开发者中心使用 [developer.taptap.io](https://developer.taptap.io/)，创建和注册流程参照[国际版游戏创建](https://developer.taptap.io/docs/store/store-creategame/)与[开发者注册说明](https://developer.taptap.io/docs/store/)。实际注册条件、实名或企业资料、服务权限、文件格式和审核进度，以当前官方规则和用户后台为准。
@@ -13,7 +15,7 @@ TapTap 开发者财务权限与第三方广告平台结算属于两条链路。�
 ## 创建游戏与包配置
 
 1. 确认正式英文名、支持联系方式与主体，按后台流程创建游戏。
-2. 确定稳定包名，并同步 `Assets/Scripts/Core/BuildInfo.cs`、Player Settings 与开发者后台。当前 `com.yourstudio.edgerush` 仍是占位值。
+2. 确定稳定包名，并同步 `Assets/Scripts/Core/BuildInfo.cs`、Player Settings 与开发者后台。当前工程及开发 APK 均为拟定值 `com.gizmobyte.edgerush`；首次上传前仍需后台占用与条目核对。
 3. 使用锁定的 Unity `6000.6.7f1` 编译。项目现有 Android 基线为 IL2CPP／ARM64；目标 API、最低 API 与依赖按最终商店和 SDK 要求核对，不沿用旧文档未经核实的未来日期／API 断言。
 4. 准备签名、密钥备份、版本号与递增的 versionCode；确认实际 APK 使用正式配置。调用自动项目配置后重新核对包名、签名和版本，避免示例默认值覆盖发布配置。
 5. 按后台当前要求提交 APK 与资料。文件类型、包大小限制、审核时间和定时发布要求均在提交前复核，不把旧文档数值当作固定规则。

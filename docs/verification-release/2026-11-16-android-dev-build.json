@@ -1,0 +1,199 @@
+{
+  "recordDate": "2026-11-16",
+  "timezone": "Asia/Singapore",
+  "unityEditor": "6000.6.7f1",
+  "sourceHeadAtAudit": "a801db6",
+  "build": {
+    "id": "build_3bb5ab072eb7",
+    "result": "Succeeded",
+    "startedAtUtc": "2026-11-15T16:00:29.918469Z",
+    "endedAtUtc": "2026-11-15T16:07:21.5642201Z",
+    "durationMs": 411645,
+    "errors": 0,
+    "warnings": 17,
+    "warningCounts": {
+      "UAC0009": 3,
+      "UAC1001": 14
+    },
+    "unityReportedTotalSizeBytes": 375253290
+  },
+  "apk": {
+    "path": "Builds/Android/EdgeRush-0.1.0-dev.apk",
+    "bytes": 29318520,
+    "sha256": "F3DDD53435C9CB22DA15BDAB997F35BF0578DB558684761183016E5D9E94FF80",
+    "package": "com.gizmobyte.edgerush",
+    "versionName": "0.1.0",
+    "versionCode": 1,
+    "minSdk": 26,
+    "targetSdk": 36,
+    "compileSdk": 36,
+    "abis": [
+      "arm64-v8a"
+    ],
+    "debuggable": true,
+    "permissions": [
+      "android.permission.INTERNET",
+      "android.permission.VIBRATE",
+      "com.gizmobyte.edgerush.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+    ],
+    "signatureVerified": true,
+    "verifiedSignatureSchemes": [
+      "v2"
+    ],
+    "signerCount": 1,
+    "certificateDn": "C=US, O=Android, CN=Android Debug",
+    "certificateSha256": "e1ead17f5ccead2a2ede797217040f76c568472f5ac0fd979b2dd591e0ef3b32"
+  },
+  "packagedAssemblyManifest": {
+    "entry": "assets/bin/Data/ScriptingAssemblies.json",
+    "assemblyCount": 89,
+    "pipelineAssemblies": [
+      "Unity.Pipeline.Attributes.dll"
+    ],
+    "pipelineMainRuntimePresent": false,
+    "pipelineIlInterpreterPresent": false,
+    "pipelineScenePreviewPresent": false
+  },
+  "metadata": {
+    "mockAdProviderTypeNamePresent": true,
+    "mockAdScreenTypeNamePresent": true
+  },
+  "verificationScope": {
+    "staticArtifactAudit": true,
+    "installedByThisAudit": false,
+    "launchVerified": false,
+    "physicalDeviceVerified": false,
+    "realAdSdkVerified": false,
+    "productionSigningVerified": false,
+    "releaseCandidate": false
+  },
+  "pageSize16KBStaticAudit": {
+    "apkSha256": "F3DDD53435C9CB22DA15BDAB997F35BF0578DB558684761183016E5D9E94FF80",
+    "apkUnchanged": true,
+    "readelfVersion": "18.0.3",
+    "buildTools": "36.0.0",
+    "sharedLibraries": 6,
+    "loadSegmentCount": 22,
+    "allElfLoadAlignmentsAtLeast16K": true,
+    "allRelroStaticChecksPassed": true,
+    "compressedSharedLibraries": 6,
+    "uncompressedSharedLibraries": 0,
+    "zipalignExitCode": 0,
+    "zipalignLastLine": "Verification successful",
+    "libraries": [
+      {
+        "entry": "lib/arm64-v8a/libc++_shared.so",
+        "compression": "deflated",
+        "loadSegments": 4,
+        "loadAlignments": [
+          "0x4000"
+        ],
+        "allLoadAlignmentAtLeast16K": true,
+        "relroChecks": [
+          {
+            "endHex": "0x143000",
+            "end16KAligned": false,
+            "endsWithContainingLoad": true,
+            "passes": true
+          }
+        ],
+        "relroStaticCheckPassed": true
+      },
+      {
+        "entry": "lib/arm64-v8a/libgame.so",
+        "compression": "deflated",
+        "loadSegments": 3,
+        "loadAlignments": [
+          "0x4000"
+        ],
+        "allLoadAlignmentAtLeast16K": true,
+        "relroChecks": [
+          {
+            "endHex": "0x41000",
+            "end16KAligned": false,
+            "endsWithContainingLoad": true,
+            "passes": true
+          }
+        ],
+        "relroStaticCheckPassed": true
+      },
+      {
+        "entry": "lib/arm64-v8a/libil2cpp.so",
+        "compression": "deflated",
+        "loadSegments": 4,
+        "loadAlignments": [
+          "0x4000"
+        ],
+        "allLoadAlignmentAtLeast16K": true,
+        "relroChecks": [
+          {
+            "endHex": "0x1973000",
+            "end16KAligned": false,
+            "endsWithContainingLoad": true,
+            "passes": true
+          }
+        ],
+        "relroStaticCheckPassed": true
+      },
+      {
+        "entry": "lib/arm64-v8a/libmain.so",
+        "compression": "deflated",
+        "loadSegments": 4,
+        "loadAlignments": [
+          "0x4000"
+        ],
+        "allLoadAlignmentAtLeast16K": true,
+        "relroChecks": [
+          {
+            "endHex": "0xa000",
+            "end16KAligned": false,
+            "endsWithContainingLoad": true,
+            "passes": true
+          }
+        ],
+        "relroStaticCheckPassed": true
+      },
+      {
+        "entry": "lib/arm64-v8a/libswappywrapper.so",
+        "compression": "deflated",
+        "loadSegments": 3,
+        "loadAlignments": [
+          "0x4000"
+        ],
+        "allLoadAlignmentAtLeast16K": true,
+        "relroChecks": [
+          {
+            "endHex": "0x39000",
+            "end16KAligned": false,
+            "endsWithContainingLoad": true,
+            "passes": true
+          }
+        ],
+        "relroStaticCheckPassed": true
+      },
+      {
+        "entry": "lib/arm64-v8a/libunity.so",
+        "compression": "deflated",
+        "loadSegments": 4,
+        "loadAlignments": [
+          "0x4000"
+        ],
+        "allLoadAlignmentAtLeast16K": true,
+        "relroChecks": [
+          {
+            "endHex": "0x1786000",
+            "end16KAligned": false,
+            "endsWithContainingLoad": true,
+            "passes": true
+          }
+        ],
+        "relroStaticCheckPassed": true
+      }
+    ],
+    "auditDirectory": "Temp\\AndroidAlignment16K-88aspu_1",
+    "checkDate": "2026-11-16",
+    "scope": "Current SDK-free Development APK; static ELF/RELRO and ZIP checks only",
+    "runtime16KBVerified": false,
+    "source": "https://developer.android.com/guide/practices/page-sizes"
+  }
+}
