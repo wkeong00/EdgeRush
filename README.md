@@ -2,9 +2,9 @@
 
 一款竖屏 3 车道「擦边躲避」超休闲游戏，目标平台 TapTap 国际版（Android），靠激励视频广告变现。
 
-**新电脑／新 agent 先读：[项目现状与跨电脑交接](docs/11-项目现状与跨电脑交接.md)。** 2026-11-22 已生成本机发布密钥，备份／恢复及Unity签名配置仍待；代码、账号、环境、APK、网站、广告阻塞和下一步均在交接文档。签名文件和含密码的本机私密副本不会随 GitHub clone 迁移。
+**新电脑／新 agent 先读：[项目现状与跨电脑交接](docs/11-项目现状与跨电脑交接.md)。** 2026-11-22 用户确认密钥已独立备份，原文件密码／证书核验和Unity签名配置已完成，外部副本恢复与正式APK仍待。[签名核验记录](docs/verification-release/2026-11-22-signing-setup.md)保存公开证据。签名文件和含密码私密副本不会随 GitHub clone 迁移。
 
-当前按 [上线与盈利执行清单](docs/07-TapTap国际版上线与广告盈利执行清单.md) 推进。用户选择先只发 TapTap；正在 [核实 Unity Ads 直连等候选](docs/08-TapTap-only广告路线核实.md)，尚未接入真实广告或完成正式发布。开发者 Thingamajig，厂商 Gizmobyte；`com.gizmobyte.edgerush` 为首次上传前待核对的拟定包名。
+当前按 [上线与盈利执行清单](docs/07-TapTap国际版上线与广告盈利执行清单.md) 推进。用户仍选择先只发 TapTap；[Unity支持工单00945668](docs/10-Unity广告接入支持询问.md)明确该分发方式不支持Unity Ads／LevelPlay正式广告收入，旧直连候选已失效。正在[核实Mintegral候选](docs/12-Mintegral资格核实与询问草稿.md)，尚未取得替代平台资格、接入真实广告或正式发布。开发者Thingamajig，厂商Gizmobyte；`com.gizmobyte.edgerush`首次上传前仍待核对。
 
 2026-11-16：首个 ARM64 Android Development APK 构建成功，包身份及 Debug 签名已核验；[产物记录](docs/verification-release/2026-11-16-android-dev-build.md) 列出未安装、未做真机和真实广告验收。Unity 收款档案已 Verified；英文 [商店资料](docs/09-TapTap上架资料草稿.md) 已准备，[免费开发者网站](https://wkeong00.github.io/EdgeRush/)已公开、工程隐私链接已替换。开发包不能作为 TapTap 正式发布包。
 
@@ -43,7 +43,7 @@
 ## 技术要点
 
 - **引擎**：Unity 6（6000.6.7f1），内置渲染管线（Built-in），不需要 URP。
-- **编辑器控制**：Unity CLI／Pipeline 1.0.0；用于本地开发与检查，未启用云付费构建。正式构建身份、版本与签名单独维护，Apply 不再重置它们。
+- **编辑器控制**：Unity CLI 1.0.1／Pipeline 1.0.0；用于本地开发与检查，未启用云付费构建。正式构建身份、版本与签名单独维护，Apply 不再重置它们。
 - **渲染**：正交相机 + SpriteRenderer + 少量 Mesh 四边形（滚动路面/速度线用贴图 UV 偏移，几乎零开销）。
 - **美术**：`TexCanvas`（SDF 软件光栅器）在启动时画出所有车辆、路障、金币、图标、路面、背景、暗角。约 40 张图，全部程序生成。
 - **音频**：`Synth` 合成 4 层音乐 stem（贝斯/琶音/主旋律/打击）与 9 个音效，无音频文件。可覆盖：把同名 clip 放进 `Assets/Resources/Audio/` 即优先使用。

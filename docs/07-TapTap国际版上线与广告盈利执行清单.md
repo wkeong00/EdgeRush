@@ -2,11 +2,11 @@
 
 > 创建／核查日期：2026-11-15（Asia/Singapore）
 >
-> 文档版本：1.7（2026-11-22 交接盘点）
+> 文档版本：1.8（2026-11-22 签名配置与Unity答复）
 >
-> 当前阶段：Unity 付款档案已有Verified证据；应用与激励竞价位已创建。免费网站已公开，2026-11-22三页重查HTTP200；英文文案、原创图标／封面和最新内部APK静态核验已完成。正式签名密钥已于2026-11-22在本机成功创建，独立备份／恢复、Unity签名配置和正式签名APK尚未完成。安装／真机和真实SDK仍待；Unity支持询问用户已确认提交，本会话尚未收到资格答复。
+> 当前阶段：用户提供Unity Grow Support工单**00945668**答复：新竞价位不能standalone；Unity Ads／LevelPlay正式广告需要Google Play或App Store条目，**当前TapTap-only路线不支持**。用户未改变发行范围；现有账号／ID／Verified付款档案保留。已准备Mintegral资格询问草稿，尚未获单独发送授权或平台批准。原签名密码／证书只读核验及Unity签名配置已完成，用户确认外部备份；外部副本恢复、正式APK、安装／真机和真实SDK仍待。
 >
-> 完整账号、环境、产物、现状与换电脑恢复说明见 [11-项目现状与跨电脑交接](11-项目现状与跨电脑交接.md)。本轮仅整理Markdown，不改代码或继续后台操作。
+> 完整交接见[11](11-项目现状与跨电脑交接.md)，本次签名证据见[2026-11-22核验记录](verification-release/2026-11-22-signing-setup.md)。2026-11-22上一轮只整理MD；用户随后授权按顺序继续，本轮做签名设置、回复记录和替代资格研究，未改玩法代码／安装SDK／构建／发布。
 >
 > 2026-11-15 用户已授权按本清单开始执行。完成状态以勾选及末尾执行记录为准；账号与收款状态仍需实际确认。
 
@@ -60,9 +60,9 @@
 | --- | --- | --- |
 | 1 | Android 测试 APK | **最新包已构建和静态核验**：`Builds/Android/EdgeRush-0.1.0-dev-ready.apk`，37,320,388 bytes，含公开政策与正确Adaptive图标，0错误；包名／版本／API／ARM64／Debug证书通过。仍未安装运行。见 [产物核验](verification-release/2026-11-16-android-dev-build.md) |
 | 2 | 安装和实际操作验收 | 用户最后于2026-11-16确认无 Android 真机，2026-11-22未重问；历史现有 BlueStacks 已启动，尚无安装本APK通过证据。上线前仍需借机或招募真实设备测试者 |
-| 3 | 正式签名与身份 | **本机密钥已创建**：`UserSettings/Signing/edgerush-release.keystore`，alias `edgerush`；用户提供成功输出，2026-11-22核对文件存在。独立备份／恢复尚未确认，Unity尚未配置，正式签名APK和完整公开证书指纹未验收。继续沿用，不能重复新建或覆盖；详见[交接第10节](11-项目现状与跨电脑交接.md) |
+| 3 | 正式签名与身份 | **原密钥核验和Unity配置已完成**，alias `edgerush`；密码可解锁、完整公开证书指纹已取得，用户确认备份到本机以外。外部副本hash／恢复未实测，正式签名APK仍待。继续沿用，不重复生成；见[签名记录](verification-release/2026-11-22-signing-setup.md) |
 | 4 | 公开隐私与支持网站 | **已部署并通过匿名HTTP检查**：[主页](https://wkeong00.github.io/EdgeRush/)／[隐私](https://wkeong00.github.io/EdgeRush/privacy.html)／[支持](https://wkeong00.github.io/EdgeRush/support.html)。工程URL已替换；浏览器视觉QA和真实SDK定稿政策仍待 |
-| 5 | 广告兼容与资格 | Game ID／BP_Rewarded_Android 和付款 Verified 已有证据；真实 Provider／SDK、竞价位用法、TapTap-only 正式流量批准、隐私与奖励回调验收均未完成。支持询问见 [10](10-Unity广告接入支持询问.md) |
+| 5 | 广告兼容与资格 | Unity工单00945668已明确竞价位需聚合、TapTap-only不支持正式收入；**此候选被否定**，不再等原询问或安装该SDK。继续核实[Mintegral候选](12-Mintegral资格核实与询问草稿.md)，尚无替代Provider资格；当前不切Play、不接真实SDK |
 | 6 | 商店图文与游戏条目 | [09](09-TapTap上架资料草稿.md)英文文案与 [图标／封面候选](store-assets/README.md)已完成；默认应用图标已导入，真实Android截图、后台裁切与游戏条目仍未验收 |
 | 7 | 正式包、审核与下载 | 签名候选 APK、全流程／升级测试、TapTap 上传／审核／马来西亚实际下载均未开始；不能以 Development 包代替 |
 | 8 | 正式收入和到账 | 待获准的真实广告向正常玩家开放后核验。Verified 仅完成收款档案验证，不代表应用获准投放、已有收入或已到账 |
@@ -79,7 +79,7 @@
 | --- | --- | --- |
 | A，暂未采用 | 同时上 TapTap 国际版与 Google Play，完成 AdMob 关联／验证／审核 | 只有用户以后重新选择才执行 Play 任务 |
 | B，替代路线 | 用其他实际可用的 AdMob 支持商店，另核入驻与公开发布条件 | 将 Play 专属任务替换为该商店要求，保留同包名／签名、广告审核和收款任务 |
-| C，当前采用 | 先确认一个明确接受此分发方式、主体和收款地区的广告网络 | 优先核实 Unity Ads 直连；满足下方 C 路线门槛后才接入。不能把候选当作正式批准 |
+| C，当前采用 | 先确认一个明确接受此分发方式、主体和收款地区的广告网络 | Unity已明确否定当前TapTap-only条件；先核实Mintegral候选资格，取得适用证据后才接入，不能把API配置或测试成功当批准 |
 
 国内 TapADN／Dirichlet 和国内小游戏广告流程不直接套用于本项目。暂不承诺一个尚未核实的 TapTap-only 替代联盟。
 
@@ -87,7 +87,7 @@
 
 ### 3.1 当前路线 C 的执行顺序（优先于下文 AdMob 分支）
 
-AdMob 已注册，暂时保留；A03 的初始付款资料不是当前 TapTap-only 路线的首要依赖，不必为了继续项目现在添加银行卡。P4、P5 的 Google／UMP 专属内容、P10 的 AdMob readiness、P12 的 Google 付款门槛仅在以后采用 AdMob 时执行，不能套用到 Unity Ads 等平台。
+AdMob 已注册，暂时保留；A03 的初始付款资料不是当前 TapTap-only 路线的首要依赖，不必为了继续项目现在添加银行卡。P4、P5 的 Google／UMP 专属内容、P10 的 AdMob readiness、P12 的 Google 付款门槛仅在以后采用 AdMob 时执行。**Unity工单00945668已否定本项目当前TapTap-only条件下的Unity Ads／LevelPlay正式路线，原“优先验证直连”停止；下一候选资格询问见12，未批准前不安装SDK。**
 
 1. 完成 C00 系列的广告资格核实；并行做 R02／R03、I01、I03 及已有代码备份。
 2. 固定正式包身份和签名，确认 TapTap 游戏条目与账号权限。
@@ -96,11 +96,12 @@ AdMob 已注册，暂时保留；A03 的初始付款资料不是当前 TapTap-on
 5. 构建并真机验收 TapTap APK，准备素材、政策和条目，提交审核并开放下载；本路线不要求 Play AAB 或 Play 闭测。
 6. 按所选平台核验正式投放、真实玩家收入、付款条件和实际到账，再观察净收益。平台未接受流量时不得用测试广告当作变现已完成。
 
-- [ ] **C00a｜我，进行中**：优先核实 Unity Ads 直连是否可用于 TapTap 国际版 APK。官方明确 Store IDs 可选，缺失不阻止展示，但部分广告合作方需要；这构成候选依据，不等于对 TapTap 流量和本账户正式投放的批准。
-- [ ] **C00b｜共同**：核对所选平台的账户／应用审核，必要时向官方支持确认 `taptap.io` 发行、无 Play 条目、马来西亚真实主体是否可产生付费广告与结算。只有后台明确适用或收到明确答复才完成；不发送尚未授权的邮件／工单。
+- [x] **C00a｜我，核实结束、结果不适用**：Unity工单00945668明确当前新竞价位不能standalone，需要LevelPlay等聚合发送ad markup；旧Legacy／4.21说明仅适用于已有placement。此勾选表示问题得到答复，不表示可用直连或获准投放。
+- [x] **C00b｜共同，Unity资格问题已答复、结果不支持**：用户提供的Unity Grow Support截图明确仅TapTap不支持正式广告及收入，需要Play／App Store条目，临时应用和Verified付款不足以替代。详见10；保持TapTap-only选择，另核候选，不重复发原Unity询问。
 - [x] **C00c｜你＋我，收款档案验证完成**：最新 Payment Info 截图显示 **Payout profile: Verified**，此前税表未收到／付款暂扣红条已不再显示。实际后台提供 Malaysia／MYR／Local Bank Transfer，页面所示最低付款门槛 USD100、交易费 USD5，另有 FX fee。此勾选仅表示档案验证，不表示应用正式广告批准、已达到付款条件或实际到账；M2／M3 仍未完成。个人资料不入库。
 - [ ] **C00d｜我**：资格明确后记录最终 Provider／版本／SDK 数据清单，改写 P4／P5／P10／P12 的专属步骤和发布校验，再安装真实 SDK。资格未明确时不继续默认接入 AdMob，也不同时装多个广告聚合平台。
-- [ ] **C00e｜我＋你，进行中**：核对新版 Unity 后台只支持 bidding placements／mediated users 的说明与本账号实际创建选项。不得仅凭已有 Game ID 或能创建竞价位，就把该 ID 传给旧直连加载接口；SDK／Package 版本和投放模式需匹配并取得实际证据。详见路线核实文档的“新版后台接入待核实”。
+- [x] **C00e｜我＋你，接法已澄清**：当前位需聚合；支持建议新项目使用`com.unity.services.levelplay`＋Unity Ads bidder，现有Game ID／位可手动复用，但TapTap-only仍不满足正式条件。保持配置，不安装或错误传入旧直连接口。
+- [ ] **C00f｜共同，新的外部依赖**：核实Mintegral等是否明确接受TapTap.io-only、未上线应用、马来西亚个人和可接受的低额结算；[12](12-Mintegral资格核实与询问草稿.md)已有可审核英文草稿，未获用户单独发送授权、未发送、未获正式资格。
 
 研究证据与未决点见 [仅 TapTap 广告路线核实](08-TapTap-only广告路线核实.md)。Unity 来源：[Store IDs](https://docs.unity.com/en-us/grow/dashboard/get-started/project/settings#store-ids)、[平台支持 FAQ](https://docs.unity.com/en-us/grow/ads/references/faq)。
 
@@ -172,7 +173,7 @@ AdMob 已注册，暂时保留；A03 的初始付款资料不是当前 TapTap-on
 - [x] **I03｜我**：`EdgeRushSetup.cs` 已保留厂商／名称／包名／版本／versionCode／签名／target SDK，min SDK 只上调；Main 追加而不覆盖原场景列表，缺 Main 且有 Untitled 时明确停止创建，保留用户场景。Unity 插件实跑 70 项保留断言及 13 项独立 Release guard 断言通过，见 [本轮验收](verification-release/2026-11-15-editor-checks.md)。
 - [ ] **I04｜共同**：首次上传前确定跨商店签名：区分 **app signing key**（最终安装包签名）与 **upload key**（Play 上传凭据）。
 - [ ] **I05｜我＋你**：如需 TapTap 与 Play 同包名且可相互覆盖升级，优先准备自己的 app signing key，在 Play App Signing 设置时采用对应方案。若已有 Play 签名配置，先检查实际证书和可用分发包方案，再决定操作。
-- [ ] **I06｜你＋我，密钥已创建、备份待确认**：2026-11-22用户成功运行[本地交互工具](../tools/README.md)，生成`UserSettings/Signing/edgerush-release.keystore`，alias `edgerush`；本轮核对4300bytes与加密文件SHA-256，见[完整交接](11-项目现状与跨电脑交接.md)。独立备份／恢复尚未确认，Unity尚未配置，完整公开证书指纹／正式APK未验收，故本项仍不全勾选。沿用现有密钥，不重新生成或覆盖；签名和含密码私密副本不入Git。
+- [ ] **I06｜你＋我，签名配置完成、外部恢复仍待**：已有4300bytes密钥且原文件hash未变；用户确认已备份到本机以外，原文件密码／alias／完整证书指纹已核验。Unity已开启custom keystore、项目相对路径和alias edgerush，当前会话凭据可用，身份保护0问题／Console0错误。外部副本未读取及恢复，正式APK未验收，故整体仍保持部分完成。见[记录](verification-release/2026-11-22-signing-setup.md)。不得重新生成或上传密钥／密码。
 - [ ] **I07｜共同**：核对签名合法性、应用包名占用、目标地区的 Android 开发者验证及包名注册要求；Play 与站外分发按各自路径处理，不直接假定所有 TapTap 安装均被阻断或自动豁免。
 
 多商店同签名需在 Play App Signing 初始配置时考虑，不能把 upload key 当作 Play 最终应用签名。依据：[Android 签名指南](https://developer.android.com/studio/publish/app-signing)、[Android 开发者验证范围](https://developer.android.com/developer-verification/guides)。
@@ -375,17 +376,17 @@ AdMob 已注册，暂时保留；A03 的初始付款资料不是当前 TapTap-on
 | Android 包名 | 拟定 `com.gizmobyte.edgerush` 已同步代码／设置，首次上传前核对 |
 | Unity／SDK 版本 | Unity 6000.6.7f1；实际广告／UMP 版本待 C01 |
 | 网站／隐私／支持邮箱 | https://wkeong00.github.io/EdgeRush/ ／ privacy.html ／ support.html；公开支持邮箱wkeongg@gmail.com；当前内部测试版政策，最终SDK后更新 |
-| Unity 账号与工具 | 历史CLI 1.0.0／项目Pipeline 1.0.0；EdgeRush Cloud已创建关联；应用／竞价位与付款Verified已有截图证据，正式投放资格仍待。账号线索／UUID／Organization core ID见11，不将TapTap显示名当Unity登录凭据 |
-| 广告平台选择 | 优先核实 Unity Ads 直连，C00 未通过；未安装新 SDK |
+| Unity 账号与工具 | CLI已更新1.0.1／项目Pipeline1.0.0，Editor仍6000.6.7f1；Cloud／应用／竞价位／付款Verified配置保留，00945668已否定当前TapTap-only正式路线。账号详情见11 |
+| 广告平台选择 | Unity候选已被否定；Mintegral资格询问草稿已备但未获单独发送授权，尚无已批准真实Provider；不安装SDK、不自行切Play |
 | Unity Monetization 应用 | Edge Rush／Android，关联 EdgeRush；Game ID `800438692`；Store ID 未设置；依据用户后台截图 |
-| Unity 广告位／测试模式 | Rewarded `BP_Rewarded_Android` 已创建；测试模式未核实，先确认新后台 bidding-only 与实际接入方式（C00e） |
+| Unity 广告位／测试模式 | Rewarded `BP_Rewarded_Android`已创建；C00e已澄清需聚合，当前TapTap-only不适用正式收入。测试模式仍未核实，现有配置保留不接SDK |
 | Unity 收款档案 | 最新 Payment Info 显示 Verified，原付款暂扣提示消失；不等于正式投放或到账 |
 | AdMob 账户状态／报告币种 | 已注册，初始付款资料未完；路线 C 暂缓，审核／币种未核实 |
 | Android AdMob App ID | 待 D02 |
 | Rewarded：复活／翻倍 | 待 D03 |
 | Rewarded：每日／皮肤 | 待 R06／D04 决定启用或关闭 |
 | Play／TapTap 商店 URL 与状态 | 待后台核实及 S04～S06 |
-| 应用签名指纹／备份状态 | 本机密钥已生成、alias edgerush；备份／恢复未确认，完整证书指纹和正式签名APK待验；本文件不含密码或私钥 |
+| 应用签名指纹／备份状态 | 原文件密码／完整证书指纹已验，Unity已配置；用户确认外部备份，外部副本恢复及正式APK仍待；公开证据见2026-11-22签名记录 |
 | 公开版本／versionCode／commit | 当前版本 0.1.0／1；正式产物待 B04 |
 | AdMob 应用验证／readiness | 未核实，待 V01～V04 |
 | 首次真实曝光／收入／付款／到账 | 均未验收，分别在 P11／P12 记录 |
@@ -407,8 +408,8 @@ AdMob 已注册，暂时保留；A03 的初始付款资料不是当前 TapTap-on
 ## 8. 开始执行时的首批动作
 
 1. 首个内部 Android APK 已完成构建和静态审计；继续模拟器安装和功能测试，另准备实体设备验收。
-2. 并行完成免费网站、正式签名准备、图文素材和 TapTap 条目核对；已完成的付款 Verified 不重复填报。
-3. [Unity 支持询问](10-Unity广告接入支持询问.md)用户已确认成功提交，等待官方回复；尚无工单号／资格结论，不重复发送，也不把提交视作投放批准。
+2. 网站与签名引用已准备，继续外部备份恢复、图文素材和TapTap条目核对；保留已Verified档案，不重复填报。
+3. [Unity回复00945668](10-Unity广告接入支持询问.md)已明确当前TapTap-only路线不支持正式收入，停止原直连验证；[Mintegral资格草稿](12-Mintegral资格核实与询问草稿.md)待用户单独授权发送，先核适用条件，不重复发Unity询问。
 4. 得到支持的接法后锁定真实 SDK／Provider，改写广告发布校验与政策，完成真实测试广告／奖励／隐私验收。
 5. 正式签名与真机候选包通过后，提交 TapTap 审核、核对实际下载，再核验正式广告收入及实际到账。
 
@@ -444,5 +445,6 @@ AdMob 已注册，暂时保留；A03 的初始付款资料不是当前 TapTap-on
 | 2026-11-16 | 免费站点首次部署成功 | main提交53f1735触发workflow43888961128，completed/success，公开deployment返回实际URL；主页／隐私／支持／CSS／SVG均匿名HTTP200。已替换BuildInfo隐私占位链接 | 重建包含新URL的内部APK；最终SDK政策与浏览器视觉QA另验，商店字段仍未填写 |
 | 2026-11-16 | 原创商店品牌及最新内部APK完成 | 512图标／1920封面／SVG与重现源码已审图；实际APK检查发现通用图标不足后，补齐Android Adaptive六规格12层。source6a4e5e2构建build_f4ef0d5c5eed成功，APK37,320,388bytes，签名／政策字串／图标资源／native与zipalign核验通过，详见产物记录 | 用户完成本地密钥生成与独立备份；安装／真机及SDK资格回复仍待，不提交此Development包 |
 | 2026-11-22 | 签名成功与跨电脑交接盘点 | 用户成功生成正式keystore，本机4300bytes且被Git忽略；独立备份／Unity配置未完成。新增11交接，记录GitHub归属／环境／产物／账号／恢复顺序；三公开页面重查200。含用户指定凭据的完整副本只放忽略的UserSettings/Handoff；未修改游戏代码、构建或推进后台 | 用户下轮要求继续后，先确认签名备份／恢复，再核对TapTap条目、设备和已提交Unity询问的回复 |
+| 2026-11-22 | 原签名核验、Unity配置与官方答复记录 | 用户确认外部备份；keytool原文件密码／证书通过，hash未变；CLI1.0.1、Editor6000.6.7f1，live设置相对路径／alias，身份校验0问题、Console0错误。Unity工单00945668否定TapTap-only正式路线；08／10／11同步，12替代询问已备但未授权发送；未改玩法／接SDK／构建／发布 | 用户授权新的Mintegral资格询问；外部备份恢复、TapTap条目与实体设备仍可独立推进 |
 
 每次推进追加一行：任务 ID、代码 commit／产物／后台状态、实际检查、需你操作事项、外部等待。没有证据的任务继续保持未勾选。

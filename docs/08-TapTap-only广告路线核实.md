@@ -2,7 +2,7 @@
 
 > 核查日期：2026-11-15（Asia/Singapore）
 >
-> 状态（2026-11-16 更新）：Cloud 项目、Android 应用和激励竞价位已创建；付款档案已 Verified。用户已确认成功提交支持询问，等待回信。新版竞价位实际接法及 TapTap-only 正式投放资格仍未确认，真实广告 SDK 未安装。
+> 状态（2026-11-22 更新）：用户提供 Unity Grow Support 工单 **00945668** 的答复截图：当前新竞价位不能 standalone，需 LevelPlay 等聚合平台发送 ad markup；Unity Ads／LevelPlay 正式广告及收入需要 Google Play 或 App Store 条目，**TapTap-only 不受支持**。原先优先验证直连的候选结论已失效，不能继续等回信或安装该路线 SDK。Cloud／Game ID／竞价位与 Verified 付款档案保留；用户尚未授权改变仅 TapTap 发行范围。
 
 ## 1. 已确认的范围
 
@@ -17,34 +17,45 @@
 - 激励广告位：用户已创建 **`BP_Rewarded_Android`**，完成弹窗显示 Placements created successfully，格式为 Rewarded；当前只见一个广告位。Stats API Key 显示 Not set，不保存任何统计密钥。尚未取得测试模式或实际广告请求证据。
 - 付款状态：最新 Payment Info 截图明确显示 **Payout profile: Verified**，先前税表未收到／付款暂扣红条已不再显示。付款档案验证完成；不把它扩大为广告应用批准、达到付款条件或款项到账。
 
-## 2. 当前选择：优先验证 Unity Ads 直连
+## 2. 最新结论：Unity 已否定本项目当前 TapTap-only 路线
 
-Unity Ads 官方明确区分独立广告网络与聚合方案。项目设置文档说明 Store IDs 可选，跳过不阻止展示广告，但部分广告合作方需要这些信息；新后台也提供“尚无商店 URL”流程。因此 **Unity Ads 直连是有官方依据的候选**，无需先假定开发者必须开 Play Console。[流程](https://docs.unity.com/en-us/grow/ads/process-overview)、[Store IDs](https://docs.unity.com/en-us/grow/dashboard/get-started/project/settings#store-ids)、[添加应用](https://docs.unity.com/en-us/monetization/dashboard/add-an-app)。
+2026-11-22 用户提供的邮件截图显示，回复来自 **Unity Grow Support**（不是 TapTap），工单 **00945668**，回复者 **Smiltė**；邮件界面显示 2026-11-17 22:19，时区未独立核实。本轮依据用户截图记录，没有独立认证邮箱／完整邮件头，详细答复与历史询问见 [10](10-Unity广告接入支持询问.md)。
 
-仍需区分以下条件：
+- `BP_Rewarded_Android` 是新竞价位，需要聚合平台在请求中发送 ad markup，普通 standalone load/show 不适用。
+- 新项目支持路径为 LevelPlay Ads Mediation（`com.unity.services.levelplay`）加 Unity Ads bidder；Legacy／4.21.0 直连说明是已有 placements 的说明。
+- **正式投放与收入需要 Google Play 或 Apple App Store 条目；TapTap 不支持，temporary app 只能先设置。** Verified payout profile 只代表收款档案。
+- 现有 Game ID／竞价位可按手动 bidder 配置复用，测试广告仅证明技术集成；LevelPlay 账号审核仍基于已发布应用，没有因此批准当前游戏。
+
+当前先保留已有配置，不重建、不装 Legacy／LevelPlay SDK、不重复发原询问。用户仍选择 TapTap-only；下一步是核实其他平台是否明确接受 **TapTap International-only、马来西亚个人和实际收款**。若无适合路线，再请用户决定是否增加受支持商店，不能静默改成 Google Play。签名备份／恢复、设备和商店身份准备可以独立推进。
+
+### 2.1 历史候选依据（2026-11-15，已被上述答复覆盖）
+
+早期研究发现 Store IDs 可选、添加应用有“尚无商店 URL”流程，因此曾把 Unity Ads 直连列为待验证候选。这些事实**不足以证明新竞价位接法或正式商店资格**；工单00945668已明确当前提案不适用。以下链接和旧观察仅保留溯源，不作为继续该路线的指令。[流程](https://docs.unity.com/en-us/grow/ads/process-overview)、[Store IDs](https://docs.unity.com/en-us/grow/dashboard/get-started/project/settings#store-ids)、[添加应用](https://docs.unity.com/en-us/monetization/dashboard/add-an-app)。
+
+当时记录的未决条件如下；其中接法与商店条件现已由答复澄清：
 
 1. 官方 FAQ 对站外 Android 分发提示：广告收益还依赖玩家设备能够访问 Google Play。这是玩家设备条件，不是开发者先开 Play Console 的要求；TapTap 下载不代表设备自动满足它。[FAQ](https://docs.unity.com/en-us/grow/ads/references/faq)。
-2. 截至核查，没有取得针对本项目 `taptap.io`-only、马来西亚个人收款的明确后台结论或官方答复。能添加应用和显示测试广告均不替代这一步。
-3. 2026-04 起直连可能降低广告表现；官方仍表示继续支持并提供广告填充。首轮先评估是否能合规上线与收款，不据此承诺填充率或收入。[当前说明](https://docs.unity.com/en-us/monetization/getting-started/changelog)。
+2. 截至2026-11-15尚无针对本提案的答复；2026-11-22已收到的截图现明确TapTap-only不满足该路线正式商店条件。
+3. 当时指南称2026-04起直连可能降低表现、仍提供填充；支持现解释这属于已有placements，不能沿用到当前新竞价位。[历史研究来源](https://docs.unity.com/en-us/monetization/getting-started/changelog)。
 4. Unity 支持个人收款，但付款资料、身份／税务、可用方式和费用须按实际账户核对；不能套用 AdMob 的付款门槛。[FAQ](https://docs.unity.com/en-us/grow/ads/references/faq)、[付款概览](https://docs.unity.com/en-us/monetization/payments/intro-to-monetization-payments)、[付款资料](https://docs.unity.com/en-us/monetization/payments/complete-payout-profile)。
 
-### 2.1 新版后台接入待核实（优先解决）
+### 2.2 历史新版后台接入疑点（现已答复）
 
 2026-11-15 跟随用户实际页面核对广告位文档时，发现新版官方文档明确：只能新建 **bidding placements**，无法新建 waterfall placements／ad units；创建说明还写明新版后台当前只支持 mediated users。因此，前面的“Store ID 可选”证据不足以证明本新账号能使用传统独立直连。[广告位总览](https://docs.unity.com/en-us/monetization/dashboard/placements)、[创建说明](https://docs.unity.com/en-us/monetization/dashboard/placements/create-manage-placements)。
 
-当前处理：先查看本账号“广告位 → 创建广告位”的实际可用类型、关联的网络／聚合配置与说明，再核对匹配的 SDK/API。**不直接把新建竞价位 ID 当作旧直连广告单元 ID 使用，也不因为 Game ID 已生成就开始安装传统直连包。** 若必须使用聚合平台，重新核实该平台是否接受 TapTap-only 和马来西亚个人；不默认强行切到 LevelPlay 或 AdMob。
+当时处理是暂缓安装、向官方核对。现已确认**不直接把新竞价位当旧直连广告单元**；支持同时否定当前TapTap-only的LevelPlay正式资格，不能仅把SDK改为聚合就声称已解决发行限制。
 
 用户最新创建结果已给出 `BP_Rewarded_Android`，但弹窗未说明独立直连或所选聚合平台。进一步核对的官方材料存在冲突：Unity 6000.6 手册写 Advertisement Legacy 包从 2026-01-31 起不再支持直连变现，列出的包版本为 4.19.0；当前 Unity C# SDK 4.21.0 指南又写 2026-04-01 起直连表现可能降低、仍提供填充。这不能通过比较版本数字直接消除，4.21 的文档编号也不能当作已验证可装的 UPM 包版本。[6000.6 包手册](https://docs.unity3d.com/6000.6/Documentation/Manual/com.unity.ads.html)、[C# 接入指南](https://docs.unity.com/en-us/ads-unity/4.21.0/sdk-integration)。
 
-据此继续保持 C00e 未完成，需核实账号对应接入说明，必要时由 Unity 明确新应用及该竞价位可采用的正式方式。当前不安装 Legacy 包或把测试广告加载成功作为正式资格证据。已创建的应用及广告位作为现有配置保留，不无故重建。
+该接法疑点现由工单00945668澄清；这表示核实得到了明确答复，**不是原路线已通过上线门槛**。保留已有配置和研究记录，Unity候选在当前TapTap-only范围内停止接入；尚未安装真实广告SDK。
 
 ## 3. 候选比较与取舍
 
 | 候选 | 可证明的事实 | 当前处理 |
 | --- | --- | --- |
 | AdMob | 受支持商店列表不含 TapTap；只在不受支持商店发布的应用无法完成 readiness 审核，广告受限 | 保留账号；不把它当作当前正式变现已解决。[应用设置](https://support.google.com/admob/answer/9989980?hl=en) |
-| Unity Ads 直连 | 无 Store ID 不阻止展示；有无商店 URL 的添加流程 | 优先核实本项目正式广告与马来西亚个人付款资格 |
-| LevelPlay／ironSource | 可以添加临时应用测试；新账户有人工批准流程，Live 流程关联 Play／App Store | 不把 Temp 或测试通过写成正式批准。[账户](https://docs.unity.com/en-us/grow/levelplay/platform/get-started/create-account)、[应用](https://docs.unity.com/en-us/grow/levelplay/platform/get-started/add-app) |
+| Unity Ads 直连 | 工单00945668明确新竞价位不能standalone，旧说明针对已有placements | 当前配置不走直连；不安装Legacy包 |
+| LevelPlay／ironSource | 工单00945668明确正式广告／收入需Play或App Store条目；TapTap不支持、Temp不够production | 当前TapTap-only路线不成立；未授权新增商店，暂不接入。[账户](https://docs.unity.com/en-us/grow/levelplay/platform/get-started/create-account)、[应用](https://docs.unity.com/en-us/grow/levelplay/platform/get-started/add-app) |
 | AppLovin MAX | 官方说明替代商店并非正式支持范围，可手工添加但风险自行承担 | 不优先用于此次需要明确上架／收款路径的首轮验证。[官方说明](https://support.applovin.com/en/max/max-dashboard/ad-units/create-an-ad-unit) |
 | Mintegral | 官方 API 支持未上商店、`other` 商店和 rewarded video | 可作第二候选；仍需确认 `.io` 流量、马来西亚个人与付款。[API](https://cdn-adn-https.rayjump.com/cdn-adn/open_api/MintegralAPI.html) |
 | TopOn | 允许手工添加和测试；API 列 TapTap，但示例为 `.cn`；第三方源各自结算 | 聚合本身不保证广告需求或付款。ADX 需另谈协议，暂不先增加聚合层。[账号／结算](https://help.toponad.net/docs/MfO9IZ)、[API](https://help.toponad.net/docs/App-API-v3) |
@@ -54,7 +65,7 @@ Mintegral 和 TopOn ADX 的通用条款都存在低于 US$1,000 默认累积、�
 ## 4. 依次执行的核验门槛
 
 - [x] 用户确认 TapTap-only、个人、马来西亚、公开开发者资料及首轮试玩范围。
-- [x] 初查主要候选的商店限制，优先选择 Unity Ads 直连继续核实。
+- [x] 初查主要候选的商店限制，曾选择Unity Ads直连核实；现已收到否定当前提案的明确答复，此历史勾选不是路线批准。
 - [x] Unity CLI `auth status` 确认已有 Thingamajig 登录会话，邮箱与用户提供的公开邮箱一致；无需先重复注册。Unity Cloud 组织与 Monetization 权限单独核对。
 - [x] Unity CLI `cloud org` 确认已有 Cloud 组织且账号角色为 Owner；没有新建组织，也没有修改权限。此角色不替代广告应用审核或收款验证。
 - [x] 在该组织只读搜索名称含 Edge 的 Cloud 项目，返回空；没有创建新项目。这个结果不等于已查遍旧 Monetization 后台的所有项目。
@@ -62,17 +73,18 @@ Mintegral 和 TopOn ADX 的通用条款都存在低于 US$1,000 默认累积、�
 - [x] 编辑器用 `--if-saved` 正常关闭（unsaved 为空），重新打开后为 ready；插件读取 `Application.cloudProjectId` 与新项目 ID 一致，厂商和拟定包名保留。
 - [x] 用户能进入 Unity Monetization，并已添加关联 EdgeRush 的 Android 应用 Edge Rush；截图确认 Game ID `800438692`、Store ID 未设置、普通大众／非儿童定向。未保存完整后台截图或个人支付资料到仓库。
 - [x] 用户在新版后台仅选择 Rewarded，成功创建 `BP_Rewarded_Android`；截图有明确创建成功提示。此项仅表示后台配置完成，不表示 SDK 已接通或可获正式广告。
-- [ ] 核实本账号新建广告位支持的实际接入方式；新版文档的 bidding-only／mediated-only 与传统独立直连说明需澄清，不能混用 ID 或 SDK API。
-- [ ] 明确确认 `taptap.io`-only APK 的正式 rewarded 广告资格、缺 Store ID 的正确配置和审核材料。
+- [x] 核实本账号新广告位接法：工单00945668明确需mediator提供ad markup，不能standalone；建议LevelPlay Ads Mediation加UnityAds bidder，版本未指定。
+- [x] 取得本提案商店资格的明确答复：**TapTap-only不受支持**，正式广告／收入需Play或App Store条目。这是核实完成／结论为不符合，不是广告资格通过。
 - [x] 本账户的马来西亚个人收款档案已通过验证，实际提供方式与费用已核对；付款周期与具体结算条件在首次真实收入后按当时后台复核，不保存银行资料。
 - [x] 用户自行完成付款档案前端填报，截图显示四步向导到 Done。Malaysia／MYR／Local Bank Transfer 选项及门槛 USD100、交易费 USD5、另有 FX fee 已有页面证据；不保存银行卡、身份证、税号、出生日期或签名。
 - [x] 最新截图显示 Payout profile: Verified，原税表未收到／付款暂扣提示不再显示。仅确认后台当前状态；不另推断尚未展示的内部税表审核细节。
-- [ ] 固定正式包名与应用条目，创建 Game ID／所需 rewarded 广告位，强制开发设备使用测试模式。
-- [ ] 改写执行清单 P4／P5／P10／P12 为实际 Unity Ads 流程；以该 SDK 的隐私要求替代 Google UMP 假设。
-- [ ] 接入并锁定真实 SDK、替换 Provider 及发布配置校验，完成可靠奖励、隐私与 Android 真机检查。
+- [ ] 固定正式包名与应用条目；Game ID／竞价位已创建并保留，测试模式尚未验证。只有路线成立后才继续该网络的真实接入。
+- [ ] 核实其他广告平台是否接受TapTap国际版-only及马来西亚个人收款；若需要改变发行范围，先由用户决定。
+- [ ] 对最终获准路线改写执行清单和隐私／付款／应用审核步骤；不再默认写成Unity Ads接入。
+- [ ] 路线明确后接入并锁定真实SDK、替换Provider及发布校验，完成可靠奖励、隐私与Android真机检查。
 - [ ] TapTap 公开下载并满足平台要求后，再向正常玩家开放正式广告，核验有效曝光、收入与实际付款。
 
-没有公开条文明确回答的资格问题，先在官方后台核对。用户现已确认自行成功提交 [10 的具体支持询问](10-Unity广告接入支持询问.md)；依据为用户报告，尚无工单号／官方答复。等待回信，不重复发送，也不上传代码、日志、身份证明或付款资料。
+用户已提供 [10 的具体支持询问](10-Unity广告接入支持询问.md)的回复截图，工单00945668；当前接法与商店范围按这份答复执行，不再把“等待回信”列为当前阻塞。不重复发原问题；未被答复的其他平台资格需另找实际适用证据，不能用测试成功代替，也不上传代码、日志、身份证明或付款资料。
 
 Cloud 创建请求采用 `coppa:unspecified`；服务端复查实际返回 `coppa:not_compliant`、`kidsStoreCompliance:false`，数据收集／共享推荐值为 unspecified。这里如实保留字段差异，不把 Cloud 字段当作已经完成广告平台的成年／儿童受众、隐私或同意配置；进入 Monetization 后还要核对。
 
@@ -88,7 +100,7 @@ Cloud 创建请求采用 `coppa:unspecified`；服务端复查实际返回 `copp
 
 ## 5. 支持询问状态与历史草稿
 
-**当前询问内容与回复记录以 [10-Unity广告接入支持询问](10-Unity广告接入支持询问.md) 为准。** 用户已确认自行成功提交，工单号与正式答复尚未提供；不重复发送。提交完成不是广告接入方式或正式资格已获批准。
+**当前询问内容与回复记录以 [10-Unity广告接入支持询问](10-Unity广告接入支持询问.md) 为准。** 用户2026-11-22提供Unity Grow Support工单00945668的回复截图；当前新竞价位需聚合，而TapTap-only正式投放不受支持。不重复发送原询问，不把这份否定性答复写成资格批准。
 
 以下六问为早先研究阶段的历史版本，保留供追溯，**不再直接复制发送**；付款档案目前已 Verified，当前稿聚焦新版 SDK／竞价位及 TapTap-only 正式资格。
 
@@ -132,4 +144,4 @@ Please distinguish test-ad access from approval for live monetization and payout
 Thank you.
 ```
 
-草稿未包含密码、证件、银行账户或真实广告凭据。取得答复后在主清单 C00 记录可核对结论；不将泛泛的“支持 Android”答复视为所有问题已解决。
+草稿未包含密码、证件、银行账户或真实广告凭据。工单00945668的具体答复已记录于10，主清单C00也应同步为“接法已澄清、当前TapTap-only Unity路线不符合”，不能标为投放批准。后续其他平台的泛泛“支持Android”同样不能视为本项目全部资格已解决。
