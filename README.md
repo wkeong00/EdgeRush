@@ -4,7 +4,7 @@
 
 **新电脑／新 agent 先读：[项目现状与跨电脑交接](docs/11-项目现状与跨电脑交接.md)。** 2026-11-22 用户确认密钥已独立备份，原文件密码／证书核验和Unity签名配置已完成，外部副本恢复与正式APK仍待。[签名核验记录](docs/verification-release/2026-11-22-signing-setup.md)保存公开证据。签名文件和含密码私密副本不会随 GitHub clone 迁移。
 
-当前按 [上线与盈利执行清单](docs/07-TapTap国际版上线与广告盈利执行清单.md) 推进。用户仍选择先只发 TapTap；[Unity支持工单00945668](docs/10-Unity广告接入支持询问.md)明确该分发方式不支持Unity Ads／LevelPlay正式广告收入，旧直连候选已失效。正在[核实Mintegral候选](docs/12-Mintegral资格核实与询问草稿.md)，尚未取得替代平台资格、接入真实广告或正式发布。开发者Thingamajig，厂商Gizmobyte；`com.gizmobyte.edgerush`首次上传前仍待核对。
+当前按 [上线与盈利执行清单](docs/07-TapTap国际版上线与广告盈利执行清单.md) 推进。用户仍选择先只发TapTap；[Unity工单00945668](docs/10-Unity广告接入支持询问.md)明确该分发方式不支持Unity Ads／LevelPlay正式广告收入，旧直连候选已失效。[Mintegral资格询问](docs/12-Mintegral资格核实与询问草稿.md)已获用户单独授权并发送，等待适用答复；尚未取得替代资格、接入真实广告或发布。开发者Thingamajig，厂商Gizmobyte；拟定包名`com.gizmobyte.edgerush`首次上传前仍待核对。
 
 2026-11-16：首个 ARM64 Android Development APK 构建成功，包身份及 Debug 签名已核验；[产物记录](docs/verification-release/2026-11-16-android-dev-build.md) 列出未安装、未做真机和真实广告验收。Unity 收款档案已 Verified；英文 [商店资料](docs/09-TapTap上架资料草稿.md) 已准备，[免费开发者网站](https://wkeong00.github.io/EdgeRush/)已公开、工程隐私链接已替换。开发包不能作为 TapTap 正式发布包。
 

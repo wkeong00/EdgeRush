@@ -2,14 +2,14 @@
 
 > 整理／官方网页查核：2026-11-22（Asia/Singapore）。
 >
-> 状态：**仅完成官方资料研究与发送草稿，尚未发送，尚未获得用户对本次 Mintegral 询问的单独发送授权。**
+> 状态：**用户已单独授权，2026-11-22（Asia/Singapore）已通过 Gmail 发送一次，界面实际显示 Message sent／View message。等待资格答复，不要重复发送。**
 >
 > 本文件不表示已经注册 Mintegral、通过应用审批、选定 SDK、获得正式广告填充或取得收入。不要据此安装 SDK 或切换发行路线。
 
 ## 1. 当前决策与需要解决的问题
 
 - 用户当前仍选择仅发行 TapTap International（`taptap.io`），暂不新增 Google Play 或 Apple App Store。
-- Mintegral 是**待询问的第一候选**，不是已成立的正式盈利路线。
+- Mintegral 是**已发出资格询问的第一候选**，不是已成立的正式盈利路线。
 - 优先问清能否使用 Mintegral 的 direct SDK 或自建聚合模式，不依赖 AdMob／LevelPlay。
 - 若只有竞价方式可用，须由官方明确可用的自建聚合／竞价流程及必要权限；不能将“支持激励视频”推断为任意直连接法都获支持。
 - 只有正式资格、具体 SDK／模式、审批与结算条件明确后，才决定技术接入。
@@ -60,16 +60,19 @@ API 里的 `other` 是候选依据，不是 TapTap International 的点名批准
 
 ## 4. 收件人、发送状态与附件
 
-- 预定官方收件人：`developer@mintegral.com`。
+- 实际收件人：`developer@mintegral.com`。
 - 地址来源：[Mintegral 官方联系页](https://www.mintegral.com/en/contact)，Monetization 栏。
 - 当前不抄送其他平台或付款团队；如官方要求，再按实际问题处理。
-- 预定发送方式：用户认可的官方联系渠道或用户邮箱；**尚未选择或执行发送**。
-- 不附 APK、账号后台原件或其他非必要附件；先完成资格询问。
-- 用户此前授权的 Unity 支持询问不自动扩大为向 Mintegral 发送新消息。
+- 实际发送日期／渠道：2026-11-22（Asia/Singapore），Chrome 中的 Gmail；发件人为 `Thingamajig <wkeongg@gmail.com>`。
+- 用户已对这份 Mintegral 收件人及英文草稿**单独明确授权发送**；不依赖之前的 Unity 询问授权。
+- 本次无附件，主题与第5节正文按下方版本发送，没有附 APK 或后台原件。
+- 可见回执：Gmail 先显示 Sending，随后实际显示 **Message sent** 与 **View message**；发送成功界面已被观测。
+- 尚未打开已发送邮件的具体 thread；未取得 message ID、Mintegral 工单号、送达确认或对方回复。界面发送成功不等于收件方已送达、已审阅或批准。
+- **不要重复发送。** 后续在原邮件／原回复中继续，先等待适用资格答复。
 
-## 5. 可直接审核的英文询问草稿
+## 5. 已发送的英文询问正文
 
-以下是具体待发送正文；不代表已经发送。
+以下主题及英文正文已按用户授权于2026-11-22发送；保留作后续回复核对，不是待再次发送的草稿。
 
 ### Subject
 
@@ -114,12 +117,14 @@ Gizmobyte (publisher label; individual developer)
 Public contact: wkeongg@gmail.com
 ```
 
-## 6. 若获准发送，如何记录并判断答复
+## 6. 发送回执与答复判断记录
 
 | 事项 | 当前状态／需取得的结果 |
 | --- | --- |
-| 用户单独发送授权 | **未取得**；先让用户审核本草稿与收件人 |
-| 实际发送日期／渠道／回执 | 未发送；成功后再填写，不把打开表单视作已提交 |
+| 用户单独发送授权 | **已取得**；用户明确批准发送本文件的收件人和草稿 |
+| 实际发送日期／渠道／回执 | **2026-11-22，Chrome Gmail，Thingamajig <wkeongg@gmail.com> → developer@mintegral.com**；实际可见 Message sent／View message，无附件 |
+| message ID／thread／工单号 | 尚未打开已发送具体thread，未取得message ID或Mintegral工单号；不要猜测或重复发送以获取编号 |
+| 送达／回复状态 | 无已取得的对方送达确认或回复；Gmail发送成功不等于商业资格批准 |
 | TapTap.io-only 正式资格 | 待明确答复；通用“支持 Android／其他商店”不够 |
 | 未发布应用审核与正式商店证据 | 待明确接受的资料和时点 |
 | SDK／版本／direct或in-house模式 | 待可执行的准确官方指引，不凭 API 字段自行推断 |
@@ -154,6 +159,6 @@ Public contact: wkeongg@gmail.com
 ## 9. 本轮结束后的下一步
 
 1. 保留现有 TapTap-only 选择，先完成不依赖广告路线的签名恢复、设备和商店准备。
-2. 让用户审核本文件的收件人和英文正文，并取得此次对外发送的单独授权；尚未授权时停留在草稿。
-3. 如用户授权，发送一次并记录实际回执；等适用资格答复，不先接SDK。
+2. 本次询问已获用户单独授权并发送成功，回执见第4／6节；**不要再发送相同询问**。
+3. 等待并核对原邮件的回复；有新工单号或适用条件时补记，资格明确前不先接SDK。若需跟进，在原线程内按用户当前授权处理，不把本次发送扩展成自动反复发信。
 4. 如Mintegral否定或无明确适用答复，再由用户选择第二候选核实或新增Google Play路线。

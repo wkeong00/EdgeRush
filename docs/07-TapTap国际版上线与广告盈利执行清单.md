@@ -4,7 +4,7 @@
 >
 > 文档版本：1.8（2026-11-22 签名配置与Unity答复）
 >
-> 当前阶段：用户提供Unity Grow Support工单**00945668**答复：新竞价位不能standalone；Unity Ads／LevelPlay正式广告需要Google Play或App Store条目，**当前TapTap-only路线不支持**。用户未改变发行范围；现有账号／ID／Verified付款档案保留。已准备Mintegral资格询问草稿，尚未获单独发送授权或平台批准。原签名密码／证书只读核验及Unity签名配置已完成，用户确认外部备份；外部副本恢复、正式APK、安装／真机和真实SDK仍待。
+> 当前阶段：用户提供Unity Grow Support工单**00945668**答复：新竞价位不能standalone；Unity Ads／LevelPlay正式广告需要Google Play或App Store条目，**当前TapTap-only路线不支持**。用户未改变发行范围；现有账号／ID／Verified付款档案保留。Mintegral资格询问已获单独授权并从支持邮箱发送，Gmail显示Message sent，等待适用答复、尚未获批准。原签名密码／证书只读核验及Unity签名配置已完成，用户确认外部备份；外部副本恢复、正式APK、安装／真机和真实SDK仍待。
 >
 > 完整交接见[11](11-项目现状与跨电脑交接.md)，本次签名证据见[2026-11-22核验记录](verification-release/2026-11-22-signing-setup.md)。2026-11-22上一轮只整理MD；用户随后授权按顺序继续，本轮做签名设置、回复记录和替代资格研究，未改玩法代码／安装SDK／构建／发布。
 >
@@ -101,7 +101,7 @@ AdMob 已注册，暂时保留；A03 的初始付款资料不是当前 TapTap-on
 - [x] **C00c｜你＋我，收款档案验证完成**：最新 Payment Info 截图显示 **Payout profile: Verified**，此前税表未收到／付款暂扣红条已不再显示。实际后台提供 Malaysia／MYR／Local Bank Transfer，页面所示最低付款门槛 USD100、交易费 USD5，另有 FX fee。此勾选仅表示档案验证，不表示应用正式广告批准、已达到付款条件或实际到账；M2／M3 仍未完成。个人资料不入库。
 - [ ] **C00d｜我**：资格明确后记录最终 Provider／版本／SDK 数据清单，改写 P4／P5／P10／P12 的专属步骤和发布校验，再安装真实 SDK。资格未明确时不继续默认接入 AdMob，也不同时装多个广告聚合平台。
 - [x] **C00e｜我＋你，接法已澄清**：当前位需聚合；支持建议新项目使用`com.unity.services.levelplay`＋Unity Ads bidder，现有Game ID／位可手动复用，但TapTap-only仍不满足正式条件。保持配置，不安装或错误传入旧直连接口。
-- [ ] **C00f｜共同，新的外部依赖**：核实Mintegral等是否明确接受TapTap.io-only、未上线应用、马来西亚个人和可接受的低额结算；[12](12-Mintegral资格核实与询问草稿.md)已有可审核英文草稿，未获用户单独发送授权、未发送、未获正式资格。
+- [ ] **C00f｜共同，新的外部依赖**：核实Mintegral等是否明确接受TapTap.io-only、未上线应用、马来西亚个人和可接受的低额结算；用户已单独授权[12正文](12-Mintegral资格核实与询问草稿.md)，2026-11-22从`wkeongg@gmail.com`发送给`developer@mintegral.com`，无附件，Gmail显示Message sent。等待适用答复，未获正式资格；不重复发送同一询问。
 
 研究证据与未决点见 [仅 TapTap 广告路线核实](08-TapTap-only广告路线核实.md)。Unity 来源：[Store IDs](https://docs.unity.com/en-us/grow/dashboard/get-started/project/settings#store-ids)、[平台支持 FAQ](https://docs.unity.com/en-us/grow/ads/references/faq)。
 
@@ -377,7 +377,7 @@ AdMob 已注册，暂时保留；A03 的初始付款资料不是当前 TapTap-on
 | Unity／SDK 版本 | Unity 6000.6.7f1；实际广告／UMP 版本待 C01 |
 | 网站／隐私／支持邮箱 | https://wkeong00.github.io/EdgeRush/ ／ privacy.html ／ support.html；公开支持邮箱wkeongg@gmail.com；当前内部测试版政策，最终SDK后更新 |
 | Unity 账号与工具 | CLI已更新1.0.1／项目Pipeline1.0.0，Editor仍6000.6.7f1；Cloud／应用／竞价位／付款Verified配置保留，00945668已否定当前TapTap-only正式路线。账号详情见11 |
-| 广告平台选择 | Unity候选已被否定；Mintegral资格询问草稿已备但未获单独发送授权，尚无已批准真实Provider；不安装SDK、不自行切Play |
+| 广告平台选择 | Unity候选已被否定；Mintegral询问已获授权并发送，等待适用答复，尚无已批准真实Provider；不安装SDK、不自行切Play |
 | Unity Monetization 应用 | Edge Rush／Android，关联 EdgeRush；Game ID `800438692`；Store ID 未设置；依据用户后台截图 |
 | Unity 广告位／测试模式 | Rewarded `BP_Rewarded_Android`已创建；C00e已澄清需聚合，当前TapTap-only不适用正式收入。测试模式仍未核实，现有配置保留不接SDK |
 | Unity 收款档案 | 最新 Payment Info 显示 Verified，原付款暂扣提示消失；不等于正式投放或到账 |
@@ -409,7 +409,7 @@ AdMob 已注册，暂时保留；A03 的初始付款资料不是当前 TapTap-on
 
 1. 首个内部 Android APK 已完成构建和静态审计；继续模拟器安装和功能测试，另准备实体设备验收。
 2. 网站与签名引用已准备，继续外部备份恢复、图文素材和TapTap条目核对；保留已Verified档案，不重复填报。
-3. [Unity回复00945668](10-Unity广告接入支持询问.md)已明确当前TapTap-only路线不支持正式收入，停止原直连验证；[Mintegral资格草稿](12-Mintegral资格核实与询问草稿.md)待用户单独授权发送，先核适用条件，不重复发Unity询问。
+3. [Unity回复00945668](10-Unity广告接入支持询问.md)已明确当前TapTap-only路线不支持正式收入，停止原直连验证；[Mintegral询问](12-Mintegral资格核实与询问草稿.md)已获授权并发送，等待适用答复。两个平台原询问都不重复发送，不因发出邮件就安装SDK。
 4. 得到支持的接法后锁定真实 SDK／Provider，改写广告发布校验与政策，完成真实测试广告／奖励／隐私验收。
 5. 正式签名与真机候选包通过后，提交 TapTap 审核、核对实际下载，再核验正式广告收入及实际到账。
 
@@ -446,5 +446,6 @@ AdMob 已注册，暂时保留；A03 的初始付款资料不是当前 TapTap-on
 | 2026-11-16 | 原创商店品牌及最新内部APK完成 | 512图标／1920封面／SVG与重现源码已审图；实际APK检查发现通用图标不足后，补齐Android Adaptive六规格12层。source6a4e5e2构建build_f4ef0d5c5eed成功，APK37,320,388bytes，签名／政策字串／图标资源／native与zipalign核验通过，详见产物记录 | 用户完成本地密钥生成与独立备份；安装／真机及SDK资格回复仍待，不提交此Development包 |
 | 2026-11-22 | 签名成功与跨电脑交接盘点 | 用户成功生成正式keystore，本机4300bytes且被Git忽略；独立备份／Unity配置未完成。新增11交接，记录GitHub归属／环境／产物／账号／恢复顺序；三公开页面重查200。含用户指定凭据的完整副本只放忽略的UserSettings/Handoff；未修改游戏代码、构建或推进后台 | 用户下轮要求继续后，先确认签名备份／恢复，再核对TapTap条目、设备和已提交Unity询问的回复 |
 | 2026-11-22 | 原签名核验、Unity配置与官方答复记录 | 用户确认外部备份；keytool原文件密码／证书通过，hash未变；CLI1.0.1、Editor6000.6.7f1，live设置相对路径／alias，身份校验0问题、Console0错误。Unity工单00945668否定TapTap-only正式路线；08／10／11同步，12替代询问已备但未授权发送；未改玩法／接SDK／构建／发布 | 用户授权新的Mintegral资格询问；外部备份恢复、TapTap条目与实体设备仍可独立推进 |
+| 2026-11-22 | Mintegral资格询问已授权并发送 | 用户明确批准12英文草稿；Chrome Gmail核对发件账号wkeongg@gmail.com、唯一收件developer@mintegral.com、主题／正文，无附件，Send后观察Sending再到Message sent／View message。未取得工单号、对方送达或正式资格证据；Unity回复同时在该已登录Gmail界面看到同主题／发件人／正文 | 等Mintegral适用答复；签名外部恢复、TapTap条目和实体设备独立继续，不重发或安装SDK |
 
 每次推进追加一行：任务 ID、代码 commit／产物／后台状态、实际检查、需你操作事项、外部等待。没有证据的任务继续保持未勾选。
