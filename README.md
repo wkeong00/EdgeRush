@@ -2,6 +2,8 @@
 
 一款竖屏 3 车道「擦边躲避」超休闲游戏，目标平台 TapTap 国际版（Android），靠激励视频广告变现。
 
+**新电脑／新 agent 先读：[项目现状与跨电脑交接](docs/11-项目现状与跨电脑交接.md)。** 2026-11-22 已生成本机发布密钥，备份／恢复及Unity签名配置仍待；代码、账号、环境、APK、网站、广告阻塞和下一步均在交接文档。签名文件和含密码的本机私密副本不会随 GitHub clone 迁移。
+
 当前按 [上线与盈利执行清单](docs/07-TapTap国际版上线与广告盈利执行清单.md) 推进。用户选择先只发 TapTap；正在 [核实 Unity Ads 直连等候选](docs/08-TapTap-only广告路线核实.md)，尚未接入真实广告或完成正式发布。开发者 Thingamajig，厂商 Gizmobyte；`com.gizmobyte.edgerush` 为首次上传前待核对的拟定包名。
 
 2026-11-16：首个 ARM64 Android Development APK 构建成功，包身份及 Debug 签名已核验；[产物记录](docs/verification-release/2026-11-16-android-dev-build.md) 列出未安装、未做真机和真实广告验收。Unity 收款档案已 Verified；英文 [商店资料](docs/09-TapTap上架资料草稿.md) 已准备，[免费开发者网站](https://wkeong00.github.io/EdgeRush/)已公开、工程隐私链接已替换。开发包不能作为 TapTap 正式发布包。

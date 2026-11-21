@@ -2,9 +2,11 @@
 
 > 创建／核查日期：2026-11-15（Asia/Singapore）
 >
-> 文档版本：1.6（2026-11-16 续接执行）
+> 文档版本：1.7（2026-11-22 交接盘点）
 >
-> 当前阶段：Unity 付款档案已Verified；应用与激励竞价位已创建。免费网站已公开，英文商店文案及原创图标／封面已完成；最新内部APK已含公开政策链接和实际自适应图标，并通过静态产物核验。安装／真机、正式签名和真实SDK仍未完成；Unity支持询问已由用户确认提交，等待资格回复。
+> 当前阶段：Unity 付款档案已有Verified证据；应用与激励竞价位已创建。免费网站已公开，2026-11-22三页重查HTTP200；英文文案、原创图标／封面和最新内部APK静态核验已完成。正式签名密钥已于2026-11-22在本机成功创建，独立备份／恢复、Unity签名配置和正式签名APK尚未完成。安装／真机和真实SDK仍待；Unity支持询问用户已确认提交，本会话尚未收到资格答复。
+>
+> 完整账号、环境、产物、现状与换电脑恢复说明见 [11-项目现状与跨电脑交接](11-项目现状与跨电脑交接.md)。本轮仅整理Markdown，不改代码或继续后台操作。
 >
 > 2026-11-15 用户已授权按本清单开始执行。完成状态以勾选及末尾执行记录为准；账号与收款状态仍需实际确认。
 
@@ -52,13 +54,13 @@
 - [ ] **BASE09｜部分准备**：首个 Android Development APK 已构建并核验（非商店包）；真机、正式签名 APK、真实广告、正式收入和银行到账仍未验收。
 - [x] **BASE10｜已备份**：已有 A/B 成果、清单和编译工具已形成 `e531ce3` 并成功推送 GitHub `main`；后续改动另记提交，不混作基线证据。
 
-### 2.1 当前距离可下载／可变现还缺什么（2026-11-16）
+### 2.1 当前距离可下载／可变现还缺什么（2026-11-22 更新）
 
 | 顺序 | 交付项 | 当前状态与下一步 |
 | --- | --- | --- |
 | 1 | Android 测试 APK | **最新包已构建和静态核验**：`Builds/Android/EdgeRush-0.1.0-dev-ready.apk`，37,320,388 bytes，含公开政策与正确Adaptive图标，0错误；包名／版本／API／ARM64／Debug证书通过。仍未安装运行。见 [产物核验](verification-release/2026-11-16-android-dev-build.md) |
-| 2 | 安装和实际操作验收 | 用户目前无 Android 真机；现有 BlueStacks 已启动，尚未安装 APK。电脑操作控制中断，本轮没有模拟器功能通过证据；上线前仍需借机或招募真实设备测试者 |
-| 3 | 正式签名与身份 | [本地交互签名工具](../tools/README.md)已准备并通过非生成检查；用户需先确认旧密钥，再本机输入密码、生成并独立备份。有限搜索不等于全机无旧密钥，正式签名产物尚未验收 |
+| 2 | 安装和实际操作验收 | 用户最后于2026-11-16确认无 Android 真机，2026-11-22未重问；历史现有 BlueStacks 已启动，尚无安装本APK通过证据。上线前仍需借机或招募真实设备测试者 |
+| 3 | 正式签名与身份 | **本机密钥已创建**：`UserSettings/Signing/edgerush-release.keystore`，alias `edgerush`；用户提供成功输出，2026-11-22核对文件存在。独立备份／恢复尚未确认，Unity尚未配置，正式签名APK和完整公开证书指纹未验收。继续沿用，不能重复新建或覆盖；详见[交接第10节](11-项目现状与跨电脑交接.md) |
 | 4 | 公开隐私与支持网站 | **已部署并通过匿名HTTP检查**：[主页](https://wkeong00.github.io/EdgeRush/)／[隐私](https://wkeong00.github.io/EdgeRush/privacy.html)／[支持](https://wkeong00.github.io/EdgeRush/support.html)。工程URL已替换；浏览器视觉QA和真实SDK定稿政策仍待 |
 | 5 | 广告兼容与资格 | Game ID／BP_Rewarded_Android 和付款 Verified 已有证据；真实 Provider／SDK、竞价位用法、TapTap-only 正式流量批准、隐私与奖励回调验收均未完成。支持询问见 [10](10-Unity广告接入支持询问.md) |
 | 6 | 商店图文与游戏条目 | [09](09-TapTap上架资料草稿.md)英文文案与 [图标／封面候选](store-assets/README.md)已完成；默认应用图标已导入，真实Android截图、后台裁切与游戏条目仍未验收 |
@@ -170,7 +172,7 @@ AdMob 已注册，暂时保留；A03 的初始付款资料不是当前 TapTap-on
 - [x] **I03｜我**：`EdgeRushSetup.cs` 已保留厂商／名称／包名／版本／versionCode／签名／target SDK，min SDK 只上调；Main 追加而不覆盖原场景列表，缺 Main 且有 Untitled 时明确停止创建，保留用户场景。Unity 插件实跑 70 项保留断言及 13 项独立 Release guard 断言通过，见 [本轮验收](verification-release/2026-11-15-editor-checks.md)。
 - [ ] **I04｜共同**：首次上传前确定跨商店签名：区分 **app signing key**（最终安装包签名）与 **upload key**（Play 上传凭据）。
 - [ ] **I05｜我＋你**：如需 TapTap 与 Play 同包名且可相互覆盖升级，优先准备自己的 app signing key，在 Play App Signing 设置时采用对应方案。若已有 Play 签名配置，先检查实际证书和可用分发包方案，再决定操作。
-- [ ] **I06｜你＋我，工具已准备**：若已有正式密钥先核对并沿用，不覆盖。[本地交互工具](../tools/README.md)通过语法、只读预检与拒绝覆盖／越界检查，尚未运行真实生成。无旧密钥时由用户在本机隐藏输入密码、生成并完成独立备份；私钥／密码不入 Git 或聊天，文档只记公开指纹、别名和备份状态。
+- [ ] **I06｜你＋我，密钥已创建、备份待确认**：2026-11-22用户成功运行[本地交互工具](../tools/README.md)，生成`UserSettings/Signing/edgerush-release.keystore`，alias `edgerush`；本轮核对4300bytes与加密文件SHA-256，见[完整交接](11-项目现状与跨电脑交接.md)。独立备份／恢复尚未确认，Unity尚未配置，完整公开证书指纹／正式APK未验收，故本项仍不全勾选。沿用现有密钥，不重新生成或覆盖；签名和含密码私密副本不入Git。
 - [ ] **I07｜共同**：核对签名合法性、应用包名占用、目标地区的 Android 开发者验证及包名注册要求；Play 与站外分发按各自路径处理，不直接假定所有 TapTap 安装均被阻断或自动豁免。
 
 多商店同签名需在 Play App Signing 初始配置时考虑，不能把 upload key 当作 Play 最终应用签名。依据：[Android 签名指南](https://developer.android.com/studio/publish/app-signing)、[Android 开发者验证范围](https://developer.android.com/developer-verification/guides)。
@@ -373,7 +375,7 @@ AdMob 已注册，暂时保留；A03 的初始付款资料不是当前 TapTap-on
 | Android 包名 | 拟定 `com.gizmobyte.edgerush` 已同步代码／设置，首次上传前核对 |
 | Unity／SDK 版本 | Unity 6000.6.7f1；实际广告／UMP 版本待 C01 |
 | 网站／隐私／支持邮箱 | https://wkeong00.github.io/EdgeRush/ ／ privacy.html ／ support.html；公开支持邮箱wkeongg@gmail.com；当前内部测试版政策，最终SDK后更新 |
-| Unity 账号与工具 | CLI 1.0.0／Pipeline 1.0.0；已有Thingamajig会话与Owner组织，已创建EdgeRush Cloud项目；广告后台和付款未核实 |
+| Unity 账号与工具 | 历史CLI 1.0.0／项目Pipeline 1.0.0；EdgeRush Cloud已创建关联；应用／竞价位与付款Verified已有截图证据，正式投放资格仍待。账号线索／UUID／Organization core ID见11，不将TapTap显示名当Unity登录凭据 |
 | 广告平台选择 | 优先核实 Unity Ads 直连，C00 未通过；未安装新 SDK |
 | Unity Monetization 应用 | Edge Rush／Android，关联 EdgeRush；Game ID `800438692`；Store ID 未设置；依据用户后台截图 |
 | Unity 广告位／测试模式 | Rewarded `BP_Rewarded_Android` 已创建；测试模式未核实，先确认新后台 bidding-only 与实际接入方式（C00e） |
@@ -383,7 +385,7 @@ AdMob 已注册，暂时保留；A03 的初始付款资料不是当前 TapTap-on
 | Rewarded：复活／翻倍 | 待 D03 |
 | Rewarded：每日／皮肤 | 待 R06／D04 决定启用或关闭 |
 | Play／TapTap 商店 URL 与状态 | 待后台核实及 S04～S06 |
-| 应用签名指纹／备份状态 | 待 I04～I06；不记录私钥与密码 |
+| 应用签名指纹／备份状态 | 本机密钥已生成、alias edgerush；备份／恢复未确认，完整证书指纹和正式签名APK待验；本文件不含密码或私钥 |
 | 公开版本／versionCode／commit | 当前版本 0.1.0／1；正式产物待 B04 |
 | AdMob 应用验证／readiness | 未核实，待 V01～V04 |
 | 首次真实曝光／收入／付款／到账 | 均未验收，分别在 P11／P12 记录 |
@@ -441,5 +443,6 @@ AdMob 已注册，暂时保留；A03 的初始付款资料不是当前 TapTap-on
 | 2026-11-16 | 签名工具与16KB静态检查完成 | 本地交互helper已验证但未生成key；Dev APK的6库／22LOAD段0x4000对齐，zipalign成功，SHA256未变；无真实16KB设备或正式SDK验收 | 用户本机确认旧key／输入密码／独立备份；正式SDK与候选包后重验 |
 | 2026-11-16 | 免费站点首次部署成功 | main提交53f1735触发workflow43888961128，completed/success，公开deployment返回实际URL；主页／隐私／支持／CSS／SVG均匿名HTTP200。已替换BuildInfo隐私占位链接 | 重建包含新URL的内部APK；最终SDK政策与浏览器视觉QA另验，商店字段仍未填写 |
 | 2026-11-16 | 原创商店品牌及最新内部APK完成 | 512图标／1920封面／SVG与重现源码已审图；实际APK检查发现通用图标不足后，补齐Android Adaptive六规格12层。source6a4e5e2构建build_f4ef0d5c5eed成功，APK37,320,388bytes，签名／政策字串／图标资源／native与zipalign核验通过，详见产物记录 | 用户完成本地密钥生成与独立备份；安装／真机及SDK资格回复仍待，不提交此Development包 |
+| 2026-11-22 | 签名成功与跨电脑交接盘点 | 用户成功生成正式keystore，本机4300bytes且被Git忽略；独立备份／Unity配置未完成。新增11交接，记录GitHub归属／环境／产物／账号／恢复顺序；三公开页面重查200。含用户指定凭据的完整副本只放忽略的UserSettings/Handoff；未修改游戏代码、构建或推进后台 | 用户下轮要求继续后，先确认签名备份／恢复，再核对TapTap条目、设备和已提交Unity询问的回复 |
 
 每次推进追加一行：任务 ID、代码 commit／产物／后台状态、实际检查、需你操作事项、外部等待。没有证据的任务继续保持未勾选。
