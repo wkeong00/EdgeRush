@@ -1,37 +1,48 @@
 # Edge Rush · TapTap 国际版上架资料草稿
 
-> 整理／官方资料核查：2026-11-15（Asia/Singapore）。
+> 版本：1.2；最新后台核对／模拟器初测：2026-11-25（Asia/Singapore）。官方资料初次核查：2026-11-15；本次核对不表示重新查证全部公开规则。
 >
-> 用途：对应 [执行清单 P9](07-TapTap国际版上线与广告盈利执行清单.md) 的文案、字段和素材准备。本次只形成草稿，没有创建商店条目、上传素材、提交审核或发布。
+> 用途：对应 [执行清单 P9](07-TapTap国际版上线与广告盈利执行清单.md) 的文案、字段和素材准备。2026-11-25已进入实际创建表单并填写部分字段，但未保存；项目图标上传未成功，没有游戏ID、已保存草稿、提交审核或发布。
 >
-> 当前路线：先发TapTap国际版Android APK，英文、马来西亚小范围试玩；普通大众、不针对儿童。2026-11-16已完成图标／封面候选、免费网站与内部APK静态核验；真实Android玩法截图／设备验收和正式签名包尚未交付，真实广告SDK未安装。
+> 当前路线：先发TapTap国际版Android APK，英文、马来西亚小范围试玩；普通大众、不针对儿童。图标／封面候选、免费网站与内部APK静态核验已完成；2026-11-22已核验原签名并配置Unity，正式签名包仍未交付。2026-11-25既有Development APK已在一台BlueStacks Pie64完成安装／核心流程／Mock奖励及重启存档初测；实体Android设备验收、正式商店截图、真实广告SDK和适用广告资格仍待。TapTap当前未保存表单保留且图标仍必填，下一步先补实际图标并核对创建动作；见[后台核对](verification-release/2026-11-25-taptap-preflight.md)／[模拟器初测](verification-release/2026-11-25-android-emulator-smoke.md)。
 
 ## 1. 后台回填卡
 
-以下是拟填写值，不代表后台已经保存。字段名称／是否提供独立字段，以 `developer.taptap.io` 当前表单为准。
+以下区分拟填写值与2026-11-25实际表单值；**本次所有表单修改均未保存**。未注明已实际填写的内容仍属本地准备，字段名称／是否提供独立字段以当前表单为准。
 
 | 字段 | 拟填写值 | 状态／回填说明 |
 | --- | --- | --- |
-| Game title | `Edge Rush` | 与工程产品名一致；不加国家、广告词或热门关键词后缀 |
-| Developer／开发者账号 | `Thingamajig` | 用户提供；TapTap ID `799998484`，不是游戏条目 ID |
-| Provider／Publisher／厂商 | `Gizmobyte` | 用户提供，已用于 Player Settings 公司名；确认后台厂商字段绑定正确账号 |
+| Game title | `Edge Rush` | 2026-11-25已填English默认语言中的游戏名，未保存；与工程产品名一致 |
+| Developer／用户账号 | `Thingamajig` | 本次实际看到账号头像名称；用户提供的TapTap用户ID `799998484`，不是厂商ID或游戏ID |
+| Provider／Publisher／厂商 | `Gizmobyte` | 实际后台标题／欢迎信息为Gizmobyte，厂商ID `33864694`；创建表单已选开发商＋发行商，未保存。Player Settings公司名沿用该名称，不据此宣称公司主体或管理员角色 |
 | Support email | `wkeongg@gmail.com` | 用户指定可公开邮箱；填联系字段，不印入封面／截图 |
 | Android package | `com.gizmobyte.edgerush` | 工程拟定值；首次上传前核对后台条目、实际 APK 与可用性，尚未确认占用通过 |
-| Version name／code | `0.1.0`／`1` | 当前源码配置；提交时从最终 APK 回读，不能用此表代替产物核验 |
-| Platform／orientation | Android／Portrait | 当前实现；系统兼容信息按最终 APK 和真机结果回填 |
-| Language | English | 英文游戏文案与英文商店素材；不宣称已有中文或马来文支持 |
-| Region | Malaysia | 首轮拟定区域；未列地区是否仅能关注、是否允许下载，以后台设置与实际访问核验 |
-| Genre／tags | Arcade；Driving／Racing；Single-player | 文案建议；只选后台实际提供且与游戏相符的分类，不宣称多人竞速或车辆模拟 |
+| Version name／code | `0.1.0`／`1` | 当前源码配置；提交时从最终APK回读。表单自动生成的 `v-20261125` 是商店修订标签，不是APK版本或versionCode |
+| Platform／orientation | Android／Portrait | 2026-11-25表单已选Android，未保存；Portrait为当前实现，系统兼容信息按最终APK和真机结果回填 |
+| Language | English | 2026-11-25表单默认语言为English，已填该语言游戏名但未保存；英文About仍为下方本地稿，不宣称已有中文或马来文支持 |
+| Region／distribution status | Malaysia；Coming soon／敬请期待 | 2026-11-25表单仅选Malaysia（1/169），状态为敬请期待，未保存；不是已开放下载或已建立预约页面 |
+| Genre／tags | Arcade／街机；Driving／Racing、Single-player为备选标签 | 2026-11-25已选街机，未保存；其余仅为文案建议，未确认实际标签选项或已填写 |
+| Published on other platforms | No／否 | 2026-11-25表单已选未在其他平台发布，未保存 |
 | Price | Free | 当前免费游玩路线；虚拟金币不是现金奖励 |
 | In-app purchases | 当前未实现真实货币内购 | 最终包再核对；不要把金币买外观当成真钱内购 |
 | Advertising | 待最终 Provider 与 APK 确认 | 当前有激励广告流程代码，正式 SDK／广告资格尚未验证；不能提前把广告版声明填写完毕 |
 | Audience／rating | 普通大众，不针对儿童；年龄分级待实际问卷 | 成年测试者安排不是“18+ 内容”分级依据；不预填未经核实的年龄标签 |
-| Website／privacy policy | [网站](https://wkeong00.github.io/EdgeRush/)／[隐私](https://wkeong00.github.io/EdgeRush/privacy.html)／[支持](https://wkeong00.github.io/EdgeRush/support.html) | 2026-11-16 部署及匿名HTTP访问通过；政策当前为内部Mock测试版，最终SDK接入后必须复核，商店字段尚未回填 |
-| Login／progress | 当前玩法无需账号登录，本机存档 | 不宣称云存档、跨设备同步或在线排行榜；按候选包复核 |
-| Store status／release date | 保持草稿；日期待验收 | 不因资料齐全就选择已开放下载，也不先承诺上线日 |
-| Game page URL／game ID | **待后台实际条目** | 先确认是否已有 Edge Rush 条目；避免重复创建。开发者 ID 不填入此栏 |
+| Website／privacy policy | [网站](https://wkeong00.github.io/EdgeRush/)／[隐私](https://wkeong00.github.io/EdgeRush/privacy.html)／[支持](https://wkeong00.github.io/EdgeRush/support.html) | 2026-11-16部署、2026-11-22匿名HTTP复查通过；本次未重查。政策当前为内部Mock测试版，最终SDK接入后必须复核，商店字段尚未回填 |
+| Login／progress | 当前玩法无需账号登录，本机存档 | 2026-11-25单台模拟器观察到best3／coins80及Daily状态在移除游戏最近任务后重启仍保留；不宣称云存档、跨设备同步或在线排行榜，正式候选包／升级仍待复核 |
+| Store status／release date | 未保存创建表单；日期待验收 | 未点击Save and Submit；没有已保存草稿、审核或发布结果。表单选择敬请期待不等于已创建公开页面 |
+| Game page URL／game ID | **尚无** | 2026-11-25厂商应用列表无游戏卡片、显示创建游戏空态；厂商ID `33864694` 与用户ID `799998484` 均不填入此栏 |
 
-创建后仍需完成资料并提交审核；区域和语言应在条目内明确配置。此稿尚未操作这些步骤。[国际版创建与发布](https://developer.taptap.io/docs/store/store-creategame/)
+创建后仍需完成资料并核对后续审核步骤；区域和语言应在条目内明确配置。目前仅操作未保存表单，未完成创建。[国际版创建与发布](https://developer.taptap.io/docs/store/store-creategame/)
+
+### 1.1 2026-11-25实际后台检查与停留位置
+
+- 用户手动登录IAB后，实际打开[厂商应用列表](https://developer.taptap.io/33864694/all-app)：标题Gizmobyte、头像Thingamajig，欢迎信息为Gizmobyte／ID `33864694`；没有游戏卡片，显示创建游戏空态。
+- 成功进入create-app表单，只证明当前会话可达该表单；未据此确认具名管理员角色、已有游戏管理权限、游戏名或包名可用性。
+- 已填写的未保存值见上表：Gizmobyte开发商＋发行商、街机、其他平台未发布、Android／Malaysia仅1/169／敬请期待、English默认／Edge Rush；平台商店修订为 `v-20261125`。
+- 为替换项目图标而移除表单默认占位图标；受支持文件选择器的上传尝试未成功，最新页面仍提示图标必填。**没有上传成功的项目图标，也未点击Save and Submit。**
+- 保留当前未保存表单，下一步先上传实际[512图标](store-assets/icon-512.png)、核对预览和剩余必填项，再核对创建动作及回读保存结果；在此之前不记录游戏已创建或草稿已保存。
+
+本次证据与操作边界见[后台核对记录](verification-release/2026-11-25-taptap-preflight.md)；没有游戏ID、审核、公开页面或下载结果。
 
 ## 2. 可复制的英文商店文案
 
@@ -109,13 +120,19 @@ Improved daily reward cycling and local reward accounting.
 
 磁铁、护盾、冲刺、慢速道具、在线排行榜等仍不进入本版文案或素材。也不添加“已上线”“稳定 60fps”“零卡顿”“已有玩家留存／收入”等没有对应证据的说法。
 
+### 3.1 2026-11-25模拟器初测对商店资料的影响
+
+既有 `Builds/Android/EdgeRush-0.1.0-dev-ready.apk` 已通过BlueStacks 5.22.167.1006／Pie64侧栏原生APK选择器安装，重算SHA-256为 `DD7E547A128A5EDE0BFBB9D5EE2C2CC162F065BCD9B999D0B63EA8CE89255148`，青色Launcher图标正常。鼠标点击／拖动推进教学后进入倒计时，实际跑局／碰撞结算、重开、暂停恢复、签到、Daily Mock奖励、车库差额和移除游戏最近任务后的存档保持均有观察；没有购买外观。详见[模拟器初测记录](verification-release/2026-11-25-android-emulator-smoke.md)。
+
+Daily覆盖层明确显示TEST AD／Editor Development only；本次只验证本地Mock流程，没有真实广告曝光／收入。只测试一台模拟器，未验实体触摸、性能／温度、后台音频、网络失败、同签名升级或真实SDK；没有改代码或重新构建。**本次未导出正式商店截图**，以下截图缺件与正式候选包要求保留。
+
 ## 4. 官方素材规格与本项目交付表
 
 本表按 **TapTap 国际版**公开文档整理；提交前再对照当前上传控件，不套用中国大陆文档或 Google Play 的尺寸／数量限制。[国际版素材要求](https://developer.taptap.io/docs/store/store-material/)
 
 | 素材 | 官方公开要求／建议 | 本项目拟交付与当前状态 |
 | --- | --- | --- |
-| 商店 Icon | 512×512；JPG／PNG；重点按官方示意留安全区 | **候选已制作**：[icon-512.png](store-assets/icon-512.png)，不透明青色车辆图；已导入Unity默认图标，APK／设备与后台裁切仍待 |
+| 商店 Icon | 512×512；JPG／PNG；重点按官方示意留安全区 | **候选已制作**：[icon-512.png](store-assets/icon-512.png)，不透明青色车辆图；已导入Unity且APK静态资源已验。2026-11-25创建表单上传尝试未成功，页面仍要求图标；设备与后台裁切仍待 |
 | 详情页顶部 Cover | 必填；1920×1080；JPG／PNG；主体／标题在 1760×920 安全区内 | **候选已制作**：[cover-1920x1080.png](store-assets/cover-1920x1080.png)，独立品牌插画，仅Edge Rush标题；主要车与标题边界已核对安全区 |
 | 游戏 Screenshots | 同尺寸 JPG／PNG；官方建议至少 3 张；竖屏推荐 9:16 | **缺件**：拟 5 张真实候选 APK 截图，统一 1080×1920；这属于制作目标，不是官方强制尺寸 |
 | Gameplay video | 可选；MP4；≤1GB、≤60 秒；建议约 20 秒；≥1280×720，建议 1920×1080 | **缺件／可后补**：拟 20 秒真实 Android 录屏剪辑；不生成伪玩法视频 |
@@ -148,23 +165,23 @@ Improved daily reward cycling and local reward accounting.
 | 项目 | 当前状态 | 需要补齐的结果 |
 | --- | --- | --- |
 | 英文文案 | 本稿已准备 | 用户确认语气；与最终候选 APK 逐句核对 |
-| 游戏条目及名称／包名可用性 | 未核实 | 实际条目 ID／URL、正确厂商绑定、首传包名核对 |
-| Icon／Cover | 候选已完成，后台与设备待验 | PNG／对应SVG／可重现源码和来源已交付，根代理审图；Unity默认图标已设，安装包实际图标与后台裁切仍待核对 |
+| 游戏条目及名称／包名可用性 | 厂商空列表和创建表单已核对；尚未创建 | Gizmobyte厂商ID33864694已实际看到；当前表单未保存、无游戏ID／URL，名称／包名可用性及首传仍待核对 |
+| Icon／Cover | 候选已完成；创建表单仍缺图标 | PNG／对应SVG／可重现源码和来源已交付，根代理审图；Unity及内部APK静态图标资源已验，2026-11-25单台BlueStacks的青色Launcher图标已观察。默认占位图标已移除，项目图标上传未成功；后台裁切、实体设备Launcher与遮罩仍待核对 |
 | 真实 Android 截图 | 缺件 | 至少准备官方建议的 3 张，按上表拟拍 5 张；带来源记录 |
 | 真实录屏及视频封面 | 缺件，视频选填 | 若本轮使用视频则一并交付；不因此伪造素材 |
-| 发布 APK | 未交付 | 正式签名、实际包名／版本、安装／升级与真机流程通过，记录产物校验值 |
+| 发布 APK | 正式包未交付；既有Development包已完成模拟器初测 | 正式签名、实际包名／版本、安装／升级与实体设备流程仍须通过，记录产物校验值；单台模拟器Mock初测不代替 |
 | 政策和支持网站 | 已公开；最终SDK政策仍待 | 当前链接已匿名访问通过，工程隐私URL已替换；真实SDK接入后更新数据披露／选择，商店字段仍待回填 |
 | 广告／数据声明 | 未定稿 | Provider、最终 SDK、实际权限／数据／广告范围与政策、后台一致 |
-| 受众／区域／测试状态 | 方向已确认，后台未回填 | Malaysia、English、普通大众且不针对儿童；实际分级问卷和发布状态待填 |
+| 受众／区域／测试状态 | 方向已确认；区域等仅填入未保存表单 | Android、Malaysia仅1/169、English默认、敬请期待已选但未保存；普通大众且不针对儿童为既定方向，TapTap实际分级问卷／受众声明及保存后状态待核对 |
 | 权利记录 | 待整理 | 仅对实际采用的美术、字体、音频、工具输出整理出处／授权依据 |
 | 审核／公开下载 | 尚未进行 | 完整草稿与候选包先可核对，再按授权提交；记录平台反馈和实际下载结果 |
 
 ## 6. 本稿完成后的回填顺序
 
-1. 核对已有 Edge Rush 条目和厂商账号；保留本地草稿，不重复创建页面。
+1. 厂商Gizmobyte的空应用列表和创建入口已于2026-11-25核对；保留当前未保存表单，先补实际项目图标并核对创建动作，再回读游戏ID／保存状态。若会话或页面变化，先重查已有条目，避免重复创建。
 2. 最终 SDK／政策与正式候选包完成后，重新审查广告、受众、权限和数据字段。
-3. 真机完成跑局并拍摄素材，独立制作图标／封面；逐张检查上传效果。
-4. 将确认后的字段和英文文案填入后台草稿；首发 What's new 按当前规则处理。此步尚未执行。
+3. 真机完成跑局并拍摄素材；沿用已有图标／封面候选，逐张检查实际上传效果。
+4. 创建结果确认后，将其余确认字段和英文文案填入后台草稿；已填的创建表单字段仍需回读保存结果，首发What's new按当前规则处理。尚无已保存草稿。
 5. 对照候选 APK、区域／状态、政策链接、素材和版本，再准备提交审核；记录结果，不承诺固定审核时长或开放日期。
 
 ## 7. 本次核查来源

@@ -6,7 +6,7 @@
 
 当前按 [上线与盈利执行清单](docs/07-TapTap国际版上线与广告盈利执行清单.md) 推进。用户仍选择先只发TapTap；[Unity工单00945668](docs/10-Unity广告接入支持询问.md)明确该分发方式不支持Unity Ads／LevelPlay正式广告收入，旧直连候选已失效。[Mintegral资格询问](docs/12-Mintegral资格核实与询问草稿.md)已获用户单独授权并发送，等待适用答复；尚未取得替代资格、接入真实广告或发布。开发者Thingamajig，厂商Gizmobyte；拟定包名`com.gizmobyte.edgerush`首次上传前仍待核对。
 
-2026-11-16：首个 ARM64 Android Development APK 构建成功，包身份及 Debug 签名已核验；[产物记录](docs/verification-release/2026-11-16-android-dev-build.md) 列出未安装、未做真机和真实广告验收。Unity 收款档案已 Verified；英文 [商店资料](docs/09-TapTap上架资料草稿.md) 已准备，[免费开发者网站](https://wkeong00.github.io/EdgeRush/)已公开、工程隐私链接已替换。开发包不能作为 TapTap 正式发布包。
+2026-11-25：最新ARM64 Development APK已在BlueStacks安装并完成基础玩法、Mock奖励与重开存档[初测](docs/verification-release/2026-11-25-android-emulator-smoke.md)；真机、正式签名包、升级和真实广告仍待。TapTap后台已核对Gizmobyte厂商ID33864694及空列表，首个游戏的基础表单已填但图标上传受阻，**尚未保存或取得游戏ID**，见[后台记录](docs/verification-release/2026-11-25-taptap-preflight.md)。Unity收款档案已Verified；[英文商店资料](docs/09-TapTap上架资料草稿.md)与[免费网站](https://wkeong00.github.io/EdgeRush/)可沿用。开发包不能作为正式发布包。
 
 本项目是**可运行的 Unity 工程**，游戏界面、美术、音效在运行时由 C# 生成，没有需要手工摆放的场景或 prefab。应用图标及商店品牌图另由仓库程序绘图生成，源码和PNG／SVG见 [品牌素材](docs/store-assets/README.md)。
 

@@ -1,12 +1,16 @@
 # Edge Rush · TapTap 国际版上线与广告盈利执行清单
 
-> 创建／核查日期：2026-11-15（Asia/Singapore）
+> 创建日期：2026-11-15；最新后台核对：2026-11-25（Asia/Singapore）
 >
-> 文档版本：1.8（2026-11-22 签名配置与Unity答复）
+> 文档版本：1.10（2026-11-25 TapTap后台核对与Android模拟器初测）
 >
-> 当前阶段：用户提供Unity Grow Support工单**00945668**答复：新竞价位不能standalone；Unity Ads／LevelPlay正式广告需要Google Play或App Store条目，**当前TapTap-only路线不支持**。用户未改变发行范围；现有账号／ID／Verified付款档案保留。Mintegral资格询问已获单独授权并从支持邮箱发送，Gmail显示Message sent，等待适用答复、尚未获批准。原签名密码／证书只读核验及Unity签名配置已完成，用户确认外部备份；外部副本恢复、正式APK、安装／真机和真实SDK仍待。
+> 当前阶段：用户提供Unity Grow Support工单**00945668**答复：新竞价位不能standalone；Unity Ads／LevelPlay正式广告需要Google Play或App Store条目，**当前TapTap-only路线不支持**。用户未改变发行范围；现有账号／ID／Verified付款档案保留。Mintegral资格询问已获单独授权并从支持邮箱发送，Gmail显示Message sent，等待适用答复、尚未获批准。原签名密码／证书只读核验及Unity签名配置已完成，用户确认外部备份；外部副本恢复、正式APK、实体真机和真实SDK仍待。
 >
-> 完整交接见[11](11-项目现状与跨电脑交接.md)，本次签名证据见[2026-11-22核验记录](verification-release/2026-11-22-signing-setup.md)。2026-11-22上一轮只整理MD；用户随后授权按顺序继续，本轮做签名设置、回复记录和替代资格研究，未改玩法代码／安装SDK／构建／发布。
+> 2026-11-25实际核对TapTap：用户手动登录后，Gizmobyte厂商后台（ID `33864694`）应用列表为空，创建表单可达；已填首轮字段但**未保存**。默认占位图标已移除，项目图标上传尝试未成功，页面仍要求图标；未点击Save and Submit，没有游戏ID、已保存草稿、审核或发布。保留当前未保存表单，下一步先补图标并核对创建动作。见[本次核对记录](verification-release/2026-11-25-taptap-preflight.md)。
+>
+> 同日已将既有Development APK安装到BlueStacks 5.22.167.1006／Pie64并完成一轮模拟器初测：教学推进、实际跑局／碰撞结算、重开、暂停恢复、签到、Daily Mock奖励、车库显示及移除游戏最近任务后重启存档均有观察证据，青色Launcher图标正常。只测试一台模拟器、鼠标输入；没有实体触摸／性能／升级／真实广告验收，也未导出正式商店截图。见[模拟器初测记录](verification-release/2026-11-25-android-emulator-smoke.md)。
+>
+> 完整交接见[11](11-项目现状与跨电脑交接.md)，签名证据见[2026-11-22核验记录](verification-release/2026-11-22-signing-setup.md)。2026-11-22完成签名设置、回复记录和替代资格研究；2026-11-25推进TapTap后台核对、未保存表单准备及既有APK模拟器初测，未改玩法代码／安装SDK／重新构建／发布。
 >
 > 2026-11-15 用户已授权按本清单开始执行。完成状态以勾选及末尾执行记录为准；账号与收款状态仍需实际确认。
 
@@ -43,7 +47,7 @@
 
 ## 2. 当前基线：哪些已经完成，哪些没有
 
-- [x] **BASE01｜你**：已注册 TapTap 国际版开发者账号，后台为 `developer.taptap.io`；依据为用户确认。具体游戏条目、账号权限与审核状态仍待查看。
+- [x] **BASE01｜你＋我**：已注册 TapTap 国际版开发者账号；2026-11-25用户手动登录后，实际看到[厂商应用列表](https://developer.taptap.io/33864694/all-app)标题Gizmobyte、头像Thingamajig，欢迎信息为Gizmobyte／ID `33864694`。列表无游戏卡片，显示创建游戏空态；可进入创建表单，但没有游戏ID或已保存草稿，也未确认具名管理员角色。
 - [x] **BASE02｜已有工程**：三车道、点击／滑动、擦边连击、金币、暂停、复活、七款车、菜单／车库／签到／任务／设置已加入代码。
 - [x] **BASE03｜历史验收**：2026-10-28（新加坡时间）记录了 92 项基础断言、Editor 流程及 35 张 UI 图。见 [A/B 实施与验收](06-A-B-实施与验收.md) 和 [验收摘要](verification-ab/verification-summary.json)。本次没有重跑。
 - [x] **BASE04｜环境目录**：2026-11-15 只读核对，Unity 6000.6.7f1 的 AndroidPlayer、SDK、NDK、OpenJDK 已存在；不再采用旧打包文档“未装 Android 模块”的结论。目录存在不等于新 SDK 的 Android 构建成功。
@@ -51,19 +55,19 @@
 - [ ] **BASE06｜本路线暂不适用**：用户选择先只发 TapTap；不注册／付费／发布 Google Play，相关任务保留为条件分支。
 - [ ] **BASE07｜未完成**：真实广告 SDK／UMP；当前只有 Mock 和受条件编译保护的 AdMob 适配代码，四个单元 ID 为空。
 - [ ] **BASE08｜部分准备**：已采用 Gizmobyte／拟定包名 `com.gizmobyte.edgerush`；首传前可用性、发布签名和完整商店交付未验收。免费政策／支持网站已公开、工程隐私URL已替换；真实SDK接入后须修订当前内部测试版政策。
-- [ ] **BASE09｜部分准备**：首个 Android Development APK 已构建并核验（非商店包）；真机、正式签名 APK、真实广告、正式收入和银行到账仍未验收。
+- [ ] **BASE09｜部分准备**：既有Android Development APK已构建、静态核验，并于2026-11-25在一台BlueStacks Pie64安装／跑局／Mock奖励和重启存档初测通过（非商店包）；实体真机、正式签名APK、真实广告、正式收入和银行到账仍未验收。见[模拟器记录](verification-release/2026-11-25-android-emulator-smoke.md)。
 - [x] **BASE10｜已备份**：已有 A/B 成果、清单和编译工具已形成 `e531ce3` 并成功推送 GitHub `main`；后续改动另记提交，不混作基线证据。
 
-### 2.1 当前距离可下载／可变现还缺什么（2026-11-22 更新）
+### 2.1 当前距离可下载／可变现还缺什么（2026-11-25 更新）
 
 | 顺序 | 交付项 | 当前状态与下一步 |
 | --- | --- | --- |
-| 1 | Android 测试 APK | **最新包已构建和静态核验**：`Builds/Android/EdgeRush-0.1.0-dev-ready.apk`，37,320,388 bytes，含公开政策与正确Adaptive图标，0错误；包名／版本／API／ARM64／Debug证书通过。仍未安装运行。见 [产物核验](verification-release/2026-11-16-android-dev-build.md) |
-| 2 | 安装和实际操作验收 | 用户最后于2026-11-16确认无 Android 真机，2026-11-22未重问；历史现有 BlueStacks 已启动，尚无安装本APK通过证据。上线前仍需借机或招募真实设备测试者 |
+| 1 | Android 测试 APK | **最新包已构建、静态核验并在一台模拟器安装运行**：`Builds/Android/EdgeRush-0.1.0-dev-ready.apk`，37,320,388 bytes，含公开政策与正确Adaptive图标，0错误；包名／版本／API／ARM64／Debug证书通过。2026-11-25重算hash并使用该文件完成BlueStacks初测，无重新构建。见[产物核验](verification-release/2026-11-16-android-dev-build.md)／[模拟器记录](verification-release/2026-11-25-android-emulator-smoke.md) |
+| 2 | 安装和实际操作验收 | **模拟器初测完成，实体设备仍待**：BlueStacks 5.22.167.1006／Pie64安装、青色图标、教学、两次碰撞结算、重开／暂停恢复、签到＋Daily Mock奖励、车库与重启存档已观察。用户最后于2026-11-16确认无Android真机；上线前仍需借机或招募实体设备测试者，不以鼠标模拟器代替真实触摸／性能／升级测试 |
 | 3 | 正式签名与身份 | **原密钥核验和Unity配置已完成**，alias `edgerush`；密码可解锁、完整公开证书指纹已取得，用户确认备份到本机以外。外部副本hash／恢复未实测，正式签名APK仍待。继续沿用，不重复生成；见[签名记录](verification-release/2026-11-22-signing-setup.md) |
 | 4 | 公开隐私与支持网站 | **已部署并通过匿名HTTP检查**：[主页](https://wkeong00.github.io/EdgeRush/)／[隐私](https://wkeong00.github.io/EdgeRush/privacy.html)／[支持](https://wkeong00.github.io/EdgeRush/support.html)。工程URL已替换；浏览器视觉QA和真实SDK定稿政策仍待 |
 | 5 | 广告兼容与资格 | Unity工单00945668已明确竞价位需聚合、TapTap-only不支持正式收入；**此候选被否定**，不再等原询问或安装该SDK。继续核实[Mintegral候选](12-Mintegral资格核实与询问草稿.md)，尚无替代Provider资格；当前不切Play、不接真实SDK |
-| 6 | 商店图文与游戏条目 | [09](09-TapTap上架资料草稿.md)英文文案与 [图标／封面候选](store-assets/README.md)已完成；默认应用图标已导入，真实Android截图、后台裁切与游戏条目仍未验收 |
+| 6 | 商店图文与游戏条目 | [09](09-TapTap上架资料草稿.md)英文文案与 [图标／封面候选](store-assets/README.md)已完成；2026-11-25核对Gizmobyte应用列表为空，创建表单已填部分字段但未保存。项目图标未上传成功，页面仍要求图标，未点击Save and Submit；真实Android截图、后台裁切和实际游戏条目仍待 |
 | 7 | 正式包、审核与下载 | 签名候选 APK、全流程／升级测试、TapTap 上传／审核／马来西亚实际下载均未开始；不能以 Development 包代替 |
 | 8 | 正式收入和到账 | 待获准的真实广告向正常玩家开放后核验。Verified 仅完成收款档案验证，不代表应用获准投放、已有收入或已到账 |
 
@@ -160,7 +164,7 @@ AdMob 已注册，暂时保留；A03 的初始付款资料不是当前 TapTap-on
 
 ### P1.3 TapTap 账号核对（所有路线）
 
-- [ ] **A10｜共同**：核对 TapTap 国际版账号是否已获准创建／管理游戏，记录已有游戏条目与状态；尚未创建则放入 P2／P9，不将“账号已有”写成“游戏已发布”。
+- [ ] **A10｜共同，后台已核对、创建未完成**：2026-11-25实际进入Gizmobyte厂商后台（ID `33864694`），应用列表无游戏卡片，创建表单可达；此证据不等于具名管理员角色或已存在游戏的管理权限。表单部分填写但未保存、无游戏ID；图标上传未成功，继续P2／P9完成创建并记录结果。见[核对记录](verification-release/2026-11-25-taptap-preflight.md)。
 
 依据：[Play 注册与费用](https://support.google.com/googleplay/android-developer/answer/6112435?hl=en)、[账号资料要求](https://support.google.com/googleplay/android-developer/answer/13628312?hl=en)、[实体设备验证](https://support.google.com/googleplay/android-developer/answer/14316361?hl=en)。
 
@@ -168,7 +172,7 @@ AdMob 已注册，暂时保留；A03 的初始付款资料不是当前 TapTap-on
 
 ## P2 · 固定正式包身份与签名
 
-- [ ] **I01｜共同，部分完成**：用户提供开发者 Thingamajig（TapTap ID `799998484`）、厂商 Gizmobyte、公开支持邮箱 `wkeongg@gmail.com`；先保留游戏名 Edge Rush，拟定包名 `com.gizmobyte.edgerush`，首次上传前核对实际条目和可用性。
+- [ ] **I01｜共同，部分完成**：用户提供Thingamajig（TapTap用户ID `799998484`）、厂商Gizmobyte、公开支持邮箱 `wkeongg@gmail.com`；2026-11-25实际核对厂商ID为 `33864694`，与用户ID及尚不存在的游戏ID分别记录。未保存创建表单已填英文名Edge Rush、厂商类型开发商＋发行商；拟定包名 `com.gizmobyte.edgerush` 尚未完成首传可用性核对，不能以表单可达代替。
 - [ ] **I02｜我，部分完成**：已同步 `BuildInfo.cs` 与 Player Settings 的拟定包名、厂商名，保留版本 `0.1.0`／code `1`；公开政策URL也已写入BuildInfo。后续商店更新递增versionCode并同步版本与发布记录；正式签名产物仍未验证。
 - [x] **I03｜我**：`EdgeRushSetup.cs` 已保留厂商／名称／包名／版本／versionCode／签名／target SDK，min SDK 只上调；Main 追加而不覆盖原场景列表，缺 Main 且有 Untitled 时明确停止创建，保留用户场景。Unity 插件实跑 70 项保留断言及 13 项独立 Release guard 断言通过，见 [本轮验收](verification-release/2026-11-15-editor-checks.md)。
 - [ ] **I04｜共同**：首次上传前确定跨商店签名：区分 **app signing key**（最终安装包签名）与 **upload key**（Play 上传凭据）。
@@ -237,6 +241,7 @@ AdMob 已注册，暂时保留；A03 的初始付款资料不是当前 TapTap-on
 ## P7 · 正式构建与 Android 真机验收
 
 - [x] **B00｜我，首个开发包**：Unity 6000.6.7f1 插件首次 Android 构建成功，0 错误、17 条已分类警告；实际 APK、包身份、ARM64／API、Debug 签名、SHA256 及 Pipeline 主控制程序集排除均已核验，见 [记录](verification-release/2026-11-16-android-dev-build.md)。内部 Development／Mock 包，不代表 B04 正式签名包或真机验收。
+- [x] **B00a｜我，单台模拟器初测完成**：2026-11-25启动BlueStacks 5.22.167.1006／Pie64；My games最初无Edge Rush图块，通过侧栏原生APK选择器安装既有 `Builds/Android/EdgeRush-0.1.0-dev-ready.apk`，重算SHA-256为 `DD7E547A128A5EDE0BFBB9D5EE2C2CC162F065BCD9B999D0B63EA8CE89255148`。观察青色Launcher图标、初始best0／coins0；PLAY进入MOVE LEFT，左点击推进MOVE RIGHT，右拖动推进MAKE A CLOSE CALL，再左点击进入跑局倒计时，不据此断言具体擦边分或倍率。两次正常碰撞结算显示best2／25m与best3／38m，重开、暂停／恢复可用。签到50变为Claimed；Daily覆盖层明确标为TEST AD／Editor Development only及DAILY BONUS WATCHING，结束奖励30、剩余2次并进入冷却，回菜单80金币。车库基础车与300金币未拥有外观可见，后者提示还差220，没有购买。只移除Edge Rush最近任务、保留其他任务再从图标重启，best3／coins80、Daily Claimed／剩余2次仍保持。完整观察与局限见[记录](verification-release/2026-11-25-android-emulator-smoke.md)；不代替B05～B09、真实广告或正式商店截图。
 - [ ] **B01｜我**：检查 Android 工具链实际可构建，固定 IL2CPP／ARM64 和所选 SDK 的兼容配置；缺什么只补什么。
 - [ ] **B02｜我**：按所选商店及 SDK 要求设置 target API，不仅沿用 Automatic。路线 A 中，2026-11-15 官方手机新应用要求为 API 36 或以上，实际上传前再次核对；路线 B 按所选商店核对。
 - [ ] **B03｜我，部分完成**：当前 SDK-free Dev APK 的6个原生库／22个 LOAD 段均为0x4000对齐，zipalign检查通过，详见 [产物记录](verification-release/2026-11-16-android-dev-build.md)。未完成16KB设备运行；最终广告SDK和正式包需要重验，不能将此项全部勾选。
@@ -270,10 +275,10 @@ AdMob 已注册，暂时保留；A03 的初始付款资料不是当前 TapTap-on
 
 ## P9 · 商店素材、审核与公开发布
 
-- [ ] **S01｜我准备，你确认，候选已完成**：[09](09-TapTap上架资料草稿.md)英文文案、Notes、首发What's new规则与 [512图标／1920封面](store-assets/README.md)已交付、根代理审图；默认应用图标已导入。后台裁切、Launcher显示和真实Android截图待验，视频选填。
+- [ ] **S01｜我准备，你确认，候选已完成、后台图标未上传**：[09](09-TapTap上架资料草稿.md)英文文案、Notes、首发What's new规则与 [512图标／1920封面](store-assets/README.md)已交付、根代理审图；Unity默认应用图标已导入，APK静态资源及单台BlueStacks青色Launcher图标已验。2026-11-25未保存创建表单的默认占位图标已移除，但项目图标上传尝试未成功、页面仍要求图标；后台裁切、实体设备Launcher／遮罩和真实Android商店截图待验，视频选填。
 - [ ] **S02｜我＋你**：从实际候选包录制／截取真实玩法、擦边、车库等已实现内容。离线 art-preview 和含构造数据的验收图不直接冒充真实跑局素材。
 - [ ] **S03｜共同**：核对支持邮箱、网站、隐私链接、发布地区／语言、受众与数据声明一致；素材使用权与SDK清单有记录。
-- [ ] **S04｜共同**：TapTap 创建／完善游戏，上传正式 APK 和资料，先准备可核对版本，再处理提交／发布；收到退审则保存原因、修正并复审。
+- [ ] **S04｜共同，创建表单未保存**：2026-11-25在空应用列表进入创建表单，填写Gizmobyte开发商＋发行商、街机、其他平台未发布、Android／Malaysia仅1/169／敬请期待、English默认／Edge Rush；平台商店修订标签为 `v-20261125`，不是APK版本或versionCode。图标缺失，未点击Save and Submit，没有游戏ID、已保存草稿或审核／发布结果。保留当前表单，先补实际图标并核对创建动作；正式APK、其他资料与后续提交另验。
 - [ ] **S05｜共同，路线 A／B**：路线 A 完成 Play 生产版本审核及发布；路线 B 完成所选支持商店要求。验证正常用户在所选公开地区可打开条目并下载，记录实际 store URL、包名和版本。
 - [ ] **S06｜共同**：检查 TapTap 与所选支持商店实际下载包和后台版本一致。TapTap 可以先发，但受支持商店还未公开时，AdMob 完整变现门槛仍未完成。
 - [ ] **S07｜我**：将最终代码、配置说明、测试记录与发布标记同步 GitHub；密钥／密码、证件、银行信息和未经脱敏的后台资料不进入仓库。
@@ -372,7 +377,7 @@ AdMob 已注册，暂时保留；A03 的初始付款资料不是当前 TapTap-on
 | 首发分发 | 路线 C：先只发 TapTap 国际版；Google Play 暂不执行 |
 | 主体类型／国家地区 | 马来西亚个人；Unity 实际付款档案 Verified，C00c 完成 |
 | 首发地区／实际受众 | 英文、马来西亚成年测试者小测；应用声明为普通大众、非儿童定向，非18+分级 |
-| 正式游戏名／开发者显示名 | 保留 Edge Rush；开发者 Thingamajig（ID 799998484），厂商 Gizmobyte |
+| 正式游戏名／开发者显示名 | 保留 Edge Rush；用户Thingamajig（ID `799998484`），厂商Gizmobyte（2026-11-25后台ID `33864694`）；均不是游戏ID |
 | Android 包名 | 拟定 `com.gizmobyte.edgerush` 已同步代码／设置，首次上传前核对 |
 | Unity／SDK 版本 | Unity 6000.6.7f1；实际广告／UMP 版本待 C01 |
 | 网站／隐私／支持邮箱 | https://wkeong00.github.io/EdgeRush/ ／ privacy.html ／ support.html；公开支持邮箱wkeongg@gmail.com；当前内部测试版政策，最终SDK后更新 |
@@ -385,7 +390,8 @@ AdMob 已注册，暂时保留；A03 的初始付款资料不是当前 TapTap-on
 | Android AdMob App ID | 待 D02 |
 | Rewarded：复活／翻倍 | 待 D03 |
 | Rewarded：每日／皮肤 | 待 R06／D04 决定启用或关闭 |
-| Play／TapTap 商店 URL 与状态 | 待后台核实及 S04～S06 |
+| Play／TapTap 商店 URL 与状态 | Play分支暂缓；TapTap厂商列表 `https://developer.taptap.io/33864694/all-app` 为空。创建表单部分已填但未保存，图标仍缺，未点击Save and Submit；没有游戏ID或商店URL，待S04～S06 |
+| TapTap未保存表单／商店修订 | Android、Malaysia仅1/169、敬请期待；English默认、Edge Rush、街机、其他平台未发布、Gizmobyte开发商＋发行商。平台标签 `v-20261125` 只为商店修订，不是APK的0.1.0／versionCode 1 |
 | 应用签名指纹／备份状态 | 原文件密码／完整证书指纹已验，Unity已配置；用户确认外部备份，外部副本恢复及正式APK仍待；公开证据见2026-11-22签名记录 |
 | 公开版本／versionCode／commit | 当前版本 0.1.0／1；正式产物待 B04 |
 | AdMob 应用验证／readiness | 未核实，待 V01～V04 |
@@ -407,8 +413,8 @@ AdMob 已注册，暂时保留；A03 的初始付款资料不是当前 TapTap-on
 
 ## 8. 开始执行时的首批动作
 
-1. 首个内部 Android APK 已完成构建和静态审计；继续模拟器安装和功能测试，另准备实体设备验收。
-2. 网站与签名引用已准备，继续外部备份恢复、图文素材和TapTap条目核对；保留已Verified档案，不重复填报。
+1. 首个内部Android APK已完成构建、静态审计及单台BlueStacks安装／核心流程／Mock奖励／重启存档初测；继续准备实体设备验收和正式包测试。真实触摸、性能／温度、后台音频、网络失败、同签名升级和真实广告仍待，不重复将“安装尚未开始”列为当前状态。
+2. 网站与签名引用已准备，继续外部备份恢复和真实图文素材；TapTap空列表和创建入口已核对，保留当前未保存表单，补项目图标后核对创建动作、回读实际游戏ID及保存状态。保留已Verified付款档案，不重复填报。
 3. [Unity回复00945668](10-Unity广告接入支持询问.md)已明确当前TapTap-only路线不支持正式收入，停止原直连验证；[Mintegral询问](12-Mintegral资格核实与询问草稿.md)已获授权并发送，等待适用答复。两个平台原询问都不重复发送，不因发出邮件就安装SDK。
 4. 得到支持的接法后锁定真实 SDK／Provider，改写广告发布校验与政策，完成真实测试广告／奖励／隐私验收。
 5. 正式签名与真机候选包通过后，提交 TapTap 审核、核对实际下载，再核验正式广告收入及实际到账。
@@ -447,5 +453,7 @@ AdMob 已注册，暂时保留；A03 的初始付款资料不是当前 TapTap-on
 | 2026-11-22 | 签名成功与跨电脑交接盘点 | 用户成功生成正式keystore，本机4300bytes且被Git忽略；独立备份／Unity配置未完成。新增11交接，记录GitHub归属／环境／产物／账号／恢复顺序；三公开页面重查200。含用户指定凭据的完整副本只放忽略的UserSettings/Handoff；未修改游戏代码、构建或推进后台 | 用户下轮要求继续后，先确认签名备份／恢复，再核对TapTap条目、设备和已提交Unity询问的回复 |
 | 2026-11-22 | 原签名核验、Unity配置与官方答复记录 | 用户确认外部备份；keytool原文件密码／证书通过，hash未变；CLI1.0.1、Editor6000.6.7f1，live设置相对路径／alias，身份校验0问题、Console0错误。Unity工单00945668否定TapTap-only正式路线；08／10／11同步，12替代询问已备但未授权发送；未改玩法／接SDK／构建／发布 | 用户授权新的Mintegral资格询问；外部备份恢复、TapTap条目与实体设备仍可独立推进 |
 | 2026-11-22 | Mintegral资格询问已授权并发送 | 用户明确批准12英文草稿；Chrome Gmail核对发件账号wkeongg@gmail.com、唯一收件developer@mintegral.com、主题／正文，无附件，Send后观察Sending再到Message sent／View message。未取得工单号、对方送达或正式资格证据；Unity回复同时在该已登录Gmail界面看到同主题／发件人／正文 | 等Mintegral适用答复；签名外部恢复、TapTap条目和实体设备独立继续，不重发或安装SDK |
+| 2026-11-25 | TapTap后台实际核对与创建表单准备，未保存 | 用户手动登录IAB；Gizmobyte厂商列表ID33864694、头像Thingamajig，列表无游戏卡片，创建表单可达。填入厂商开发商＋发行商、街机、其他平台未发布、Android／Malaysia仅1/169／敬请期待、English默认／Edge Rush，平台修订v-20261125。移除默认占位图标后，受支持文件选择器上传尝试未成功；页面仍要求图标，未点击Save and Submit，没有游戏ID、已保存草稿、审核或发布。见[核对记录](verification-release/2026-11-25-taptap-preflight.md) | 保留未保存表单，先上传实际项目图标并核对创建动作，再回读游戏ID／保存状态；正式包、真实截图与广告资格仍待，不将表单值写成已创建或已公开 |
+| 2026-11-25 | B00a：既有Development APK单台模拟器初测完成 | BlueStacks5.22.167.1006／Pie64原生APK选择器安装既有dev-ready包，hash与上方B00a一致；青色Launcher图标、教学、两次碰撞结算、重开／暂停恢复、签到50＋Daily Mock奖励30、车库差额和移除游戏最近任务后的best3／80金币／Daily状态持久化均已观察。TEST AD明确仅Editor／Development，未产生真实广告收入；未卸载／清数据／使用ADB／更改安全设置，也未改代码／重建。见[初测记录](verification-release/2026-11-25-android-emulator-smoke.md) | 实体触摸、性能／温度、后台音频、网络失败、升级与真实SDK／正式广告仍待；未导出正式商店截图。TapTap表单仍缺图标且未保存 |
 
 每次推进追加一行：任务 ID、代码 commit／产物／后台状态、实际检查、需你操作事项、外部等待。没有证据的任务继续保持未勾选。
